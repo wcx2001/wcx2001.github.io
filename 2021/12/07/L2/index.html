@@ -354,7 +354,7 @@ a & b & c
 \end{bmatrix}\cdot\begin{bmatrix}
 b\\-a\\0
 \end{bmatrix}=0\tag{4}</script><p>无穷点的概念可以推广到定义有限度下的直线。考虑两对或更多对平行线。每一对平行线相交无穷远处$\{x_{∞，1}，…，x_{∞，n}\}$。在无穷远处通过所有这些点的线$l_∞$必须满足$\forall i,l_\infty^{\rm T}x_{\infty,i}=0$。这意味着$l_\infty=\begin{bmatrix} 0 &amp; 0 &amp;c\end{bmatrix}^{\rm T}$。由于$c$是一个任意的值，所以我们可以简单地定义$l_\infty=\begin{bmatrix} 0 &amp; 0 &amp;c\end{bmatrix}^{\rm T}$​​。</p>
-<p><img src="https://c1.im5i.com/2021/12/07/cAje5.png" alt=""></p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAje5.png" alt></p>
 <p>​                                图1：无穷大处的点形成无穷大处的线。</p>
 <p>如果我们将一个一般的射影变换$H$应用到无穷大$p_∞$处的一个点，那么将会发生什么呢？</p>
 <script type="math/tex; mode=display">
@@ -390,15 +390,15 @@ v=Kd\tag{8}</script><p>我们把上述方程的推导作为一个练习。可改
 <script type="math/tex; mode=display">
 d=\frac{K^{-1}v}{||K^{-1}v||}\tag{9}</script><p>如果我们把一个平面$Π$作为一个平行线的超集，每一组平行线在无穷大的一点上相交。在无穷远处通过这一组点的线是在无穷远处与$Π$相关联的$l_∞$处的线。在无穷远处的一条线也被定义为两个平行平面相交的线。投影变换$l_\infty$到图像平面不再是无穷远处的一条线，被称为消失线或视界线$l_{\rm horiz}$。视界线是穿过图像中相应的消失点的一条线。视界线可以计算为：</p>
 <script type="math/tex; mode=display">
-l_{\rm horiz}= H_p^{-T}l_{\infty}\tag{10}</script><p><img src="https://c1.im5i.com/2021/12/07/cA2iU.png" alt=""></p>
+l_{\rm horiz}= H_p^{-T}l_{\infty}\tag{10}</script><p><img src="https://c1.im5i.com/2021/12/07/cA2iU.png" alt></p>
 <p>​                                图2：从一组消失点中计算出的视界线。</p>
 <p>视界线的概念允许我们像人类一样直观地推断出那些可能在数学上不容易表现出来的图像的属性。例如，在图2中，虽然地面上的线在图像坐标上不是平行的，但我们很自然地理解，它们在3D世界中是平行的。</p>
 <p>此外，视界线允许我们计算关于这个世界的有用属性。例如，我们可以推导出三维平面的正规$n$与图像中相应的视界线$l_{\rm horiz}$​之间的有趣关系：</p>
 <script type="math/tex; mode=display">
 n=K^{\rm T} l_{\rm horiz}\tag{11}</script><p>这意味着，如果我们能够识别与一个平面相关的视平线，如果我们的相机被校准，那么我们就可以估计该平面的方向。在引入有关消失点和线的最后一个性质之前，我们首先需要定义在无穷大$Π_∞$​处的平面。此平面的定义为一组2条或更多的消失线，由向量描述$[0\,\,\,0\,\,\,0\,\,\,1]^{\rm T}$​在均匀坐标。</p>
-<p><img src="https://c1.im5i.com/2021/12/07/cAXU8.png" alt=""></p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAXU8.png" alt></p>
 <p>图3：一组两条或多个消失线（蓝色线）定义了位于无穷大$Π_∞$处的平面（黄色平面）。</p>
-<p><img src="https://c1.im5i.com/2021/12/07/cAW66.png" alt=""></p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAW66.png" alt></p>
 <p>图4：推导出两行之间的夹角。</p>
 <p>最后引入的性质是将三维平面上的线和平面与图像平面上相应的消失点和线联系起来。假设三维中的两对平行线的方向分别为$d_1$​和$d_2$​，并与无穷大$x_{1,∞}$和$x_{2,∞}$处的点相关联。设$v_1$和$v_2$为相应的消失点。然后，我们发现利用余弦规则给出了$d_1$和$d_2$之间的夹角$θ$：</p>
 <script type="math/tex; mode=display">
@@ -411,7 +411,7 @@ n=K^{\rm T} l_{\rm horiz}\tag{11}</script><p>这意味着，如果我们能够�
 \begin{align}
 \cos\theta &=\frac{n_1\cdot n_2}{||n_1||\,\,||n_2||}\\[2ex]
 &=\frac{l_1^{\rm T}w^{-1}l_2}{\sqrt{l_1^{\rm ^{\rm T}}\omega^{-1}l_1}\sqrt{l_2^{\rm T}w^{-1}l_2}}
-\end{align}\tag{13}</script><h2 id="2-5-一个单个视图的计量学示例"><a href="#2-5-一个单个视图的计量学示例" class="headerlink" title="2.5 一个单个视图的计量学示例"></a>2.5 一个单个视图的计量学示例</h2><p><img src="https://c1.im5i.com/2021/12/07/cARQw.png" alt=""></p>
+\end{align}\tag{13}</script><h2 id="2-5-一个单个视图的计量学示例"><a href="#2-5-一个单个视图的计量学示例" class="headerlink" title="2.5 一个单个视图的计量学示例"></a>2.5 一个单个视图的计量学示例</h2><p><img src="https://c1.im5i.com/2021/12/07/cARQw.png" alt></p>
 <p>图5：具有针对一对垂直平面的两个消失点的示例设置。</p>
 <p>假设我们可以在一个三维世界的图像中识别出两个平面。另外，让我们假设我们可以在每个平面上识别出一对平行的线。这允许我们估计图像中的两个消失点$v_1$​和$v_2$​​。最后，假设我们知道这些平面在三维空间上是垂直的。在这种情况下，我们从方程$12$中知道，$v_1ωv_2=0$​。</p>
 <p>但请回想一下，$ω$依赖于相机矩阵$K$，这在此时可能是未知的。因此，知道这两个消失点足以准确估计相机参数吗？考虑到$K$有$5$个自由度，而$v_1ωv_2=0$只提供了一个约束，我们没有足够的信息来计算$K$。如果我们能为另一个相互正交的平面找到另一个消失的$v_3$呢？然后我们就知道了$v_1ωv_2=v_1ωv_3=v_2ωv_3=0$。由于每对都给出一个约束，我们只得到计算$K$所需的$5$个约束中的$3$个。然而，如果我们假设相机有零偏角和正方形像素，那么我们可以添加所需的额外的两个约束条件。通过这些假设，我们就知道$ω$具有这种形式：</p>
@@ -461,8 +461,8 @@ w_4 & w_5 & w_6
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/07/L1/" rel="prev" title="cs231a Course 1:相机模型">
-      <i class="fa fa-chevron-left"></i> cs231a Course 1:相机模型
+    <a href="/2021/12/07/L5/" rel="prev" title="cs231a Course 4：立体声系统和运动结构恢复">
+      <i class="fa fa-chevron-left"></i> cs231a Course 4：立体声系统和运动结构恢复
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/12/07/L3/" rel="next" title="">

@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6lPaj.png">
 <meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6lAGq.png">
 <meta property="og:image" content="https://www.colorspace.com.cn/wiki/uploads/201801/151493499806jjJQoP.jpg">
-<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/Chapter2/Chapter2.assets/image-20211201231725526.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/Chapter2/image-20211201231725526.png">
 <meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6liIs.png">
 <meta property="article:published_time" content="2021-12-06T16:00:00.000Z">
 <meta property="article:modified_time" content="2021-12-07T05:10:17.589Z">
@@ -269,20 +269,20 @@
 
       
         <h1 id="npuSE-Chapter-2-图像形成"><a href="#npuSE-Chapter-2-图像形成" class="headerlink" title="npuSE Chapter 2 图像形成"></a>npuSE Chapter 2 图像形成</h1><h2 id="1-1-针孔相机"><a href="#1-1-针孔相机" class="headerlink" title="1.1.针孔相机"></a>1.1.针孔相机</h2><p>(ref: cs231a notes 1-camera-models)</p>
-<h3 id="什么是针孔相机？"><a href="#什么是针孔相机？" class="headerlink" title="什么是针孔相机？"></a>什么是针孔相机？</h3><p><img src="https://s4.ax1x.com/2021/12/07/o6QXGt.png" alt=""></p>
+<h3 id="什么是针孔相机？"><a href="#什么是针孔相机？" class="headerlink" title="什么是针孔相机？"></a>什么是针孔相机？</h3><p><img src="https://s4.ax1x.com/2021/12/07/o6QXGt.png" alt></p>
 <p>​                        图1：一个简单的工作相机模型：针孔相机模型。</p>
 <p>让我们设计一个简单的照相系统——一个可以在3D世界中记录物体或场景图像的系统。这种相机系统可以通过在3D物体和摄影胶片或传感器之间放置一个小孔圈的屏障来设计。如图1所示，3D对象上的每个点都会向外发出多条光线。如果没有适当的屏障，薄膜上的每一个点都会受到3D物体上每个点发出的光线的影响。由于障碍物，只有一条（或少数）这些光线穿过孔径并击中薄膜。因此，我们可以在三维物体和薄膜上的点之间建立一个一对一的映射。其结果是，通过这种映射，胶片被三维物体的“图像”曝光。这个简单的模型被称为针孔照相机模型。</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6QOPI.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6QOPI.png" alt></p>
 <p>​                                图2：针孔照相机模型的正式构造。</p>
 <p>针孔照相机的一个更正式的结构如图$2$所示。在这种结构中，薄膜（像）通常被称为图像或视网膜平面。这个孔径被称为针孔$O$或中心相机。图像平面与针孔$O$之间的距离为焦距$f$。有时，视网膜平面被放置在$O$和三维物体之间，距离$O$为$f$。在这种情况下，它被称为虚拟图像或虚拟视网膜平面。请注意，对象在图像平面中的投影与对象在虚拟图像平面中的图像的投影在一定比例内是相同的（相似性）转换。</p>
 <h3 id="针孔相机是如何是如何实现的变化？"><a href="#针孔相机是如何是如何实现的变化？" class="headerlink" title="针孔相机是如何是如何实现的变化？"></a>针孔相机是如何是如何实现的变化？</h3><p>现在，我们如何使用针孔照相机呢？设$P=[x\,\,\,\,y\,\,\,\,z]^{\rm T}$​​是针孔相机可见的某些三维物体上的一个点。$P$​​将被映射或投影到图像平面$\Pi’$​​上，得到$P’=[x’\,\,\,y’]^{\rm T}$​​（将三维图形投影到二维平面，因此$P’$比$P$少了一个维度）。类似地，针孔本身也可以投射到图像平面上，给出一个新的点$C’$​。</p>
 <p>在这里，我们可以定义一个以针孔$O$​为中心的坐标系$[i\,\,\,j\,\,\,k]$​，使轴$k$​垂直于图像平面并指向它。这个坐标系通常被称为照相机参考系统或照相机坐标系。由$ C’$​和$O$​定义的线称为照相机系统的光轴。</p>
 <p>回想一下，该点$P’$​是由三维点$P$​在图像平面$\Pi’$​​上的投影产生而得到的。因此，如果我们推导出三维点$P$​和图像平面点$P’$​之间的关系，我们就可以理解如何理解3D世界把自己印在针孔相机拍摄的图像上。请注意，三角形$P’C’O$​类似于由$P$​、$O$​和$(0、0、z)$​形成的三角形。因此，利用相似三角形定律我们发现：</p>
 <script type="math/tex; mode=display">
-P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script><p><img src="https://s4.ax1x.com/2021/12/07/o6QqIA.png" alt=""></p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6Qbad.png" style="zoom:50%;" /></p>
+P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script><p><img src="https://s4.ax1x.com/2021/12/07/o6QqIA.png" alt></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6Qbad.png" style="zoom:50%;"></p>
 <p>请注意，我们在这个针孔模型中所做的一个很大的假设是，孔径是一个单点。然而，在大多数真实世界的场景中，我们不能假设孔径可以无限小。钍孔径大小的影响是什么？</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6Qvxf.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6Qvxf.png" alt></p>
 <p>图3：孔径大小对图像的影响。随着孔径尺寸的减小，图像会变得更清晰，但颜色会更暗。</p>
 <p>随着孔径尺寸的增加，通过势垒的光线数量因此增加。随着更多的光线通过，薄膜上的每个点都会受到l的影响光线来自三维空间中的多点，模糊图像。虽然我们可能倾向于试图使孔径尽可能小，但请记住，较小的孔径尺寸会导致光线减少通过，导致更清晰但更暗的图像。因此，我们得出了针孔公式提出的基本问题：我们能开发出拍摄清晰明亮图像的相机吗?</p>
 <h2 id="1-2-透镜"><a href="#1-2-透镜" class="headerlink" title="1.2.透镜"></a>1.2.透镜</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xNDc4NjI2Nzg=">计算机图形学十六：照相机与透镜(光圈,快门和景深) - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span>)</p>
@@ -290,7 +290,7 @@ P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script
 <p>(1) 所有平行射入透镜的光都会集中于一点，称该点为焦点</p>
 <p>(2) 所有从焦点射入透镜的光都会平行射出(光路可逆性)</p>
 <p>(3) 焦距可以被随意改变(这里单个透镜当然不行，但在现实中大部分的照相机都是一个透镜组，可以做到焦距随意改变)</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6QzM8.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6QzM8.png" alt></p>
 <p>细透镜方程：</p>
 <script type="math/tex; mode=display">
 \frac{1}{f}=\frac{1}{u}+\frac{1}{v}</script><h3 id="景深"><a href="#景深" class="headerlink" title="景深"></a>景深</h3><p>了解了上述的透镜成像规律之后，让我们一起观察一下景深模糊所产生的的原因：</p>
@@ -298,7 +298,7 @@ P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script
 <p>当一个传感器平面不在一个物体真正精确的成像平面之上时，便会出现模糊。如上图所示，当传感器平面在根据透镜成像规律所计算出的成像平面Image之后时，一个点经过透镜到传感器上变成了一条线(从三维去看就是一个圆)，因此就出现了模糊，把上图中模糊之后的长度C称为 Circle of Confusion，同样利用三角形相似推导如下：</p>
 <script type="math/tex; mode=display">
 \frac{C}{A}=\frac{d'}{z_i}=\frac{|z_s-z_i|}{z_i}</script><p>不难看出，C与棱镜长度A成正比，而棱镜长度也与光圈的直径成正比，因此当光圈越大，C也就越大，此时出现的景深模糊也就越明显。</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lCZQ.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lCZQ.png" alt></p>
 <p>​                (左图大光圈，右图小光圈)明显看出右图要更加的清晰。</p>
 <p>回顾一下在之前曾提到，光圈大小F-Number值与光圈直径的倒数成正比，更具体来说，$N = \frac{f}{D}$， 即焦距比上直径，因此换算Circle of Confusion当中的光圈直径$A=\frac{f}{N}$，得到如下图当中的式子：<br><img src="https://img-blog.csdnimg.cn/2020061216211332.png" alt="img"></p>
 <p>同时这里也给出了不同光圈大小拍照的例子，小光圈锐利，景深模糊不明显，大光圈则有明显的景深模糊</p>
@@ -306,10 +306,10 @@ P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script
 <p>当我们固定一个可以接受的Circle of Confusion C值之后，可以逆向推导出小于该C值的对应的一段距离是多少，这个距离就是景深，如下图所示：</p>
 <p><img src="https://img-blog.csdnimg.cn/20200612164410710.png" alt="img"></p>
 <p>孔径如何影响景深？</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lPaj.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lPaj.png" alt></p>
 <p>孔径小使得更大范围的目标近似聚焦。</p>
 <h3 id="视场角-FOV"><a href="#视场角-FOV" class="headerlink" title="视场角(FOV)"></a>视场角(FOV)</h3><p>视场(角)：相机能够拍摄的最大角度范围</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lAGq.png" alt=""></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lAGq.png" alt></p>
 <p>视场角取决于焦距大小</p>
 <ul>
 <li><p>随着焦距变小，图像能够观察更大角度范围</p>
@@ -326,8 +326,8 @@ P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script
 <li>在显示系统中，视场角就是显示器边缘与观察点（眼睛）连线的夹角。例如在图二中，AOB角就是水平视场角，BOC就是垂直视场角。</li>
 </ol>
 <p>一台相机的FOV</p>
-<p><img src="Chapter2.assets/image-20211201231725526.png" alt="image-20211201231725526"></p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6liIs.png" alt=""></p>
+<p><img src="/2021/12/07/Chapter2/image-20211201231725526.png" alt="image-20211201231725526"></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6liIs.png" alt></p>
 <script type="math/tex; mode=display">
 φ=\tan^{-1}(\frac{d}{2f})</script><p>可以得到结论：$f$（焦距）越大，FOV越小</p>
 <h2 id="1-3-几何模型"><a href="#1-3-几何模型" class="headerlink" title="1.3.几何模型"></a>1.3.几何模型</h2><p>(ref: cs231a notes 1-camera-models)</p>
@@ -518,12 +518,12 @@ H=\frac{L+V}{|L+V|}\tag{9-9}</script><p>通常情况下，使用 Blinn-phong 光
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/06/Chapter1/" rel="prev" title="npuSE Chapter 1 绪论">
-      <i class="fa fa-chevron-left"></i> npuSE Chapter 1 绪论
+    <a href="/2021/12/07/L1/" rel="prev" title="cs231a Course 1:相机模型">
+      <i class="fa fa-chevron-left"></i> cs231a Course 1:相机模型
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/12/07/L1/" rel="next" title="cs231a Course 1:相机模型">
-      cs231a Course 1:相机模型 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/12/07/L5/" rel="next" title="cs231a Course 4：立体声系统和运动结构恢复">
+      cs231a Course 4：立体声系统和运动结构恢复 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

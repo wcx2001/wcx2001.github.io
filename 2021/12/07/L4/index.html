@@ -23,24 +23,26 @@
     var CONFIG = {"hostname":"wcx2001.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Course4：立体声系统和运动结构恢复1  介绍在前面的注释中，我们讨论了如何添加一个场景的额外视点可以极大地增强我们对所述场景的知识。我们专注于外极性几何设置，以便将一个图像平面上的点与另一个图像平面上的点联系起来，而不提取任何关于三维场景的信息。在这些课堂讲稿中，我们将讨论如何从多个二维图像中恢复有关三维场景的信息。 2 三角剖分多视图几何中最基本的问题之一是三角测量问题，即给定三维点投影到">
+  <meta name="description" content="本文是课程cs231a的第4节笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Wei">
+<meta property="og:title" content="cs231a Course 4：立体声系统和运动结构恢复">
 <meta property="og:url" content="http://wcx2001.github.io/2021/12/07/L4/index.html">
 <meta property="og:site_name" content="Wei">
-<meta property="og:description" content="Course4：立体声系统和运动结构恢复1  介绍在前面的注释中，我们讨论了如何添加一个场景的额外视点可以极大地增强我们对所述场景的知识。我们专注于外极性几何设置，以便将一个图像平面上的点与另一个图像平面上的点联系起来，而不提取任何关于三维场景的信息。在这些课堂讲稿中，我们将讨论如何从多个二维图像中恢复有关三维场景的信息。 2 三角剖分多视图几何中最基本的问题之一是三角测量问题，即给定三维点投影到">
+<meta property="og:description" content="本文是课程cs231a的第4节笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211204231213693-16386307346531.png">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211204231503216-16386309041802.png">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211205163943212-16386935853084.png">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211205170859869-16386953408895.png">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211205234733614-16387192544986.png">
-<meta property="og:image" content="f:/blog/source/_posts/视觉4.assets/image-20211206004541777-16387227427507.png">
-<meta property="article:published_time" content="2021-12-07T09:33:05.510Z">
-<meta property="article:modified_time" content="2021-12-07T10:57:44.645Z">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211204231213693-16386307346531.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211204231503216-16386309041802.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211205163943212-16386935853084.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211205170859869-16386953408895.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211205234733614-16387192544986.png">
+<meta property="og:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211206004541777-16387227427507.png">
+<meta property="article:published_time" content="2021-12-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-07T13:31:00.863Z">
 <meta property="article:author" content="小学渣的春天">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="cs231a">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="f:/blog/source/_posts/视觉4.assets/image-20211204231213693-16386307346531.png">
+<meta name="twitter:image" content="http://wcx2001.github.io/2021/12/07/L4/blog/source/_posts/视觉4.assets/image-20211204231213693-16386307346531.png">
 
 <link rel="canonical" href="http://wcx2001.github.io/2021/12/07/L4/">
 
@@ -55,7 +57,7 @@
   };
 </script>
 
-  <title> | Wei</title>
+  <title>cs231a Course 4：立体声系统和运动结构恢复 | Wei</title>
   
 
 
@@ -214,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          cs231a Course 4：立体声系统和运动结构恢复
         </h1>
 
         <div class="post-meta">
@@ -225,7 +227,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-12-07 17:33:05 / 修改时间：18:57:44" itemprop="dateCreated datePublished" datetime="2021-12-07T17:33:05+08:00">2021-12-07</time>
+              <time title="创建时间：2021-12-07 00:00:00 / 修改时间：21:31:00" itemprop="dateCreated datePublished" datetime="2021-12-07T00:00:00+08:00">2021-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
             </span>
 
           
@@ -236,6 +247,7 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
+            <div class="post-description">本文是课程cs231a的第4节笔记</div>
 
         </div>
       </header>
@@ -246,12 +258,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Course4：立体声系统和运动结构恢复"><a href="#Course4：立体声系统和运动结构恢复" class="headerlink" title="Course4：立体声系统和运动结构恢复"></a>Course4：立体声系统和运动结构恢复</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1  介绍"></a>1  介绍</h2><p>在前面的注释中，我们讨论了如何添加一个场景的额外视点可以极大地增强我们对所述场景的知识。我们专注于外极性几何设置，以便将一个图像平面上的点与另一个图像平面上的点联系起来，而不提取任何关于三维场景的信息。在这些课堂讲稿中，我们将讨论如何从多个二维图像中恢复有关三维场景的信息。</p>
+        <h1 id="Course-4：立体声系统和运动结构恢复"><a href="#Course-4：立体声系统和运动结构恢复" class="headerlink" title="Course 4：立体声系统和运动结构恢复"></a>Course 4：立体声系统和运动结构恢复</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1  介绍"></a>1  介绍</h2><p>在前面的注释中，我们讨论了如何添加一个场景的额外视点可以极大地增强我们对所述场景的知识。我们专注于外极性几何设置，以便将一个图像平面上的点与另一个图像平面上的点联系起来，而不提取任何关于三维场景的信息。在这些课堂讲稿中，我们将讨论如何从多个二维图像中恢复有关三维场景的信息。</p>
 <h2 id="2-三角剖分"><a href="#2-三角剖分" class="headerlink" title="2 三角剖分"></a>2 三角剖分</h2><p>多视图几何中最基本的问题之一是三角测量问题，即给定三维点投影到两个或多个图像的三维点位置的过程。</p>
-<p><img src="F:\blog\source\_posts\视觉4.assets\image-20211204231213693-16386307346531.png" alt="image-20211204231213693"></p>
+<p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211204231213693-16386307346531.png" alt="image-20211204231213693"></p>
 <p>​        图1：当给定两个视图时的三角测量问题的设置。</p>
 <p>在两个视图的三角测量问题中，我们分别有两个已知相机固有参数$K$​和$K_0$​的相机。我们也知道这些相机彼此之间的相对方向和偏移量$R$、$T$。假设我们在三维中有一个点$P$，这可以分别在$p$和$p’$的两个相机的图像中找到。虽然$P$的位置目前尚不清楚，但我们可以测量$p$和$p’$在图像中的确切位置。由于$K$、$K’$、$R$、$T$是已知的，我们可以计算两个视线$l$和$l’$，它们由相机中心$O_1$、$O_2$和图像位置$p$、$p’$定义。因此，$P$可以计算为$l$和$l’$的交点。</p>
-<p><img src="F:\blog\source\_posts\视觉4.assets\image-20211204231503216-16386309041802.png" alt="image-20211204231503216"></p>
+<p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211204231503216-16386309041802.png" alt="image-20211204231503216"></p>
 <p>​        图2：真实场景中的三角测量问题通常涉及到最小化重投影误差。</p>
 <p>虽然这个过程看起来既简单又数学合理，但在实践中并不是很好。在现实世界中，由于观测值$p$和$p’$有噪声，相机校准参数不精确，寻找$l$和$l’$的交点可能存在问题。在大多数情况下，它根本不存在，因为这两条线可能永远不会相交。        </p>
 <h2 id="2-1-A-linear-method-for-triangulation"><a href="#2-1-A-linear-method-for-triangulation" class="headerlink" title="2.1 A linear method for triangulation"></a><strong>2.1 A linear method for triangulation</strong></h2><p>在本节中，我们将描述一个简单的线性三角测量方法，以解决射线之间缺乏交点。我们在图像中给出了两点相互对应的$p=MP=(x,y,1)$和$p’=M’P=(x’,y’,1)$。根据交叉积的定义，$p×(MP)=0$​。我们可以显式地使用交叉积生成的等式来形成三个约束：</p>
@@ -311,7 +323,7 @@ J=\left[
 \end{matrix}
 \right] \tag{2.11}</script><p>​        回想一下，一个特定图像$e_i$的残差向量是一个2×1向量，因为在图像平面上有二维空间。因此，在最简单的三角测量的两个相机情况($N=2$)中，这导致残差向量$e$是一个$2N×1=4×1$向量，雅可比矩阵$J$是一个$2N×3=4×3$矩阵。请注意该方法如何无缝地处理多个视图，因为通过将相应的行添加到e向量和J矩阵来解释额外的图像。在计算了更新$δ_P$之后，我们可以简单地对固定数量的步骤重复这个过程，或者直到它在数值上收敛。高斯-牛顿算法的一个重要性质是，我们假设残差函数接近我们的估计是线性的，这不能保证收敛。因此，在实践中，对估计数的更新次数设置一个上限总是有用的。</p>
 <h2 id="3-从运动开始的仿射结构"><a href="#3-从运动开始的仿射结构" class="headerlink" title="3.从运动开始的仿射结构"></a>3.从运动开始的仿射结构</h2><p>在前一节的结尾，我们暗示了如何超越一个场景的两个视图来获得关于3D场景的信息。我们现在将探索将两个相机的几何形状扩展到多个相机。通过结合来自多个视角的点的观察，我们将能够同时确定场景的三维结构和摄像机的参数，即所谓的<strong>运动结构</strong>。</p>
-<p><img src="F:\blog\source\_posts\视觉4.assets\image-20211205163943212-16386935853084.png" alt="image-20211205163943212"></p>
+<p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211205163943212-16386935853084.png" alt="image-20211205163943212"></p>
 <p>​        图3：基于运动问题的总体结构的设置。</p>
 <p>在这里，我们正式地介绍了从运动问题出发的结构。假设我们有$m$个相机与相机转换$M_i$编码相机的内在和外在参数。设$X_j$为场景中的$n$个3D点之一。每个3D点可以在多个位于$x_{ij}$位置的摄像机中可见，即使用投影变换$M_i$对摄像机$i$图像的投影。运动结构的目的是从所有观测值$x_{ij}$中恢复场景的结构（$n$三维点$X_j$）和摄像机的运动（$m$投影矩阵$M_i$​）。</p>
 <h2 id="3-1由运动问题引起的仿射结构"><a href="#3-1由运动问题引起的仿射结构" class="headerlink" title="3.1由运动问题引起的仿射结构"></a>3.1由运动问题引起的仿射结构</h2><p>在解决运动问题的一般结构之前，我们将首先从一个更简单的问题开始，即假设相机是仿射或弱视角。最终，由于缺乏透视图的缩放操作，这使得数学推导更容易解决这个问题。</p>
@@ -364,7 +376,7 @@ AX+    b
 \tag{3.3}</script><p>并以仿射$M_{affine}=[A\ \ b]$​.的格式表示任何相机矩阵因此，我们现在使用仿射相机模型来表示三维中的$X_j$​点和每个仿射相机中相应的观察结果(例如，相机$i$​中的$x_{ij}$​)。</p>
 <p>从运动问题回到结构，我们需要从$m ,n$​观测中估计m个矩阵$M_i$​和n个世界坐标向量$X_j$​，总共有$8m+3n$个未知数。每个观测结果对每个相机产生$2$个约束，所以在$8m+3n$未知数中有$2mn$方程。我们可以用这个方程来知道我们需要拥有的每张图像中相应观测数的下界。例如，如果我们有$m=2$个相机，那么我们需要在3D中至少有$n$个$=16$点。然而，一旦我们在每张图像中都标记了足够的对应点，我们如何解决这个问题呢？</p>
 <h2 id="3-2托马西和卡纳德分解方法"><a href="#3-2托马西和卡纳德分解方法" class="headerlink" title="3.2托马西和卡纳德分解方法"></a>3.2托马西和卡纳德分解方法</h2><p>在这部分中，我们概述了托马西和卡纳德求解仿射结构的分解方法。该方法主要包括数据定心步骤和实际分解步骤。</p>
-<p><img src="F:\blog\source\_posts\视觉4.assets\image-20211205170859869-16386953408895.png" alt="image-20211205170859869"></p>
+<p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211205170859869-16386953408895.png" alt="image-20211205170859869"></p>
 <p>图4：当应用定心步骤时，我们对所有的图像点进行平移，使其质心（记为左下红十字）位于图像平面的原点。同样地，我们将世界坐标系置为原点位于三维点的质心处（记为右上角的红十字）。</p>
 <p>让我们从数据定中心的步骤开始。在这一步中，主要的思想是将数据集中在原点。为此，对于每个图像$i$​，我们通过减去其质心$\hat x_{ij}$​来重新定义每个图像点$x_{ij}$​的新坐标$\bar {x_{ij}}$​​：</p>
 <script type="math/tex; mode=display">
@@ -443,7 +455,7 @@ a_31 &a_32 &a_33 1
 \right]
 \tag{4.1}</script><p>此外，类似于仿射情况下的解可以找到一个仿射变换，解决结构和运动可以确定一个射影变换在一般情况下：我们总是可以任意应用一个4×4射影变换H运动矩阵，只要我们也变换结构矩阵的逆变换$H^{−1}$​。在图像平面上得到的观测结果仍然相同。</p>
 <p>与仿射情况类似，我们可以从运动问题建立一般结构，从$m,n$观测$x_{ij}$估计$m$运动矩阵$M_i$和$n$三维点$X_j$​。因为相机和点只能在$4×4$投影变换（$15$个参数）上恢复，我们在$2mm$方程中有$11m+3n−15$未知数。根据这些事实，我们可以确定解决未知问题所需的观点和观察结果的数量</p>
-<h2 id="4-1-代数方法"><a href="#4-1-代数方法" class="headerlink" title="4.1 代数方法"></a><strong>4.1 代数方法</strong></h2><p><img src="F:\blog\source\_posts\视觉4.assets\image-20211205234733614-16387192544986.png" alt="image-20211205234733614"></p>
+<h2 id="4-1-代数方法"><a href="#4-1-代数方法" class="headerlink" title="4.1 代数方法"></a><strong>4.1 代数方法</strong></h2><p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211205234733614-16387192544986.png" alt="image-20211205234733614"></p>
 <p>图5：在代数方法中，我们考虑顺序的，相机对来确定相机矩阵$M_1$​和$M_2$​，直到一个透视变换。然后我们发现了一个透视变换H，即$M_1H=[I \ \ \ \  0]和M_2H=[A\ \ \ \ B]$​</p>
 <p>我们现在将介绍代数方法，它利用基本矩阵F的概念来解决两个相机的运动问题的结构。如图5所示，代数方法的主要思想是计算两个相机矩阵$M_1$​和$M_2$​，这只能计算到一个透视变换H。由于每个Mi只能计算一个透视变换H，我们总是可以考虑一个H，这样第一个相机投影矩阵$M_1H^{−1}$​是典型的。当然，同样的转换也必须应用于第二个相机，这导致了显示的形式：</p>
 <script type="math/tex; mode=display">
@@ -523,7 +535,7 @@ R=(detUW^TV^T)UWV^T\ \ \ \ or \ \ \ \ (detUW^TV^T)UW^TV^T \tag{4.17}</script><p>
 t × t = [t]_×t = UZU^T t = 0 \tag{4.18}</script><p>知道$U$是一元的，我们可以发现$||[t]_×||F=\sqrt{2}$。因此，我们从这个分解的$t$估计将从上面的方程和$E$是已知的，这意味着</p>
 <script type="math/tex; mode=display">
 t= \pm U\left[\begin{matrix}0\\0\\1\end{matrix}\right]=\pm u_3 \tag{4.13}</script><p>其中$u_3$是$U$的第三列。通过检查，我们还可以通过将$[t]_×=UZU^T$重新格式化为已知的向量$t$来验证我们得到相同的结果。</p>
-<p><img src="F:\blog\source\_posts\视觉4.assets\image-20211206004541777-16387227427507.png" alt="image-20211206004541777"></p>
+<p><img src="/2021/12/07/L4/blog\source\_posts\视觉4.assets\image-20211206004541777-16387227427507.png" alt="image-20211206004541777"></p>
 <p>图6：从基本矩阵中提取相对相机旋转R和平移t有四种可能的解决方案。然而，只有(a)中重建点在两个摄像机前。（图片取自哈特利和齐泽尔曼出版社的教科书第260页）</p>
 <p>如图6所示，由于$R$和$t$同时存在两种选项，因此$R$和$t$都存在两种选项。直观地说，这四对对包括所有$16$种可能的对，即在特定方向旋转相机或在相反方向旋转相机，以及在特定方向或相反方向移动相机的选择。因此，在理想条件下，我们只需要三角化一个点来确定正确的一对$R$，$t$对。对于正确的一对$R$，$t$，三角化的点$\hat P$存在于两个相机的前面，这意味着它相对于两个相机参考系统都有一个正的$z$坐标。由于测量噪声，我们通常不依赖于三角点，而是三角测量许多点，并确定正确的一对$R$，$t$，作为两个相机前包含这些点的大多数。</p>
 <h2 id="5-一个来自运动管道的结构示例"><a href="#5-一个来自运动管道的结构示例" class="headerlink" title="5 一个来自运动管道的结构示例"></a>5 一个来自运动管道的结构示例</h2><p>在找到相对运动矩阵$M_i$后，我们可以用它们来确定点$X_j$的世界坐标。在代数方法的情况下，这些点的估计将修正透视变换h。在从基本矩阵中提取相机矩阵时，估计可以被知道。在这两种情况下，三维点都可以通过前面描述的三角测量方法从估计的相机矩阵中计算出来。</p>
@@ -560,6 +572,10 @@ t= \pm U\left[\begin{matrix}0\\0\\1\end{matrix}\right]=\pm u_3 \tag{4.13}</scrip
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/tags/cs231a/" rel="tag"># cs231a</a>
+          </div>
 
         
 
@@ -567,10 +583,13 @@ t= \pm U\left[\begin{matrix}0\\0\\1\end{matrix}\right]=\pm u_3 \tag{4.13}</scrip
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/07/L3/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2021/12/06/Chapter1/" rel="prev" title="npuSE Chapter 1 绪论">
+      <i class="fa fa-chevron-left"></i> npuSE Chapter 1 绪论
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/07/L1/" rel="next" title="cs231a Course 1:相机模型">
+      cs231a Course 1:相机模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -638,7 +657,7 @@ t= \pm U\left[\begin{matrix}0\\0\\1\end{matrix}\right]=\pm u_3 \tag{4.13}</scrip
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Course4%EF%BC%9A%E7%AB%8B%E4%BD%93%E5%A3%B0%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%90%E5%8A%A8%E7%BB%93%E6%9E%84%E6%81%A2%E5%A4%8D"><span class="nav-number">1.</span> <span class="nav-text">Course4：立体声系统和运动结构恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1  介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">2 三角剖分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-A-linear-method-for-triangulation"><span class="nav-number">1.3.</span> <span class="nav-text">2.1 A linear method for triangulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E5%AF%B9%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%9A%84%E4%B8%80%E7%A7%8D%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">2.2对三角剖分的一种非线性方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E8%BF%90%E5%8A%A8%E5%BC%80%E5%A7%8B%E7%9A%84%E4%BB%BF%E5%B0%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">3.从运动开始的仿射结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1%E7%94%B1%E8%BF%90%E5%8A%A8%E9%97%AE%E9%A2%98%E5%BC%95%E8%B5%B7%E7%9A%84%E4%BB%BF%E5%B0%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.</span> <span class="nav-text">3.1由运动问题引起的仿射结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2%E6%89%98%E9%A9%AC%E8%A5%BF%E5%92%8C%E5%8D%A1%E7%BA%B3%E5%BE%B7%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">3.2托马西和卡纳德分解方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%80%A7"><span class="nav-number">1.8.</span> <span class="nav-text">3.3 重建中的模糊性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E4%BB%8E%E8%BF%90%E5%8A%A8%E5%BC%80%E5%A7%8B%E7%9A%84%E9%80%8F%E8%A7%86%E7%BB%93%E6%9E%84"><span class="nav-number">1.9.</span> <span class="nav-text">4.1 从运动开始的透视结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E4%BB%A3%E6%95%B0%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.</span> <span class="nav-text">4.1 代数方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E4%BB%8E%E6%9C%AC%E5%BE%81%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%A1%AE%E5%AE%9A%E8%BF%90%E5%8A%A8"><span class="nav-number">1.11.</span> <span class="nav-text">4.2 从本征矩阵中确定运动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%B8%80%E4%B8%AA%E6%9D%A5%E8%87%AA%E8%BF%90%E5%8A%A8%E7%AE%A1%E9%81%93%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.12.</span> <span class="nav-text">5 一个来自运动管道的结构示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%A5%97%E4%BB%B6%E8%B0%83%E6%95%B4"><span class="nav-number">1.13.</span> <span class="nav-text">5.1 套件调整</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Course-4%EF%BC%9A%E7%AB%8B%E4%BD%93%E5%A3%B0%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%90%E5%8A%A8%E7%BB%93%E6%9E%84%E6%81%A2%E5%A4%8D"><span class="nav-number">1.</span> <span class="nav-text">Course 4：立体声系统和运动结构恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1  介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">2 三角剖分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-A-linear-method-for-triangulation"><span class="nav-number">1.3.</span> <span class="nav-text">2.1 A linear method for triangulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E5%AF%B9%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E7%9A%84%E4%B8%80%E7%A7%8D%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">2.2对三角剖分的一种非线性方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E8%BF%90%E5%8A%A8%E5%BC%80%E5%A7%8B%E7%9A%84%E4%BB%BF%E5%B0%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">3.从运动开始的仿射结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1%E7%94%B1%E8%BF%90%E5%8A%A8%E9%97%AE%E9%A2%98%E5%BC%95%E8%B5%B7%E7%9A%84%E4%BB%BF%E5%B0%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.</span> <span class="nav-text">3.1由运动问题引起的仿射结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2%E6%89%98%E9%A9%AC%E8%A5%BF%E5%92%8C%E5%8D%A1%E7%BA%B3%E5%BE%B7%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">3.2托马西和卡纳德分解方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%80%A7"><span class="nav-number">1.8.</span> <span class="nav-text">3.3 重建中的模糊性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E4%BB%8E%E8%BF%90%E5%8A%A8%E5%BC%80%E5%A7%8B%E7%9A%84%E9%80%8F%E8%A7%86%E7%BB%93%E6%9E%84"><span class="nav-number">1.9.</span> <span class="nav-text">4.1 从运动开始的透视结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E4%BB%A3%E6%95%B0%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.</span> <span class="nav-text">4.1 代数方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E4%BB%8E%E6%9C%AC%E5%BE%81%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%A1%AE%E5%AE%9A%E8%BF%90%E5%8A%A8"><span class="nav-number">1.11.</span> <span class="nav-text">4.2 从本征矩阵中确定运动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%B8%80%E4%B8%AA%E6%9D%A5%E8%87%AA%E8%BF%90%E5%8A%A8%E7%AE%A1%E9%81%93%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.12.</span> <span class="nav-text">5 一个来自运动管道的结构示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%A5%97%E4%BB%B6%E8%B0%83%E6%95%B4"><span class="nav-number">1.13.</span> <span class="nav-text">5.1 套件调整</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
