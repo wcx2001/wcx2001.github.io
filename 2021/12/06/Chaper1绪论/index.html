@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wcx2001.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是西北工业大学机器学习第1节笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npuSE Chapter 1：绪论">
+<meta property="og:url" content="http://wcx2001.github.io/2021/12/06/Chaper1%E7%BB%AA%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Wei">
+<meta property="og:description" content="本文是西北工业大学机器学习第1节笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZ224.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZhrR.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZ4q1.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZRxJ.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZoa6.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZIVx.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZTIK.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZbGD.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZqRe.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZLxH.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZzZt.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZjsA.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyZvqI.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeSdP.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyepIf.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyePJS.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeiRg.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeCi8.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeFzQ.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeAMj.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeEss.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeeZq.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeVLn.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyemd0.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeKiT.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/06/oyeMJU.png">
+<meta property="article:published_time" content="2021-12-06T12:38:00.000Z">
+<meta property="article:modified_time" content="2021-12-07T05:09:43.650Z">
+<meta property="article:author" content="小学渣的春天">
+<meta property="article:tag" content="npuSE">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s4.ax1x.com/2021/12/06/oyZ224.png">
+
+<link rel="canonical" href="http://wcx2001.github.io/2021/12/06/Chaper1%E7%BB%AA%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>npuSE Chapter 1：绪论 | Wei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wcx2001.github.io/2021/12/06/Chaper1%E7%BB%AA%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/machao.jpg">
+      <meta itemprop="name" content="小学渣的春天">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          npuSE Chapter 1：绪论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-06 20:38:00" itemprop="dateCreated datePublished" datetime="2021-12-06T20:38:00+08:00">2021-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-07 13:09:43" itemprop="dateModified" datetime="2021-12-07T13:09:43+08:00">2021-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">本文是西北工业大学机器学习第1节笔记</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="npuSE-Chapter-1：绪论"><a href="#npuSE-Chapter-1：绪论" class="headerlink" title="npuSE Chapter 1：绪论"></a>npuSE Chapter 1：绪论</h1><h2 id="1-1-多项式拟合的例子"><a href="#1-1-多项式拟合的例子" class="headerlink" title="1.1 多项式拟合的例子"></a>1.1 多项式拟合的例子</h2><p>假设有这样一种情况，我们通过函数产生$N$个数据点，并在其中加入服从高斯分布的随机噪声，能否仅通过这$N$​个数据点找出其隐含的分布规律，也就是他们对应的函数。这就涉及到了去寻找一条曲线去拟合这些数据点，引出了本节所讲的“多项式曲线拟合”</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZ224.png" alt=""></p>
+<p>假设有一个训练集，其中有$N$个观测值$x$，也就是$N$个测试样本，那这个训练集可以表示为：$x\equiv(x_1,\cdots,x_N)^{\rm T}$</p>
+<p>同时，还有$X$对应的目标值：$t\equiv(t_1,\cdots, t_N)^{\rm T}$</p>
+<p>我们要利用这些以上数据去建立曲线去为新的预测。</p>
+<p>多项式函数：</p>
+<script type="math/tex; mode=display">
+y(x, w)= w_0+w_1x+w_2x^2+\cdots+ w_Mx^{ M}=\sum_{j=0}^{M}w_jx^{j}\tag{1.1}</script><p>我们的任务就是去寻找适当的多项式系数$w_0$,$w_1$,$w_M$，构造多项式曲线$y(x,w)$。为了寻找最优的多项式系数，我们构造出误差函数（error function,也有的地方称为损失函数）：</p>
+<script type="math/tex; mode=display">
+E(w)=\frac{1}{2}\sum_{n=1}^{N}\{y(x_n,w)-t_n\}^2\tag{1.2}</script><p>$E(w)$达到最小式，我们构造的和目标值最接近，对数据拟合的最好。当$E(w)=0$,  表明$y(x_n,w)$​经过每个点。</p>
+<p>E(w)的几何说明：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZhrR.png" alt=""></p>
+<p>选择的$w$向量使得$E(w)$​越小越好，来解决曲线拟合问题。</p>
+<p>$E(w)$​关于$w$是二次函数，他的导数是关于$w$的一次函数，因此有唯一解，记为$w*$​</p>
+<p>不同的$M$​值对应的$E(w)$​最小所获得的曲线</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZ4q1.png" alt=""></p>
+<p>从上图可以看出，不同次数的多项式函数对数据的拟合程度不同，虽然次数越高对训练集的拟合程度越好，它甚至可以穿过每一个训练集的每一个数据点，让错误函数为零，但是，这会出现过拟的现象。</p>
+<p>“过拟”是指建立的模型对训练数据拟合的非常好，但是对测试数据的预测能力非常差。</p>
+<p>使用100个测试数据集，使用新的噪声，然后按照均方根$E_{\rm RMS}$的方法对不同的$M$值测得的误差，这个均方差错误函数可以描述出对不同样本数和不同规模的数据的拟合程度。</p>
+<script type="math/tex; mode=display">
+E_{\rm RMS} =\sqrt{\frac{2E(w^*)}{N}}\tag{1.3}</script><p><img src="https://s4.ax1x.com/2021/12/06/oyZRxJ.png" alt=""></p>
+<p>值得一提的是，当训练样本数越多的时候，训练出的模型越好，如下图所示同样是次数为$9$​的多项式函数曲线，左图是使用$15$​个样本训练出来的，而右图是使用$100$​个样本训练出来的，可以明显看出，$100$​​个样本训练出来的多项式函数对样本的拟合程度更好。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZoa6.png" alt=""></p>
+<p>为了避免过拟现象，我们可以采用“正则化”的方法，为误差函数末尾添加正则项：</p>
+<script type="math/tex; mode=display">
+\tilde{E}(w)=\frac{1}{2}\sum_{n=1}^N\{y(x_n,w)-tn\}^2+\frac{\lambda}{2}||w||^2\tag{1.4}</script><p>其中：</p>
+<script type="math/tex; mode=display">
+||w||^2=w^{\rm T}w=w_0^2+w_1^2+\cdots+w_M^2</script><p>$λ$衡量$E$和惩罚项之间的权重。 $\frac{\lambda}{2}||w||^2$是惩罚项，避免获得系数过大。</p>
+<p>可以从式子看出，当多项式系数数量级增长时，会导致错误函数值变大，这样就能有效抑制多项式系数数量级的增长。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZIVx.png" alt=""></p>
+<p>对多项式的存在的重要性有控制作用，对其数值的选择也至关重要，其控制的重要性见下图。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZTIK.png" alt=""></p>
+<p>可惜的是，目前作者还没有提出如何寻找出使错误函数最小的方法，在Coursera上Andrew NG的机器学习视频中，在一开始的多元线性函数参数寻优的方法中，就提及了”梯度下降”的方法。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZbGD.png" alt=""></p>
+<h2 id="1-2-概率理论"><a href="#1-2-概率理论" class="headerlink" title="1.2 概率理论"></a>1.2 概率理论</h2><p>概率基本知识：</p>
+<p>例子：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZqRe.png" alt=""></p>
+<p>两个盒子，红色和蓝色。红色盒子里有两个苹果，六个橘子。蓝色盒子里有三个苹果，一个橘子。随机选取一个盒子，从这个盒子随机选取一个水果，然后观察，放回原处。</p>
+<p>盒子变量用$B$表示包含$r($红色$)$和$b($蓝色$)$  $ p(B=r)=4/10$ </p>
+<p>水果变量用F表示包含$a($苹果$)$和$o($橘子$)$</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZLxH.png" alt=""></p>
+<p>联合概率分布：</p>
+<script type="math/tex; mode=display">
+P(X=x_i,Y=y_i)=\frac{n_{ij}}{N}</script><p>边缘概率分布：</p>
+<script type="math/tex; mode=display">
+P(X=x_i)=\sum_{j=1}^{L}P(X=x_i, Y=y_i)</script><p>条件概率分布：</p>
+<script type="math/tex; mode=display">
+P(Y=y_i|X=x_i)=\frac{n_{ij}}{c_i}</script><p>两个主要的法则和定理：</p>
+<p>加法法则：</p>
+<script type="math/tex; mode=display">
+P(X=x_i)=\sum_{j=1}^{L}P(X=x_i,Y=y_i)</script><p>乘法法则：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P(X=x_i,Y=y_i)&=\frac{n_{ij}}{N}\\
+&=\frac{n_{ij}}{c_i}\cdot\frac{c_i}{N}\\
+&= P(Y=y_i|X=x_i)P(X=x_i)
+
+\end{align}</script><p>贝叶斯定理：</p>
+<script type="math/tex; mode=display">
+P(Y|X)=\frac{P(X|Y)P(Y)}{P(X)}</script><h3 id="1-2-1概率密度"><a href="#1-2-1概率密度" class="headerlink" title="1.2.1概率密度"></a>1.2.1概率密度</h3><p>在上面考虑的都是离散值，对于连续值而言，就要使用到“概率密度”的概念。</p>
+<p>假设$x$​​落在区间$(x,x+δx)$​​内，且$δx\to0$​，则$x$出现的概率为$p(x)δx$，其中$p(x)$称为概率密度。如下图：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZzZt.png" alt=""></p>
+<p>概率密度也可称为概率密度函数，它应该满足以下两个条件：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+p(x)\geq0\\[2ex]
+\int_{-\infty}^\infty p(x) = 1
+\end{matrix}</script><p>落在区间$(a,b)$的概率为：</p>
+<script type="math/tex; mode=display">
+p(x\in(a, b))=\int_{a}^b p(x){\rm d}x</script><p>概率密度在向量上的应用：</p>
+<p>概率密度的概念同样可以使用在向量情况。假设我们有若干个变量$x_1, \cdots ,x_D$，可以定义一个联合概率密度$p(x)=p(x_1,\cdots,xD)$​，其同样要满足以下两个条件：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+p(x)\geq0\\[2ex]
+\int_{-\infty}^\infty p(x) = 1
+\end{matrix}</script><p>在连续值的情况下，加法规则和乘法规则变换成如下形式：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+p(x)=\int p(x, y){\rm d}y\\[2ex]
+p(x, y)= p(y|x)\cdot p(x)
+\end{matrix}</script><h3 id="1-2-2-期望和方差"><a href="#1-2-2-期望和方差" class="headerlink" title="1.2.2 期望和方差"></a>1.2.2 期望和方差</h3><h4 id="1-期望-Expectation-："><a href="#1-期望-Expectation-：" class="headerlink" title="1. 期望(Expectation)："></a>1. 期望(Expectation)：</h4><p>描述平均取值大小</p>
+<p>对于服从$p(x)$概率分布的的函数$f(x)$，其数学期望定义如下：</p>
+<p>若$f(x)$是离散的：</p>
+<script type="math/tex; mode=display">
+E[f]=\sum_{x}p(x)f(x)</script><p>若$f(x)$是连续的：</p>
+<script type="math/tex; mode=display">
+E[f]=\int p(x) f(x){\rm d}x</script><p>对于有多个变量的函数，其数学期望可参照$E_x[f(x,y)]$​​,这种形式（假设有两个变量），这表明$f(x,y)$​按照变量$x$​的概率分布$p(x)$​,然后求函数$f(x,y)$的平均值，其数学期望的结果是关于变量y的函数,对于这种情况，我们可以考虑使用”条件数学期望”，其定义如下：</p>
+<script type="math/tex; mode=display">
+E_x[f|y]=\sum_{x}p(x|y)f(x)</script><h4 id="2-方差-Variance-："><a href="#2-方差-Variance-：" class="headerlink" title="2. 方差(Variance)："></a>2. 方差(Variance)：</h4><p>变量与均值的偏离程度。</p>
+<p>定义如下：</p>
+<script type="math/tex; mode=display">
+{\rm var}[f]=E[(f(x)-E[f(x)])^2]</script><p>或者展开是：</p>
+<script type="math/tex; mode=display">
+{\rm var}[f]=E[f(x)^2]-E[f(x)]^2</script><h3 id="1-2-3-贝叶斯概率"><a href="#1-2-3-贝叶斯概率" class="headerlink" title="1.2.3 贝叶斯概率"></a>1.2.3 贝叶斯概率</h3><p>贝叶斯学派（Bayesian）和频率学派(Frequentist)在对待概率（或是不确定度）上的区别，从根本上说，他们是出发的理念不同，频率学派认为参数皆有定值，只是我们还没有观察到，所以可以通过做大量的实验去统计其潜在的规律，得出参数值。贝叶斯学派则认为参数是随机值，因为我们没有观察到，所以参数和随机值没什么区别，参数是可以有分布的。但是这两个学派中也有许多想通的地方。</p>
+<p>所以这小节一开始就提出了有许多事情是无法通过大量实验去预测结果的，比如，月亮是否在绕日轨道上，北极冰盖是否在本世纪末消失。所以作者建议我们用贝叶斯的观点去看待概率，其提供了对不确定度的量化。</p>
+<p>贝叶斯学派经常关注的是后验概率，将先验概率转化为后验概率。</p>
+<p>现在我们结合贝叶斯定理和在1.1节中提到的多项式拟合解释一下。贝叶斯定理定义：</p>
+<script type="math/tex; mode=display">
+p(w|D)=\frac{p(D|w)p(w)}{p(D)}</script><p>在多项式拟合中，我们的目的是寻找模型参数，在观察数据之前，先假设的概率分布为$p(w)$，$p(w)$就是所谓的先验概率。数据的影响可表示为条件概率$p(D|W)$，其表示不同参数向量导致不同的数据的可能性，也被称为似然函数，它的准确形式表达会在之后的章节详细介绍。$p(W|D)$被称为后验概率。其意义就是在观察$D=\{t_1,\cdots, tn\}$后，对参数向量不确定度的评价。因此，可以看出，后验概率正比于似然函数乘与先验概率：</p>
+<script type="math/tex; mode=display">
+{\rm posterior }∝{\rm likelihood}\times{\rm prior}</script><p>特别地，在频率学派中，通常关注于找到最大似然函数（maximum likelihood），其中$w$将$p(w|D)$​的值最大化。似然函数的负对数是错误函数（error function），最大化似然函数等价于最小化错误函数。</p>
+<h3 id="1-2-4-高斯分布"><a href="#1-2-4-高斯分布" class="headerlink" title="1.2.4 高斯分布"></a>1.2.4 高斯分布</h3><p>本小节主要是讲高斯分布及其应用，其也称为正态分布。定义如下：</p>
+<script type="math/tex; mode=display">
+N(x|\mu,\sigma^2)=\frac{1}{(2\pi \sigma^2)^{\frac{1}{2}}}\exp\{-\frac{1}{2\sigma^2}(x-\mu)^2\}</script><p>其中，$\mu$是平均值，$\sigma^2$是方差，$\sigma$称为标准差</p>
+<script type="math/tex; mode=display">
+E[x]=\int_{-\infty}^{\infty}N(x|\mu,\sigma^2)x{\rm d}x=\mu</script><script type="math/tex; mode=display">
+E[x]=\int_{-\infty}^{\infty}N(x|\mu,\sigma^2)x^2{\rm d}x=\mu^2+\sigma^2</script><script type="math/tex; mode=display">
+{\rm var}[x]=E[x^2]-E[x]^2=\sigma^2</script><p>下图是单变量的高斯分布图：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZjsA.png" alt=""></p>
+<p>高斯分布应满足以下两个条件：</p>
+<script type="math/tex; mode=display">
+N(x|\mu, \sigma^2)>0</script><script type="math/tex; mode=display">
+\int_{-\infty}^{\infty} N(x|\mu, \sigma^2){\rm d}x=1</script><p>接下来，我们讨论如何找到一个给定数据集的高斯分布。</p>
+<p>给定一个数据集：</p>
+<script type="math/tex; mode=display">
+x=(x_1,\cdots,x_n)^{\rm T}</script><p>如下图所示：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyZvqI.png" alt=""></p>
+<p>假设产生这些数据点的是一个均值为u，方差为σ2的高斯分布，只是这两个参数的具体值还不知道罢了。</p>
+<p>因此，似然函数（likelihood function）如下：</p>
+<script type="math/tex; mode=display">
+p(X|\mu,\sigma^2)=\Pi_{n=1}^N N(x_n|\mu,\sigma ^2)</script><p>它的直观意义是通过不断调整$u$、$σ^2$参数，让各个数据点的高斯值相乘，使得$p(x|u,σ^2)$最大，那么对应的$u$、$σ^2$就是所要求的高斯分布的参数。</p>
+<p>为了计算和分析的方便，可以将似然函数转换成（自然）对数形式，因为（自然）对数是单调递增的，其取最大值时，似然函数也会取到最大值。（自然）对数形式如下：</p>
+<script type="math/tex; mode=display">
+\ln p(X|\mu,\sigma^2)=-\frac{1}{2\sigma^2}\sum_{n=1}^N(x_n-\mu)^2-\frac{N}{2}\ln\sigma^2-\frac{N}{2}\ln(2\pi)</script><p>通过以下式子可以找到最优的$u$、$σ^2$​：</p>
+<script type="math/tex; mode=display">
+\mu_{\rm ML}=\frac{1}{N}\sum_{n=1}^{N}x_n</script><p>$\ln$对$u$求导等于$0$</p>
+<script type="math/tex; mode=display">
+\sigma^2_{\rm ML}=\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu_{\rm ML})^2</script><p>$\ln$对$σ^2$求导等于$0$</p>
+<p>但是，使用最大似然函数求高斯分布的方法存在一定限制，会产生”偏离（bias）”现象。具体的解释在以后的章节……（均值是正确的，但是方差存在问题）</p>
+<p>回顾曲线拟合：</p>
+<p>在第一章1.1中时，我们从错误函数最小化去求多项式曲线模型中的参数，在这个小节中，我们从概率的角度去解决这个问题。多项式曲线模型和错误函数如下：</p>
+<script type="math/tex; mode=display">
+E(w)=\frac{1}{2}\sum_{n=1}^{N}\{y(x_n,w)-t_n\}^2\tag{1.2}</script><p>首先，假设对于给定的训练值，对应的目标值服从高斯分布，那么</p>
+<script type="math/tex; mode=display">
+p(t|x,w,\beta)=N(t|y(x,w), \beta^{-1})</script><p>其中$β^{-1}=σ^2$，这个式子表示给定$x$时得到$t$的概率，可以用下图表示：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeSdP.png" alt=""></p>
+<p>因此，我们可以构造似然函数用训练数据去找出最优的参数$w$和$β$，似然函数如下：</p>
+<script type="math/tex; mode=display">
+p(t|x,w,\beta)=\Pi_{n=1}^N N(t_n|y(x_n, w), \beta^{-1})</script><p>转化为对数形式：</p>
+<script type="math/tex; mode=display">
+\ln p(t|x,w,\beta)=-\frac{\beta}{2}\sum_{n=1}^{N}\{y(x_n,w)-t_n\}^2+\frac{N}{2}\ln\beta-\frac{N}{2}\ln(2\pi)</script><p>设：$A=\ln p(t|x,w,\beta)$，$B =-\frac{\beta}{2}\sum_{n=1}^{N}\{y(x_n,w)-t_n\}^2$，$C =\frac{N}{2}\ln\beta-\frac{N}{2}\ln(2\pi)$</p>
+<p>$A$​​是$w$​和$β$​的函数，先将$β$​固定，那么寻求$A$​的最大值，只依赖于$w$​，可以将$C$​去掉，将$A$最大化相当于将$B$最小化，最后将系数$β/2$ 换成$1/2$。可以看出，寻找最优的$WML$时，最大化似然函数等价于最小化错误函数，对于$β$，可以使用下列式子得到最优值。</p>
+<script type="math/tex; mode=display">
+\frac{1}{\beta_{\rm ML}}=\frac{1}{N}\sum_{n=1}^{N}\{y(x_n, w_{\rm ML})-t_n\}^2</script><h2 id="1-3-模型选择"><a href="#1-3-模型选择" class="headerlink" title="1.3 模型选择"></a>1.3 模型选择</h2><p>在之前提到的多项式曲线拟合中就可以看出，多项式的最高次数影响着所建模型的对测试数据（testing data）性能，项数小，拟合效果不好，项数过大，容易出现过拟合现象（over-fitting）。这就涉及到了一个模型选择的问题。</p>
+<p>如果我们有大量的数据，可以用来建立多个模型，然后再使用同一独立的数据集去评价各个模型的性能，选取性能最好的那个模型及其参数。如果使用小数据多次迭代进行模型比较选择，容易出现过拟的现象。但是，在许多情况下，提供给建模的训练和测试数据都十分有限，又想建个好模型，怎么办呢？</p>
+<p>解决这个窘境的办法之一就是使用交叉验证（cross-validation），将可用的数据集分成$S$份（一般是分成相同大小），用$S-1$份去训练各个模型，用剩下的一份去测试模型，如此重复$S$次，将各个模型的性能平均，选取平均性能最好的模型和参数。图解如下：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyepIf.png" alt=""></p>
+<p>交叉验证的主要缺点就是S决定了建模比较过程中的迭代次数，如果S过大的话，而且单个模型中还会有多个复杂的模型参数，这会造成大量的计算花费。因此，理想的情况是仅使用训练数据（training data），对多个模型和参数的选择比较在一次训练过程（training run）完成。所以我们要找到一种仅依赖于训练数据并且不会引起过拟的性能评估方法。</p>
+<p>在历史上，其中之一就是the Akaike information criterion, or AIC (Akaike, 1974)，通过使下面的式子达到最大来选择模型：</p>
+<h2 id="1-4-维数灾难"><a href="#1-4-维数灾难" class="headerlink" title="1.4 维数灾难"></a>1.4 维数灾难</h2><p>维数灾难的意思是模型复杂度随着空间维数的增加而成指数增长。这一节举了两个例子来说明这个问题。一个是石油、水、天然气中的成分的例子，另一个仍然是curve fitting，但扩展到高维空间，在高维空间我们的模型会变成1.74这个样子，复杂度陡增:</p>
+<script type="math/tex; mode=display">
+y(x,w)=w_0+\sum_{i=1}^{D}w_i x_i+\sum_{i=1}^{D}\sum_{j=1}^{D}w_{ij}x_ix_j+\sum_{i=1}^{D}\sum_{j=1}^{D}\sum_{k=1}^{D}w_{ij}x_ix_jx_k</script><p>其中，$D$​为变量个数。</p>
+<p>我们前面的多项式拟合问题中只有一个输入变量，在实际的问题中，可能就有多个变量，分布在高维空间中。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyePJS.png" alt=""></p>
+<p>三个不同的状态：</p>
+<p>红色表同质</p>
+<p>绿色表环形</p>
+<p>蓝色表层状</p>
+<p>求$x$属于哪一类</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeiRg.png" alt=""></p>
+<p>现在要对一个点$(x_6,x_7)$​（那个黑叉）进行分类。</p>
+<p>我们一般的做法是将其分为多个大小相同的 cell，黑叉所在的 cell 里最多的类别作为黑叉的类别。比如上面所示，$x$​应该被分为红色那个类别。</p>
+<p>这就引发了一个问题：现在我们的输入是$(x_6,x_7)$,是二维的，如果我们输入时三维的呢？</p>
+<p>我们需要把训练空间需要时三维的。我们在二维的情况下有$42$个cells，三维的时候就需要分为$43$cells。同理$n$维的话，需要$4n$​个cell。如下图，可见这是随着维数呈指数增长的。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeCi8.png" alt=""></p>
+<p>再例如我们有一个$D$维的球体，假设体积$V_D(r) = K_Dr^D$, $r$代表半径，其中$K_D$与 $D$ 有关。</p>
+<p>我们需要求 $r=1$ 与 $r=1-ε$ 之间的比例</p>
+<script type="math/tex; mode=display">
+\frac{V_D(1)-V_D(1-ε)}{V_D(1)}=1-(1-ε)^D</script><p><img src="https://s4.ax1x.com/2021/12/06/oyeFzQ.png" alt=""></p>
+<p>最后提到维数灾难并不能阻止我们解决高维空间的问题，原因有二</p>
+<ol>
+<li><p>真实的数据通常在一个有限的、较低维度的空间内，尤其是目标变量发生重要改变的方向非常有限；</p>
+</li>
+<li><p>真实数据往往有一定的平稳性：通常来讲输入变量的细小变化也只能引起目标变量的细小变化，所以我们可以利用插值方法预测目标变量。</p>
+</li>
+</ol>
+<h2 id="1-5-决策理论"><a href="#1-5-决策理论" class="headerlink" title="1.5 决策理论"></a>1.5 决策理论</h2><p> 概率论、决策理论、信息论是机器学习的三个理论基础。概率论说的已经很多了，决策理论提及的比较少。简单说就是当我们已经有了概率结果$p(t)$后，如何做出判断。如果$p(t)=0.99$，这个判断相对容易一点；如果$p(t)=0.6$，我们会觉得不太可信。</p>
+<p>例如：</p>
+<p>癌症的例子：</p>
+<p>一个患者 做了 $X$ 光检查，结果用 $x$ 表示。</p>
+<p>需要判断他是一个癌症患者或者是非癌症患者，用$C$表示。$C=0$标示癌症，$C=1$标示正常$(C_0，C_1)$ 。推测问题包括取得$p(x,ck)$,它给了我们对这问题最完整的概率描述，这是推理阶段，最后我们还是必须决定是否给这个患者治病，就是决定阶段。</p>
+<p>现在我们关心的就是，我们获得了一张 $x$ 光照片，怎么放入癌症和正常的这两个类别中， 也就是 $p(C|x)$。</p>
+<p>使用贝叶斯法则如下：</p>
+<script type="math/tex; mode=display">
+p(C|x)=\frac{p(C)p(x|C)}{p(x)}</script><p>$P(C_1)$代表人群中癌症患者的比例（就是随机一个人在做 $X$ 光之前，是癌症患者的概率）也就是先验概率。我们的直觉告诉我们，我们的直觉告诉我们要选择一个后验概率较大的类，如果我们不想把 $x$​​ 放到错误的类别中。下面就要证明这种直觉是正确的。</p>
+<h3 id="1-5-1-最小化错分概率"><a href="#1-5-1-最小化错分概率" class="headerlink" title="1.5.1 最小化错分概率"></a>1.5.1 最小化错分概率</h3><p>我们需要一个规则，对输入的每个$x$，将其标记类别。假设这个规则将$x$分配到$K$个区域，$R_k$ 叫做决策区域，$R_k$中的 $x$ 都将分配到 $C_k$ 中。在这些决策区域之间的部分叫做决策边界。注意：不是所有的的决策区域都是连续的。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p({\rm mistake}) &= p(x\in R_1,C_2)+p(x\in R_2,C_1)\\[2ex]
+&= \int_{R_1}p(x,C_2){\rm d}x+\int_{R_2}p(x, C_1){\rm d}x
+\end{align}</script><p>对于一个给定的$x$：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p({\rm correct}) &= \sum_{k=1}^{K}p(x\in R_k,C_k)\\[2ex]
+&= \sum_{k=1}^{K}\int_{R_k}p(x,C_k){\rm d}x
+\end{align}</script><p>要使得$p({\rm correct})$最大 （$p({\rm mistake})$最小），就需要选择一个 $C_k$使得 $p(x,C_k)$最大， 而 $p(x,C_k)= p(C_k|x)p(x)$,而对于所有的 $p(x,C_k)$，$p(x)$都是一样的，所以只需要使得 $p(C_k|x)$最大，而他就是后验概率。这就解释了我们为什么使用最大后验概率。</p>
+<p>最小化误分类比例可以通过$P(x,C_1)$和$P(x,C_2)$来判断就可以了。我们可以看下图，这图很简单，假设$P(x,C_1)$和$P(x,C_2)$有着这样的两条曲线，绿色、蓝色、红色所处的概率关系各不相同。$R_1$，$R_2$称作决策区域，其分界面是决策边界。如果将分界面设置在$x-$处，红色就会是误分类的点。向左移动$x-$到$x_0$处，红色区域消失，完全按照$P(x,C_1)$和$P(x,C_2)$的大小来分类，使误分类率最低。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeAMj.png" alt=""></p>
+<h3 id="1-5-2-最小化期望损失"><a href="#1-5-2-最小化期望损失" class="headerlink" title="1.5.2 最小化期望损失"></a>1.5.2 最小化期望损失</h3><p>癌症病人没病———&gt;有病</p>
+<p>癌症病人有病———&gt;没病 事大了</p>
+<p>代价函数来衡量损失。引入损失矩阵。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeEss.png" alt=""></p>
+<p>我们的目标就是使得$\sum_k L_{kj}p(x,c_k)$​最小。</p>
+<p>例子：</p>
+<p>$p({\rm 癌症}|x) = 0.2$   $p({\rm 正常}|x) =0.7$ </p>
+<p>将$x$​分类到正常：</p>
+<script type="math/tex; mode=display">
+{\rm 损失函数值} = L_{\rm 癌症\,\, 正常}p({\rm 癌症}|x) + L_{\rm 正常 \,\,正常}p({\rm 正常}|x)= 0.2*1000+0=200</script><p>将$x$分类到癌症：</p>
+<script type="math/tex; mode=display">
+{\rm 损失函数值} = L_{\rm 正常\,\, 癌症}p({\rm 正常}|x) + L_{\rm 癌症\,\, 癌症}p({\rm 癌症}|x)= 0.7*1=0.7</script><h3 id="1-5-3-拒绝判断"><a href="#1-5-3-拒绝判断" class="headerlink" title="1.5.3 拒绝判断"></a>1.5.3 拒绝判断</h3><p><img src="https://s4.ax1x.com/2021/12/06/oyeeZq.png" alt=""></p>
+<h3 id="1-5-4-推论和决策"><a href="#1-5-4-推论和决策" class="headerlink" title="1.5.4 推论和决策"></a>1.5.4 推论和决策</h3><p>分类问题俩阶段：</p>
+<p>推论阶段，得到$p(Ck|x)$(后验概率),</p>
+<p>决策阶段，根据后验概率做最优的分配</p>
+<p>另一种办法是判别函数：直接由一个函数将$x$映射到决策。</p>
+<p>解决决策问题的方法</p>
+<p>第一种：</p>
+<p>先计算$p(x|Ck)$，通过贝叶斯公式得到后验概率</p>
+<script type="math/tex; mode=display">
+P(C_k|x)=\frac{p(x|C_k)p(C_k)}{p(x)}</script><p>而，</p>
+<script type="math/tex; mode=display">
+p(x)=\sum p(x|C_k)p(C_k)</script><p>使用决策论来决定如何分类。</p>
+<p>第二种：</p>
+<p>先得到后验概率$p(C_k|x)$,然后按照决策论的方法分配数据。</p>
+<p>第三种：</p>
+<p>找到一个函数将x直接映射到类别，这个函数叫做判别函数。在这里概率没有起到作用。</p>
+<p>这三种方法的优缺点。</p>
+<p>第一种方法：</p>
+<p>需要$x$和$C_k$的联合分布，要找到$p(x|C_k)$需要很多的训练数据。</p>
+<p>第二种方法：</p>
+<p>如果我们只想做一个分类，计算$p(x,C_k)$是非常消耗计算资源并且需要大量的数据的。实际上我们只需要一个后验概率而已。</p>
+<p>第三种方法：</p>
+<p>直接将$x$映射到类别，连后验概率都省掉而来。</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeVLn.png" alt=""></p>
+<p>后验概率还是非常有用的：</p>
+<p>比如：</p>
+<p>减小风险：</p>
+<p>使用损失矩阵进行修正，以减小我们的分类错误的风险，得到不同的决策。第三种方法需重新分析数据建模</p>
+<p>拒绝决策：</p>
+<p>有后验概率我们可以使用拒绝域，但是如果是第三种方法，就做不到。</p>
+<p>补偿先验类别：</p>
+<p>如果癌症患者的比例是$1:1000$，$99.9\%$。假设我们使用modified的data得到了后验概率分布$p(C_k|x)$. 我们可以先使用我们人工制造的数据进行分类， 然后再乘以实际中对应的癌症与正常的比例得到新的后验概率。</p>
+<p>结合不同的模型：</p>
+<p>分成子问题分别求解，使用$x_r$ , $X_b$​ 表示测试癌症的x-ray和验血。</p>
+<p>后验概率:$P(C_k|x_I,x_B ) = P(x_I ,x_B |C_k) P(C_k) / P(x_I ,x_B )$​</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p(C_k|x_1, x_B) & ∝ p(x_1,x_B|C_k)p(C_K)\\[2ex]
+& ∝ p(x_1|C_k)p(x_B|C_k)p(C_K)\\[2ex]
+& ∝ \frac{p(C_k|x_1)p(C_k|x_B)}{p(C_k)}
+\end{align}</script><h3 id="1-5-5-回归问题中的损失函数"><a href="#1-5-5-回归问题中的损失函数" class="headerlink" title="1.5.5 回归问题中的损失函数"></a>1.5.5 回归问题中的损失函数</h3><p>损失函数：</p>
+<script type="math/tex; mode=display">
+E[L]=\iint L(t,y(x))p(x,t){\rm d}x{\rm d}t</script><script type="math/tex; mode=display">
+E[L]=\iint(t-y(x))^2 p(x, t){\rm d}x{\rm d}t</script><p>我们目标就是取一个$y(x)$使得$E[L]$​最小</p>
+<script type="math/tex; mode=display">
+\frac{\partial  E[L]}{\partial y(x)}=2\int\{y(t)-t\}p(x,t){\rm d}t=0</script><script type="math/tex; mode=display">
+\int y(x)p(x,t ){\rm d}t = \int tp(x,t){\rm d}t\\</script><script type="math/tex; mode=display">
+y(x)\int p(x,t){\rm d}t=y(x)p(x)=\int tp(x,t){\rm d}t</script><script type="math/tex; mode=display">
+y(x)=\frac{\int tp(x,t){\rm d}t}{p(x)}=\int tp(t|x){\rm d}t=E_t[t|x]</script><p><img src="https://s4.ax1x.com/2021/12/06/oyemd0.png" alt=""></p>
+<p>解决回归问题：</p>
+<p>第一：先找到$p(x,t)$然后找到$p(t|x)$,最后使用</p>
+<script type="math/tex; mode=display">
+y(t)=\frac{\int tp(x,t){\rm d}t}{p(x)}=\int tp(t|x){\rm d}t=E_t[t|x]</script><p>得到$y(x)$</p>
+<p>第二：先找到$p(t|x)$ 再使用</p>
+<script type="math/tex; mode=display">
+y(x)=\frac{\int tp(x,t){\rm d}t}{p(x)}=\int tp(t|x){\rm d}t=E_t[t|x]</script><p>得到$y(x)$</p>
+<p>第三：直接找到$y(x)$</p>
+<p>优缺点与分类问题一样。</p>
+<h2 id="1-6-信息理论"><a href="#1-6-信息理论" class="headerlink" title="1.6 信息理论"></a>1.6 信息理论</h2><p>信息量：变量的“惊讶程度”</p>
+<p>变量的信息量：</p>
+<p>如果 $x,y$ 独立的话，就是他们的和, $h(x, y) = h(x) + h(y)$ 。还有$p(x, y) = p(x)p(y)$. 我们可以断定 $h(x)$可以使用 $\log$ 来作为那个递增函数：</p>
+<p>因为 $\log(p(x)p(y)) =\log(p(x))+\log(p(y))$​，因为 $p(x)$​是在$(0,1)$​的所以 $h(x) = -\log[p(x)]$​才能保证 $h(x)$​大于$0$.</p>
+<p>如果我们选择 $\log2$的话，$h(x)$的单位叫做 bit。</p>
+<h3 id="1-6-1-熵"><a href="#1-6-1-熵" class="headerlink" title="1.6.1 熵"></a>1.6.1 熵</h3><p>平均信息量（熵 entropy） ：</p>
+<p>变量$x$的平均信息量为：</p>
+<script type="math/tex; mode=display">
+H[x]=\sum p(x)h(x)=-\sum_{x}p(x)\log_2 p(x)</script><p>熵的意义：</p>
+<p>例如：一个变量$x$有$ 8$种状态，每一种状态的概率都是 $\frac{1}{8}$.那么$x$的熵为：</p>
+<script type="math/tex; mode=display">
+-\sum_{1}^8\frac{1}{8}\log_2\frac{1}{8}=3</script><p>再例如：如果$x$的$8 $种状态为$\{a,b,c,d,e,f,g,h\}$的概率分布为$(\frac{1}{2},\frac{1}{4},\frac{1}{8},\frac{1}{16},\frac{1}{64},\frac{1}{64},\frac{1}{64},\frac{1}{64})$，那么$x$的熵为：</p>
+<script type="math/tex; mode=display">
+H[x]=-\frac{1}{2}\log_2\frac{1}{2}-\frac{1}{4}\log_2\frac{1}{4}-\frac{1}{8}\log_2\frac{1}{8}-\frac{1}{16}\log_2\frac{1}{16}-\frac{4}{64}\log_2\frac{1}{64}=2{\rm bits}</script><p>结论：非均匀分布的比均匀分布的熵更小。熵与$x$分布的杂乱程度有关。越杂乱越小。</p>
+<h3 id="1-6-2-熵与编码"><a href="#1-6-2-熵与编码" class="headerlink" title="1.6.2 熵与编码"></a>1.6.2 熵与编码</h3><p>对于上面的例子，我们可以对每一种状态$\{a,b,c,d,e,f,g,h\}$​​编码<br>$0, 10, 110, 1110, 111100, 111101, 111110, 111111$.编码的平均长度如下。</p>
+<script type="math/tex; mode=display">
+{\rm average \,\,code\,\, length} = \frac{1}{2}\times1+\frac{1}{4}\times 2+\frac{1}{8}\times3+\frac{1}{16}\times 4+4\times\frac{1}{64}\times6 = 2{\rm bits}</script><p>这与熵相等的。</p>
+<p>使用自然对数定义熵（ natural logarithms）。</p>
+<p>平衡热力学中的材料来分析， 也可以把它当成衡量杂乱的标准。</p>
+<p>考虑有$N$个相同的物体，要放到一组罐子中，在$i^{\rm th}$个罐子中有$n_i$个物体。<br>这就有$N!$种分发。如果我们不考虑罐子里的物体的排列，那么有：</p>
+<script type="math/tex; mode=display">
+w=\frac{N!}{\Pi^i n_i!}</script><p>熵的定义就是：</p>
+<script type="math/tex; mode=display">
+H=\frac{1}{N}\ln W=\frac{1}{N}\ln N!-\frac{1}{N}\sum_i\ln n_i!</script><p>当$N$趋近无穷大时候，$\frac{n_i}{N}$是固定的。并且$\ln N! = N\ln N - N$ ,就得到$H$如下：</p>
+<script type="math/tex; mode=display">
+H=-\lim_{N\to\infty}\sum(\frac{n_i}{N})\ln(\frac{n_i}{N})=-\sum p_i\ln p_i</script><p><img src="https://s4.ax1x.com/2021/12/06/oyeKiT.png" alt=""></p>
+<h3 id="1-6-3-差熵"><a href="#1-6-3-差熵" class="headerlink" title="1.6.3 差熵"></a>1.6.3 差熵</h3><p>中值定理：</p>
+<script type="math/tex; mode=display">
+\int_{i\Delta}^{(i+1)\Delta}p(x){\rm d}x=p(x_i)\Delta</script><p>套用离散分布的公式：</p>
+<script type="math/tex; mode=display">
+H=-\lim_{N\to\infty}\sum_i(\frac{n_i}{N})\ln(\frac{n_i}{N})=-\sum_ip_i\ln p_i</script><p>使用：$\sum_i p(x_i)\Delta=1$得到：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+H_\Delta&=-\sum_i p(x_i)\Delta\ln(p(x_i)\Delta)\\[2ex]
+&=-\sum_ip(x_i)\Delta\ln p(x_i)-\ln\Delta
+\end{align}</script><p>当$Δ$趋近无穷的时候：右边第一项就等于</p>
+<script type="math/tex; mode=display">
+\lim_{\Delta\to 0} \left[ \sum_ip(x_i)\Delta\ln p(x_i) \right]=-\int p(x)\ln p(x){\rm d}x</script><p>右边这项就叫做差熵 （differential entropy） 。离散和连续形式的熵相差了一个$\lnΔ(Δ\to∞)$ 。</p>
+<p>结论：要精确地确定一个连续的变量需要大量的数据。</p>
+<p>连续分布的最大熵</p>
+<p>离散分布时候最大熵？？？？？</p>
+<script type="math/tex; mode=display">
+\int_{-\infty}^\infty p(x){\rm d}x= 1</script><script type="math/tex; mode=display">
+\int_{-\infty}^\infty xp(x){\rm d}x= \mu</script><script type="math/tex; mode=display">
+\int_{-\infty}^\infty (x-\mu)^2p(x){\rm d}x= \sigma^2</script><p>使用拉格朗日法，</p>
+<p>问题转变为：在上面的约束条件下，当$p(x)$为什么分布的时候，下面式子的最小。</p>
+<script type="math/tex; mode=display">
+-\int_{-\infty} ^\infty p(x)\ln p(x){\rm d}x+\lambda_1\left(\int_{-\infty}^{\infty}p(x){\rm d} x-1\right)+\lambda_2\left(\int_{-\infty}^{\infty}xp(x){\rm d}x-\mu\right)+\lambda_3\left(\int_{-\infty}^\infty(x-\mu)^2p(x){\rm d}x-\sigma^2\right)</script><p>最终计算结果是高斯分布：$N(\mu,σ^2)$</p>
+<p>在高斯分布的情况下差熵：</p>
+<script type="math/tex; mode=display">
+H[x]=\frac{1}{2}(1+\ln2^\pi\sigma^2)</script><p>从这个式子我们也可以看出随着$σ^2$的增大，高斯分布变得更扁，熵变得越大。</p>
+<h3 id="1-6-4-条件熵："><a href="#1-6-4-条件熵：" class="headerlink" title="1.6.4 条件熵："></a>1.6.4 条件熵：</h3><p>当我们有一个联合分布$p(x,y)$,如果我么 现在知道了$x$的值，需要额外的信息知道对应的$y$的值，这个额外的信息就是$-\ln p(y|x)$.平均额外的信息就表示为：</p>
+<script type="math/tex; mode=display">
+H[y|x]=-\iint p(x,y)\ln p(y|x){\rm d}x{\rm d}y</script><p>这就叫做条件熵（conditional entropy）</p>
+<p>容易得到$H[x,y] = H[y|x]+H[x]$​</p>
+<p>结论： 需要用来描述$x$和$y$的信息是用来描述$x$的信息加上在$x$的条件下用来描述$y$​的额外信息。</p>
+<h3 id="1-6-5-相对熵：（KL-散度）"><a href="#1-6-5-相对熵：（KL-散度）" class="headerlink" title="1.6.5 相对熵：（KL 散度）"></a>1.6.5 相对熵：（KL 散度）</h3><p>一个不知道的分布$p(x)$,我们使用$q(x)$取近似拟合它。假如我们要把$x$发送到一个接收器，我们使用$q(x)$来设计编码方案，得到的就不是最佳方案，会比最佳方案多发送一些信息。这个信息就是</p>
+<script type="math/tex; mode=display">
+KL(p||q)=-\int p(x)\ln q(x){\rm d}x-\left(-\int p(x)\ln p(x)\right)=-\int p(x)\ln\frac{q(x)}{p(x)}{\rm d}x</script><p>这就叫做相对熵，或者KL 散度 。KL散度不是对称的$KL(p||q)!=KL(q||p)$</p>
+<p>KL-divergence，俗称KL距离，常用来衡量两个概率分布的距离。</p>
+<p>根据shannon的信息论，给定一个字符集的概率分布，我们可以设计一种编码，使得表示该字符集组成的字符串平均需要的比特数最少。假设这个字符集是$X$​，对$x∈X$，其出现概率为$P(x)$，那么其最优编码平均需要的比特数等于这个字符集的熵：$H(X)=∑x∈XP(x)\log[1/P(x)]$</p>
+<p>在同样的字符集上，假设存在另一个概率分布$Q(X)$。如果用概率分布$P(X)$的最优编码（即字符$x$的编码长度等于$\log\left[1/P(x)\right]$） ，来为符合分布$Q(X)$的字符编码，那么表示这些字符就会比理想情况多用一些比特数。KL-divergence就是用来衡量这种情况下平均每个字符多用的比特数，因此可以用来衡量两个分布的距离。即：<br>$DKL(Q||P)= ∑ x ∈ XQ(x)[\log(1/P(x))] - ∑ x ∈ XQ(x)[\log[1/Q(x)]]= ∑ x ∈<br>XQ(x)\log[Q(x)/P(x)]$由于$-\log(u)$是凸函数，因此有下面的不等式<br>$DKL(Q||P) = -∑x∈XQ(x)\log[P(x)/Q(x)] = E[-\log[P(x)/Q(x)]] ≥ -\log E[P(x)/Q(x)] =-\log∑x∈XQ(x)P(x)/Q(x) = 0$</p>
+<p>即KL-divergence始终是大于等于$0$的。当且仅当两分布相同时，KL-散度等于$0$</p>
+<p>下面证明：$KL(p||q)&gt;=0$ 只有$p(x) = q(x)$的时候等于$0$。这也可以理解为只有在$p$的情况下式最优的，使用最短的平均编码。其他情况下都不是最优的。</p>
+<p>引入凸函数：</p>
+<p><img src="https://s4.ax1x.com/2021/12/06/oyeMJU.png" alt=""></p>
+<p>凸函数满足</p>
+<script type="math/tex; mode=display">
+f(\lambda a+(1-\lambda)b)\leq \lambda f(a)+(1-\lambda)f(b)</script><p>叫做凸函数。</p>
+<p>满足</p>
+<script type="math/tex; mode=display">
+f(\lambda a+(1-\lambda)b)< \lambda f(a)+(1-\lambda)f(b)</script><p>叫做严格凸函数。</p>
+<p>我们可以证明：</p>
+<script type="math/tex; mode=display">
+f(\sum_{i=1}^M\lambda_i x_i)\leq\sum_{i=1}^{M} f(\lambda_ix_i)</script><p>满足：$\sum_{i=1}^M\lambda_i=1$，并且$f(x)$是凸函数</p>
+<p>我们可以把λi看做是$p(x_i)$ ,概率分布，满足： $\sum_{i=1}^{M}p(x_i)=1$</p>
+<p>可以得到$f(E[x])\leq E[f(x)]$</p>
+<p>即，$f(\int xp(x)){\rm d}x\leq \int f(x)p(x){\rm d}x$</p>
+<p>把上式子应用于下面的$KL(p||q)$.</p>
+<script type="math/tex; mode=display">
+KL(p||q)=-\int p(x)\ln\frac{q(x)}{p(x)}{\rm d}x=\int p(x)\left[-\ln\frac{q(x)}{p(x)}\right]{\rm d}x</script><p>而$-\ln(x)$是凸函数。就有：</p>
+<script type="math/tex; mode=display">
+-\ln\left(\int p(x)\frac{q(x)}{p(x)}\right){\rm d}x\leq\int\ln p(x)\left[-\ln \frac{q(x)}{p(x)}\right]{\rm d}x</script><script type="math/tex; mode=display">
+-\ln\left(\int p(x)\frac{q(x)}{p(x)}\right){\rm d}x=-\ln\int p(x){\rm d}x=-\ln 1=0</script><p>所以：</p>
+<script type="math/tex; mode=display">
+KL(p||q)=-\int p(x)\ln \frac{q(x)}{p(x)}{\rm d}x=\int p(x)\left[-\ln\frac{q(x)}{p(x)}\right]{\rm d}x \geq 0</script><p>这就可以使用KL divergence 作为一个两个分布不同程度的度量。</p>
+<p>如果我们使用不同的分布， 那么我们就会得到一个不那么有效的编码， 这就将一些额外信息发送了，这个平均的额外信息就等于KL divergence。</p>
+<p>最小化$KL(p||q)$与最大似然函数的等价。</p>
+<p>假设我们通过调整参数 $θ$​​，想得到一个分布的近似的分布。我们可以使$p(x)$​​,$q(x|θ)$​​之间的$KL(p||q)$最小。但是我们不知道$p$，但是这个不影响我们的计算（下面会看到） 。</p>
+<p>假设我们有N个观察点。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+KL(p||q)&=\sum_{n=1}^N\{-\ln q(x_n|\theta)\}-\sum_{n=1}^N\left[-\ln p(x_n)\right]\\[2ex]
+& = -\sum_{n=1}^N\ln q(x_n|\theta)+\sum_{n=1}^N\left[\ln p(x_n)\right]
+
+\end{align}</script><p>注意右边第二项没有$θ$，我们只需要最大化</p>
+<script type="math/tex; mode=display">
+\sum_{n=1}^N\ln q(x|\theta)=\ln\{\Pi_{n=1}^N q(x_n|\theta)\}</script><p>就是我们前面将的最大似然估计。</p>
+<p>变量间的交互信息（mutual information）</p>
+<p>我们有$x,y$的分布$p(x,y)$,如果$x,y$是独立的，$p(x,y)=p(x)p(y)$,如果$x,y$不独立，我们也可以使用$KL$来评估$x,y$是否是近似独立的。</p>
+<script type="math/tex; mode=display">
+I[x,y]=KL\{p(x, y)||[p(x)p(y)]\}=-\iint p(x,y)\frac{p(x)p(y)}{p(x,y)}{\rm d}x{\rm d}y</script><p>这叫做$x,y$的mutual information.使用加法法则和乘法法则可以得到</p>
+<script type="math/tex; mode=display">
+I[x,y]=H[x]-H[x|y]</script><p>可以把$p(x)$看做是先验概率，$p(x|y)$为后验概率，$I[x,y]$从贝叶斯的角度可以解释为：当知道一个$y$后，$x$的不确定性的减少量。例如当$y$与$x$独立时候，知道$y$对$x$一点影响都没有，那么$I[x,y] = H[x]-H[x|y] =H[x]-H[x]=0$。减少量为$0$。如果$x=y$那么$h[x|y]=0$.减少量为$H[x]$,表示告诉$y$后$x$就定了。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢打赏.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小学渣的春天 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小学渣的春天 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/npuSE/" rel="tag"># npuSE</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/06/Chapter1/" rel="next" title="npuSE Chapter 1 绪论">
+      npuSE Chapter 1 绪论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束------</div>
+    
+</div>
+    
+ </div>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#npuSE-Chapter-1%EF%BC%9A%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">npuSE Chapter 1：绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8B%9F%E5%90%88%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 多项式拟合的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%A6%82%E7%8E%87%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 概率理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1概率密度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E6%9C%9F%E6%9C%9B%E5%92%8C%E6%96%B9%E5%B7%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 期望和方差</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%9F%E6%9C%9B-Expectation-%EF%BC%9A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1. 期望(Expectation)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B9%E5%B7%AE-Variance-%EF%BC%9A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2. 方差(Variance)：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%A6%82%E7%8E%87"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 贝叶斯概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 高斯分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 模型选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%BB%B4%E6%95%B0%E7%81%BE%E9%9A%BE"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 维数灾难</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E5%86%B3%E7%AD%96%E7%90%86%E8%AE%BA"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 决策理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1-%E6%9C%80%E5%B0%8F%E5%8C%96%E9%94%99%E5%88%86%E6%A6%82%E7%8E%87"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.5.1 最小化错分概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-2-%E6%9C%80%E5%B0%8F%E5%8C%96%E6%9C%9F%E6%9C%9B%E6%8D%9F%E5%A4%B1"><span class="nav-number">1.5.2.</span> <span class="nav-text">1.5.2 最小化期望损失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-3-%E6%8B%92%E7%BB%9D%E5%88%A4%E6%96%AD"><span class="nav-number">1.5.3.</span> <span class="nav-text">1.5.3 拒绝判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-4-%E6%8E%A8%E8%AE%BA%E5%92%8C%E5%86%B3%E7%AD%96"><span class="nav-number">1.5.4.</span> <span class="nav-text">1.5.4 推论和决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-5-%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.5.</span> <span class="nav-text">1.5.5 回归问题中的损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-%E4%BF%A1%E6%81%AF%E7%90%86%E8%AE%BA"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 信息理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-1-%E7%86%B5"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.6.1 熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-2-%E7%86%B5%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="nav-number">1.6.2.</span> <span class="nav-text">1.6.2 熵与编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-3-%E5%B7%AE%E7%86%B5"><span class="nav-number">1.6.3.</span> <span class="nav-text">1.6.3 差熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-4-%E6%9D%A1%E4%BB%B6%E7%86%B5%EF%BC%9A"><span class="nav-number">1.6.4.</span> <span class="nav-text">1.6.4 条件熵：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-5-%E7%9B%B8%E5%AF%B9%E7%86%B5%EF%BC%9A%EF%BC%88KL-%E6%95%A3%E5%BA%A6%EF%BC%89"><span class="nav-number">1.6.5.</span> <span class="nav-text">1.6.5 相对熵：（KL 散度）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小学渣的春天"
+      src="/images/machao.jpg">
+  <p class="site-author-name" itemprop="name">小学渣的春天</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3djeDIwMDE=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wcx2001"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1430466592@qq.com" title="E-Mail → 1430466592@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cubndwdS5lZHUuY24v" title="https:&#x2F;&#x2F;www.nwpu.edu.cn&#x2F;">西北工业大学</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小学渣的春天</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

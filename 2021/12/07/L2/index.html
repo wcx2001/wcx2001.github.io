@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wcx2001.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是课程cs231a的第2节笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs231a Course 2:单视图计量">
+<meta property="og:url" content="http://wcx2001.github.io/2021/12/07/L2/index.html">
+<meta property="og:site_name" content="Wei">
+<meta property="og:description" content="本文是课程cs231a的第2节笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://c1.im5i.com/2021/12/07/cAje5.png">
+<meta property="og:image" content="https://c1.im5i.com/2021/12/07/cA2iU.png">
+<meta property="og:image" content="https://c1.im5i.com/2021/12/07/cAXU8.png">
+<meta property="og:image" content="https://c1.im5i.com/2021/12/07/cAW66.png">
+<meta property="og:image" content="https://c1.im5i.com/2021/12/07/cARQw.png">
+<meta property="article:published_time" content="2021-12-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-07T05:06:18.430Z">
+<meta property="article:author" content="小学渣的春天">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="cs231a">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://c1.im5i.com/2021/12/07/cAje5.png">
+
+<link rel="canonical" href="http://wcx2001.github.io/2021/12/07/L2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cs231a Course 2:单视图计量 | Wei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wcx2001.github.io/2021/12/07/L2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/machao.jpg">
+      <meta itemprop="name" content="小学渣的春天">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs231a Course 2:单视图计量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-07 00:00:00 / 修改时间：13:06:18" itemprop="dateCreated datePublished" datetime="2021-12-07T00:00:00+08:00">2021-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">本文是课程cs231a的第2节笔记</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Course-2-单视图计量"><a href="#Course-2-单视图计量" class="headerlink" title="Course 2: 单视图计量"></a>Course 2: 单视图计量</h1><h2 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h2><p>在之前的课堂讲稿中，我们讨论了如何利用相机的外部和内在特性将点从真实的三维世界转换为数字图像。我们研究了如何在校准装置中使用已知的结构及其相应的图像来推断出这些相机的特性。这一次，我们将研究一个相关的问题：如果我们有一张图像，并知道拍摄图像的相机的属性，我们能恢复三维世界的已知结构吗？然后，我们将更一般地讨论，从单个图像中可以推导出哪些信息。</p>
+<h2 id="2-2-二维变换"><a href="#2-2-二维变换" class="headerlink" title="2.2 二维变换"></a>2.2 二维变换</h2><p>为了更好地理解我们如何从图像中学习，我们应该能够首先了解二维空间中的各种转换。</p>
+<p>等距变换是指保持距离的变换。在其最基本的形式中，等距法可以被描述为旋转矩阵$R$和平移矩阵$t$​。因此，在数学上，它们被定义为：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x'\\y'\\1
+\end{bmatrix}=\begin{bmatrix}
+R & t\\
+0 &1
+\end{bmatrix}\cdot\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix}</script><p>其中，R是$2\times 2$的矩阵​​，$t$​是一个$2\times1$​的向量，$[x’\,\,\,y’\,\,\, 1]^{\rm T}$​​​​是经过等距变换后得到的点。</p>
+<p>附：此处推导</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\begin{bmatrix}
+R & t\\
+0 &1
+\end{bmatrix}\cdot\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix}& =\begin{bmatrix}
+R_{11} & R_{12} & t_1\\
+R_{21} & R_{22} & t_2\\
+0 & 0 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+x\\y\\1
+\end{bmatrix}\\[2ex]
+& =\begin{bmatrix}
+R_{11}\cdot x+R_{12}\cdot y + t_1\\
+R_{21}\cdot x+ R_{22} \cdot y+ t_2\\
+1
+\end{bmatrix}=\begin{bmatrix}
+x'\\y'\\1
+\end{bmatrix}
+\end{align}</script><p>相似变换是指保持形状的转换。直观地说，它们可以做所有等距变换加上缩放的事情。在数学上，它们被记为：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x'\\y'\\1
+\end{bmatrix}=\begin{bmatrix}
+SR & t\\
+0 &1
+\end{bmatrix}\cdot\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix},S=\begin{bmatrix}
+s & 0 \\
+0 & s
+\end{bmatrix}</script><p>由于它们保留形状，它们也保持了长度和角度的比例。注意，当$s=1$时，每个等距转换都是相似变换的一种特定形式。然而，反之亦然，但事实并不成立。</p>
+<p>仿射变换是保留点、直线和并行性的变换。对于某些向量$v$，一个仿射变换$T$被去定义为：</p>
+<script type="math/tex; mode=display">
+T(v)=AV+t</script><p>其中，$A$是$R^{n}$的线性变换。在齐次坐标中，仿射变换通常被写成：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x'\\y'\\1
+\end{bmatrix}=\begin{bmatrix}
+A & t\\
+0 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix}</script><p>从上面的方程可以很容易看到所有的相似之处（因此等距）都是亲缘的特殊情况。</p>
+<p>投影变换或同态变换是任何将线映射到线的变换，但不一定保持并行性。在齐次坐标下，射影变换被表示为：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x'\\y'\\1
+\end{bmatrix}=\begin{bmatrix}
+A & t\\
+v & b
+\end{bmatrix}\cdot\begin{bmatrix}
+x \\ y \\ 1
+\end{bmatrix}</script><p>我们看到该形式是仿射变换的进一步推广，因为额外的自由度与$v$。</p>
+<p>尽管没有保持并行性，但射影变换仍然保持了点的共线性，因为它将线映射到线之间。此外，我们还证明了四个共线点的交比在射影变换下保持不变。交叉比在一条直线上取4个点$P_1$​、$P_2$、$P_3$、$P_4$​并进行计算</p>
+<script type="math/tex; mode=display">
+{\rm cross \,\, radio  }= \frac{||P_3-P_1|| \,\,||P_4-P_2||}{||P_3-P_2||\,\,||P_4-P_1||}\tag{1}</script><p>我们将证明射影变换下交叉比的不变性作为一个类练习。</p>
+<h2 id="2-3-在无限处的点和界限"><a href="#2-3-在无限处的点和界限" class="headerlink" title="2.3 在无限处的点和界限"></a>2.3 在无限处的点和界限</h2><p>线条对于确定图像中的结构很重要，所以了解它们在二维和三维中的定义是至关重要的。二维中的一条线可以用齐次向量$l=[a\,\,\,b\,\,\,c]^{\rm T}$来表示。他的比率$-\frac{a}{c}$捕获直线的斜率，比率$-\frac{c}{b}$捕获$y$截距。在形式上，二维线的定义为：</p>
+<script type="math/tex; mode=display">
+\forall p =\begin{bmatrix}
+x\\
+y
+\end{bmatrix}\in l ,\begin{bmatrix}
+a & b &c
+\end{bmatrix}\cdot\begin{bmatrix}
+x\\
+y
+\\z
+\end{bmatrix}=0\tag{2}</script><p>一般来说，两直线$l$和$l’$将在一个点$x$处相交。该点定义为$l$和$l’$之间的交叉积。</p>
+<p>证明：给定两条相交的线$l$​和$l’$​，交点$x$​应该同时位于直线$l$​和$l’$​上。因此，$x^{\rm T}l=0$​，$x^{\rm T}l’=0$​。如果我们设置$x=l×l’$​，那么根据叉积的定义，向量$x$​与向量$l$​和$l’$​都正交。根据正交性的定义，$x^{\rm T}l=0$​​，$x^{\rm T}l’=0$​。因此，$x$的这个定义满足了约束条件。</p>
+<p>那么平行线的情况又如何呢？日常的知识期望这些线永远不会相交。然而，这个定义可以重写为这些线相交于无穷大。在齐次坐标下，在无穷远处的一个点被写为$[x\,\,\,y\,\,\,0]^{\rm T}$。回想一下，欧几里得坐标是通过将所有坐标除以最后一个坐标来收集的。在这种情况下，坐标为零，在无穷远处达到一个点。因此，齐次坐标给出了一个很好的确定交集的公式，即使是在平行线的情况下。</p>
+<p>现在，让我们考虑两条平行线$l$和$l’$。当两条线平行时，它们的斜率相等，因此$\frac{a}{b}=\frac{a’}{b’}$。如果我们用均匀坐标来计算交点，那么我们可以验证</p>
+<script type="math/tex; mode=display">
+l\times l' ∝\begin{bmatrix}
+b\\-a\\0
+\end{bmatrix}=x_{\infty}\tag{1}</script><p>因此，我们证实了我们的直觉，即两条平行线在最终相交。两条平行线在无穷大处的交点也称为理想点。在无穷远处的一个点的一个有趣的特性是，所有斜率相同的$-\frac{a}{b}$的平行线都通过这个理想点，如下图所示：</p>
+<script type="math/tex; mode=display">
+l^{\rm T}x_{\infty}=\begin{bmatrix}
+a & b & c
+\end{bmatrix}\cdot\begin{bmatrix}
+b\\-a\\0
+\end{bmatrix}=0\tag{4}</script><p>无穷点的概念可以推广到定义有限度下的直线。考虑两对或更多对平行线。每一对平行线相交无穷远处$\{x_{∞，1}，…，x_{∞，n}\}$。在无穷远处通过所有这些点的线$l_∞$必须满足$\forall i,l_\infty^{\rm T}x_{\infty,i}=0$。这意味着$l_\infty=\begin{bmatrix} 0 &amp; 0 &amp;c\end{bmatrix}^{\rm T}$。由于$c$是一个任意的值，所以我们可以简单地定义$l_\infty=\begin{bmatrix} 0 &amp; 0 &amp;c\end{bmatrix}^{\rm T}$​​。</p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAje5.png" alt=""></p>
+<p>​                                图1：无穷大处的点形成无穷大处的线。</p>
+<p>如果我们将一个一般的射影变换$H$应用到无穷大$p_∞$处的一个点，那么将会发生什么呢？</p>
+<script type="math/tex; mode=display">
+p'=Hp_{\infty}=\begin{bmatrix}
+A & t\\
+v & b
+\end{bmatrix}\cdot\begin{bmatrix}
+1\\1\\0
+\end{bmatrix}=\begin{bmatrix}
+p_x'\\p_y'\\p_z'
+\end{bmatrix}\tag{5}</script><p>请注意，$p’$的最后一个元素可能会变成非零，这表明射影变换通常将在无穷远处的点映射到不再在无穷远处的点。然而，仿射变换的情况并非如此，它将无穷远处的点映射到无穷远处的点：</p>
+<script type="math/tex; mode=display">
+p'=Hp_{\infty}=\begin{bmatrix}
+A & t\\
+0 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+1\\1\\0
+\end{bmatrix}=\begin{bmatrix}
+p_x'\\p_y'\\0
+\end{bmatrix}\tag{6}</script><p>现在让我们将投影变换$H$应用到线$l$上，得到一个新的线$l’$。通过一条直线的所有点x都必须满足属性$x^{\rm T}l=0$。在转换后的空间中，我们知道线仍然映射到线，这意味着$x’l’=0$。我们可以使用身份属性来得到：</p>
+<script type="math/tex; mode=display">
+x^{\rm T}I l = x^{\rm T}H^{\rm T}H^{\rm -T}l=0</script><p>如果我们对直线应用射影变换，那么所有的点也被变换，给出$x’=Hx$。这样我们就得到了$x^{\rm T}H^{\rm T}H^{\rm -T}l=x’^{\rm T}l’$，我们发现一条直线的射影变换是$l’=H^{\rm -T}l$。与我们在无穷远处的观测点相似，我们发现无穷远处的一条线的射影变换并不一定映射到无穷远处的另一条线。此外，仿射反式地层仍然将无穷远处的线映射到无穷远处的线。</p>
+<h2 id="2-4-消失点和线条"><a href="#2-4-消失点和线条" class="headerlink" title="2.4 消失点和线条"></a>2.4 消失点和线条</h2><p>到目前为止，我们已经在二维中引入了无穷远处的线和点的概念。现在让我们在其相应的齐次坐标中引入三维的等价概念。</p>
+<p>在3D世界中，我们现在被介绍到了平面的概念。我们可以将一个平面表示为一个向量$[a\,\,\,b\,\,\,c\,\,\,d]^{\rm T}$，其中$(a，b，c)$形成一个法向量，$d$是从原点到该法向量方向上的平面的距离。在形式上，一个平面被定义为满足的所有点$x$</p>
+<script type="math/tex; mode=display">
+x^{\rm T}\begin{bmatrix}
+a\\b\\c\\d 
+\end{bmatrix}=ax_1+ bx_2+cx_3+d=0\tag{7}</script><p>三维平面中的线被定义为两个平面的交点。由于它们有四个自由度（在每个三维空间中都定义了截距位置和斜率），因此它们很难在三维空间中很好地表示。更多细节请参见哈特利和齐瑟曼教科书的第3.2.2节。</p>
+<p>然而，点在3D中的定义与在2D中的定义相似。三维中无穷远处的点再次被定义为三维中平行线的交点。此外，如果我们对无穷大$x_∞$处的其中一个点应用一个射影变换，那么我们就可以得到在图像平面上的$p_∞$点中，它在均匀坐标下不再在无穷远处。这个点$p_∞$被称为一个消失点。但是，我们能如何处理消失的点呢？</p>
+<p>我们可以推导出三维平行线及其在图像中对应的消失点与相机参数$K$、$R$、$T$之间的有用关系。让我们将$d=(a、b、c)$定义为照相机参考系统中一组三维平行线的方向。这些线与无穷远处的一个点相交，在图像中这样一个点的投影返回消失点$v$，它被定义为：</p>
+<script type="math/tex; mode=display">
+v=Kd\tag{8}</script><p>我们把上述方程的推导作为一个练习。可改写此方程，提取方向$d$：</p>
+<script type="math/tex; mode=display">
+d=\frac{K^{-1}v}{||K^{-1}v||}\tag{9}</script><p>如果我们把一个平面$Π$作为一个平行线的超集，每一组平行线在无穷大的一点上相交。在无穷远处通过这一组点的线是在无穷远处与$Π$相关联的$l_∞$处的线。在无穷远处的一条线也被定义为两个平行平面相交的线。投影变换$l_\infty$到图像平面不再是无穷远处的一条线，被称为消失线或视界线$l_{\rm horiz}$。视界线是穿过图像中相应的消失点的一条线。视界线可以计算为：</p>
+<script type="math/tex; mode=display">
+l_{\rm horiz}= H_p^{-T}l_{\infty}\tag{10}</script><p><img src="https://c1.im5i.com/2021/12/07/cA2iU.png" alt=""></p>
+<p>​                                图2：从一组消失点中计算出的视界线。</p>
+<p>视界线的概念允许我们像人类一样直观地推断出那些可能在数学上不容易表现出来的图像的属性。例如，在图2中，虽然地面上的线在图像坐标上不是平行的，但我们很自然地理解，它们在3D世界中是平行的。</p>
+<p>此外，视界线允许我们计算关于这个世界的有用属性。例如，我们可以推导出三维平面的正规$n$与图像中相应的视界线$l_{\rm horiz}$​之间的有趣关系：</p>
+<script type="math/tex; mode=display">
+n=K^{\rm T} l_{\rm horiz}\tag{11}</script><p>这意味着，如果我们能够识别与一个平面相关的视平线，如果我们的相机被校准，那么我们就可以估计该平面的方向。在引入有关消失点和线的最后一个性质之前，我们首先需要定义在无穷大$Π_∞$​处的平面。此平面的定义为一组2条或更多的消失线，由向量描述$[0\,\,\,0\,\,\,0\,\,\,1]^{\rm T}$​在均匀坐标。</p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAXU8.png" alt=""></p>
+<p>图3：一组两条或多个消失线（蓝色线）定义了位于无穷大$Π_∞$处的平面（黄色平面）。</p>
+<p><img src="https://c1.im5i.com/2021/12/07/cAW66.png" alt=""></p>
+<p>图4：推导出两行之间的夹角。</p>
+<p>最后引入的性质是将三维平面上的线和平面与图像平面上相应的消失点和线联系起来。假设三维中的两对平行线的方向分别为$d_1$​和$d_2$​，并与无穷大$x_{1,∞}$和$x_{2,∞}$处的点相关联。设$v_1$和$v_2$为相应的消失点。然后，我们发现利用余弦规则给出了$d_1$和$d_2$之间的夹角$θ$：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\cos \theta &=\frac{d_1\cdot d_2}{||d_1||\,\,||d_2||}\\[2ex]
+& = \frac{v_1^{\rm T}\omega v_2}{\sqrt{v_1^{\rm T}\omega v_1}\sqrt{v_2^{\rm T}\omega v_2}}
+\end{align}\tag{12}</script><p>其中，$\omega=(KK^{\rm T})^{-1}$</p>
+<p>我们可以将这个想法进一步扩展到三维平面的情况下，其中我们想在三维平面中关联不同的平面。回想一下，对于任何一个平面，我们都可以计算出它相关的消失线$l_{\rm horiz}$和他的标准化$K^{\rm T}l_{\rm horiz}$。因此，我们可以通过计算每个平面的法向量$n_1$和$n_2$之间的角来确定两个平面之间的角$θ$。我们推导出了分别有消失线$l_1$和$l_2$的两个平面之间的角$θ$：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\cos\theta &=\frac{n_1\cdot n_2}{||n_1||\,\,||n_2||}\\[2ex]
+&=\frac{l_1^{\rm T}w^{-1}l_2}{\sqrt{l_1^{\rm ^{\rm T}}\omega^{-1}l_1}\sqrt{l_2^{\rm T}w^{-1}l_2}}
+\end{align}\tag{13}</script><h2 id="2-5-一个单个视图的计量学示例"><a href="#2-5-一个单个视图的计量学示例" class="headerlink" title="2.5 一个单个视图的计量学示例"></a>2.5 一个单个视图的计量学示例</h2><p><img src="https://c1.im5i.com/2021/12/07/cARQw.png" alt=""></p>
+<p>图5：具有针对一对垂直平面的两个消失点的示例设置。</p>
+<p>假设我们可以在一个三维世界的图像中识别出两个平面。另外，让我们假设我们可以在每个平面上识别出一对平行的线。这允许我们估计图像中的两个消失点$v_1$​和$v_2$​​。最后，假设我们知道这些平面在三维空间上是垂直的。在这种情况下，我们从方程$12$中知道，$v_1ωv_2=0$​。</p>
+<p>但请回想一下，$ω$依赖于相机矩阵$K$，这在此时可能是未知的。因此，知道这两个消失点足以准确估计相机参数吗？考虑到$K$有$5$个自由度，而$v_1ωv_2=0$只提供了一个约束，我们没有足够的信息来计算$K$。如果我们能为另一个相互正交的平面找到另一个消失的$v_3$呢？然后我们就知道了$v_1ωv_2=v_1ωv_3=v_2ωv_3=0$。由于每对都给出一个约束，我们只得到计算$K$所需的$5$个约束中的$3$个。然而，如果我们假设相机有零偏角和正方形像素，那么我们可以添加所需的额外的两个约束条件。通过这些假设，我们就知道$ω$具有这种形式：</p>
+<script type="math/tex; mode=display">
+w=\begin{bmatrix}
+w_1 & 0 & w_4\\
+0 & w_1 & w_5\\
+w_4 & w_5 & w_6
+\end{bmatrix}\tag{14}</script><p>如果您仔细注意到，在$ω$的定义中有四个变量。然而，我们只能大规模地了解$ω$，这将实际变量的数量减少到三个，从而可以解决它。一旦我们有了$ω$，那么我们就可以使用Cholesky分解来计算$K$。因此，我们已经设法用一张图像来校准照相机！</p>
+<p>一旦知道了$K$，我们就可以重建场景的三维几何形状。例如，我们可以计算上述所有平面的方向。因此，一幅图像可以很容易地用来揭示它所捕获的场景的丰富信息。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢打赏.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小学渣的春天 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小学渣的春天 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/tags/cs231a/" rel="tag"># cs231a</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/07/Chapter2/" rel="prev" title="npuSE Chapter 2 图像形成">
+      <i class="fa fa-chevron-left"></i> npuSE Chapter 2 图像形成
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束------</div>
+    
+</div>
+    
+ </div>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Course-2-%E5%8D%95%E8%A7%86%E5%9B%BE%E8%AE%A1%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">Course 2: 单视图计量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%BA%8C%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 二维变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E5%9C%A8%E6%97%A0%E9%99%90%E5%A4%84%E7%9A%84%E7%82%B9%E5%92%8C%E7%95%8C%E9%99%90"><span class="nav-number">1.3.</span> <span class="nav-text">2.3 在无限处的点和界限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%B6%88%E5%A4%B1%E7%82%B9%E5%92%8C%E7%BA%BF%E6%9D%A1"><span class="nav-number">1.4.</span> <span class="nav-text">2.4 消失点和线条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E4%B8%80%E4%B8%AA%E5%8D%95%E4%B8%AA%E8%A7%86%E5%9B%BE%E7%9A%84%E8%AE%A1%E9%87%8F%E5%AD%A6%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">2.5 一个单个视图的计量学示例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小学渣的春天"
+      src="/images/machao.jpg">
+  <p class="site-author-name" itemprop="name">小学渣的春天</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3djeDIwMDE=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wcx2001"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1430466592@qq.com" title="E-Mail → 1430466592@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cubndwdS5lZHUuY24v" title="https:&#x2F;&#x2F;www.nwpu.edu.cn&#x2F;">西北工业大学</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小学渣的春天</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

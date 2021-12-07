@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wcx2001.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是课程cs231a的第1节笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs231a Course 1:相机模型">
+<meta property="og:url" content="http://wcx2001.github.io/2021/12/07/L1/index.html">
+<meta property="og:site_name" content="Wei">
+<meta property="og:description" content="本文是课程cs231a的第1节笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6QXGt.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6QOPI.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/07/o6Qvxf.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/B8gDMFaGmH4YtIr.png">
+<meta property="og:image" content="https://obohe.com/i/2021/12/07/ihnnqv.png">
+<meta property="og:image" content="https://obohe.com/i/2021/12/07/ihdosf.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/8BTWuQl7FkImVcz.png">
+<meta property="og:image" content="https://obohe.com/i/2021/12/07/ihdyrl.png">
+<meta property="og:image" content="https://obohe.com/i/2021/12/07/ihmts6.png">
+<meta property="og:image" content="https://obohe.com/i/2021/12/07/ihn1hf.png">
+<meta property="article:published_time" content="2021-12-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-07T05:06:24.994Z">
+<meta property="article:author" content="小学渣的春天">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="cs231a">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s4.ax1x.com/2021/12/07/o6QXGt.png">
+
+<link rel="canonical" href="http://wcx2001.github.io/2021/12/07/L1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cs231a Course 1:相机模型 | Wei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wcx2001.github.io/2021/12/07/L1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/machao.jpg">
+      <meta itemprop="name" content="小学渣的春天">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs231a Course 1:相机模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-07 00:00:00 / 修改时间：13:06:24" itemprop="dateCreated datePublished" datetime="2021-12-07T00:00:00+08:00">2021-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">本文是课程cs231a的第1节笔记</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Course-1-相机模型"><a href="#Course-1-相机模型" class="headerlink" title="Course 1: 相机模型"></a>Course 1: 相机模型</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>照相机是计算机视觉中最重要的工具之一。它是我们可以记录我们周围的世界并使用其输出照片用于各种应用程序的机制。因此，我们在计算机视觉入门课程中必须问的一个问题是：我们如何建模一个相机？</p>
+<h2 id="1-2-针孔相机"><a href="#1-2-针孔相机" class="headerlink" title="1.2 针孔相机"></a>1.2 针孔相机</h2><p><img src="https://s4.ax1x.com/2021/12/07/o6QXGt.png" alt=""></p>
+<p>​                        图1：一个简单的工作相机模型：针孔相机模型。</p>
+<p>让我们设计一个简单的摄像系统——一个可以在3D世界中记录物体或场景图像的系统。这种相机系统可以通过在3D物体和摄影胶片或传感器之间放置一个小孔圈的屏障来设计。如图1所示，3D对象上的每个点都会向外发出多条光线。如果没有适当的屏障，薄膜上的每一个点都会受到3D物体上每个点发出的光线的影响。由于障碍物，只有一条（或少数）这些光线穿过孔径并击中薄膜。因此，我们可以在三维物体和薄膜上的点之间建立一个一对一的映射。其结果是，通过这种映射，胶片被三维物体的“图像”曝光。这个简单的模型被称为针孔照相机模型。</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6QOPI.png" alt=""></p>
+<p>​                                图2：针孔照相机模型的正式构造。</p>
+<p>针孔照相机的一个更正式的结构如图2所示。在这种结构中，薄膜通常被称为图像或视网膜平面。这个孔径被称为针孔$O$或中心相机。图像平面与针孔$O$之间的距离为焦距$f$。有时，视网膜平面被放置在$O$和三维物体之间，距离$O$为$f$​​。在这种情况下，它被称为虚拟图像或虚拟视网膜平面。请注意，对象在图像平面中的投影与对象在虚拟图像平面中的图像的投影在一定比例内是相同的（相似性）转换。</p>
+<p>现在，我们如何使用针孔照相机呢？设$P=[x\,\,\,\,y\,\,\,\,z]^{\rm T}$​是针孔相机可见的某些三维物体上的一个点。$P$​将被映射或投影到图像平面$\Pi’$​上，得到$P’=[x’\,\,\,y’]^{\rm T}$​。类似地，针孔本身也可以投射到图像平面上，给出一个新的点$C’’$。</p>
+<p>在这里，我们可以定义一个以针孔$O$为中心的坐标系$[i\,\,\,j\,\,\,k]$，使轴$k$垂直于图像平面并指向它。这个坐标系通常被称为照相机参考系统或照相机坐标系。由$ C’’$和$O$定义的线称为照相机系统的光轴。</p>
+<p>回想一下，该点$P’$是由三维点$P$在图像平面$\Pi’$​上的投影产生而得到的。因此，如果我们推导出三维点$P$和图像平面点$P’$之间的关系，我们就可以理解如何理解3D世界把自己印在针孔相机拍摄的图像上。请注意，三角形$P’C’O$类似于由$P$、$O$和$(0、0、z)$形成的三角形。因此，利用相似三角形定律我们发现：</p>
+<script type="math/tex; mode=display">
+P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script><p>请注意，我们在这个针孔模型中所做的一个很大的假设是，孔径是一个单点。然而，在大多数真实世界的场景中，我们不能假设孔径可以无限小。钍孔径大小的影响是什么？</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6Qvxf.png" alt=""></p>
+<p>图3：孔径大小对图像的影响。随着孔径尺寸的减小，图像会变得更清晰，但颜色会更暗。</p>
+<p>随着孔径尺寸的增加，通过势垒的光线数量因此增加。随着更多的光线通过，薄膜上的每个点都会受到l的影响光线来自三维空间中的多点，模糊图像。虽然我们可能倾向于试图使孔径尽可能小，但请记住，较小的孔径尺寸会导致光线减少通过，导致更清晰但更暗的图像。因此，我们得出了针孔公式提出的基本问题：我们能开发出拍摄清晰明亮图像的相机吗?</p>
+<h2 id="1-3-相机和镜头"><a href="#1-3-相机和镜头" class="headerlink" title="1.3 相机和镜头"></a>1.3 相机和镜头</h2><p><img src="https://s2.loli.net/2021/12/07/B8gDMFaGmH4YtIr.png" alt="image-20211130221320390.png"></p>
+<p>图4：一个简单的镜头模型的设置。请注意，树上的顶点的光线是如何很好地汇聚在胶片上的。然而，一个距离镜头有不同距离的点会产生射线，而不是完美地融合在电影上。</p>
+<p>在现代相机中，通过使用可以聚焦和分散光的镜头，可以缓解上述清晰度和亮度之间的冲突。如果我们把针孔换成一种有两种形状的针孔如果放置和大小，然后它满足以下特性：所有由某些点$P$发射的光线都被透镜折射，使它们收敛到一个单点$P’$在图像平面上。因此，消除了由于一个小孔径而导致的大部分光线被阻挡的问题（图4）。但是，请注意，这个属性并不适用于所有的3D点，而是只适用于某些特定的点P。取与图像平面更近或更远的点Q，图像中相应的投影会模糊或失焦。因此，镜头有一个规格物体“处于焦点中”的特定距离。这一特性也与摄影和计算机图形学的概念有关，这是相机可以达到的有效范围拍摄清晰的照片。</p>
+<p><img src="https://obohe.com/i/2021/12/07/ihnnqv.png" alt=""></p>
+<p>图5：镜头将平行于光轴的光线聚焦到焦点中。此外，该装置还说明了近轴折射模型，帮助我们找到带镜头相机的图像平面点与三维世界之间的关系。</p>
+<p>相机镜头还有另一个有趣的特性：它们将所有平行于光轴移动的光线聚焦到一个被称为焦点的点（图5）。焦尖之间的距离$t$和透镜的中心通常被称为焦距$f$。此外，通过透镜中心的普通针垫筒没有偏离。因此，我们可以得到一个与与点$P$相关的针孔模型类似的构造三维空间及其对应的在图像平面上的点$P’$。</p>
+<script type="math/tex; mode=display">
+P'=
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}=
+\begin{bmatrix}
+z' & \frac{x}{z}\\
+z' & \frac{y}{z}
+\end{bmatrix}</script><p>这个模型的推导超出了类的范围。但是，请注意，在针孔模型$z’=f$中，而在这个基于镜头的模型中，$z’=f+z_0$。此外，由于这个衍生物上利用近轴或“薄透镜”假设，称为近轴折射模型。</p>
+<p><img src="https://obohe.com/i/2021/12/07/ihdosf.png" alt=""></p>
+<p>​                            图6：演示针垫和桶变形如何影响图像。</p>
+<p>由于近轴折射模型近似于薄透镜假设，因此会发生一些像差。最常见的一种被称为径向失真，它导致图像放大作用随着与光轴的距离的增加而减小或增加。当放大阳离子增加和枪管扭曲时，我们将径向畸变划分为针垫畸变当放大率降低时。径向失真是由于透镜的不同部分有不同的焦距而造成的。</p>
+<h2 id="1-4-进入数字图像空间"><a href="#1-4-进入数字图像空间" class="headerlink" title="1.4 进入数字图像空间"></a>1.4 进入数字图像空间</h2><p>在本节中，我们将讨论在建模从三维空间到我们所知道的数字图像的投影时必须考虑的参数的细节。所有得到的结果都将使用烟晕但它们也适用于近轴折射模型。</p>
+<p>如前所述，三维空间中的一个点P可以被映射（或投影）到图像平面$\Pi’$中的一个二维点$P’$​中。这种$R^3→R^2$映射被称为射影变换。这个投影图像平面上的三维点并不直接对应于我们在实际数字图像中看到的，有几个原因。首先，数字图像中的点通常是用不同的参考中比图像平面上的系统要高。第二，数字图像被划分为离散的像素，而图像平面上的点是连续的。最后，物理传感器可以引入非线性传感器比如对映射的失真。为了解释这些差异，我们将引入一些额外的转换，允许我们将来自三维世界的任何点映射到像素坐标。</p>
+<p>图像坐标的原点$C’$在k轴与图像平面相交的图像中心。另一方面，数字图像通常来自于i图像的左下角法师。因此，图像平面上的二维点和图像中的二维点被平移向量偏移$[c_x,c_y]^{\rm T}$。为了适应坐标系统的这种变化，映射现在变为：</p>
+<script type="math/tex; mode=display">
+P'=
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}
+=
+\begin{bmatrix}
+f\frac{x}{z}+c\\
+f\frac{y}{z}+c\\
+\end{bmatrix}\tag{3}</script><p>下一个效果是，我们必须考虑到数字图像中的点用像素表示，而图像平面上的点用物理测量值表示（例如厘米）。为了适应这个单位的变化，我们必须引入两个新的参数$k$和$l$。这些参数，其单位大概是像“像素/厘米”，对应于图像平面的两个轴上单位的变化。请注意，$k$和$l$可能会有所不同，因为单元元素的长宽比不保证为$1$。如果$k=l$，我们通常说相机有方形像素。我们调整了我们之前的映射为：</p>
+<script type="math/tex; mode=display">
+P'=
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}=
+\begin{bmatrix}
+fk\frac{x}{z}+c_x\\
+fl\frac{y}{z}+c_y
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha\frac{x}{z}+c_x\\
+\beta\frac{y}{z}+c_y
+\end{bmatrix}\tag{4}</script><p>有没有更好的方法从$P→P’$来表示这个投影？如果这个投影是一个线性变换，那么它可以表示为一个矩阵和输入向量的乘积(在这种情况下，它将是$P$。然而，从方程4中，我们可以看到这个问题$P→P’$不是线性的，因为操作划分了其中一个输入参数(即z)。尽管如此，将这个投影表示为矩阵向量乘积对于未来的推导将是有用的。因此，我们是否可以将我们的变换表示为矩阵向量积，尽管它具有非线性？</p>
+<p>解决这个问题的一种方法是改变坐标系。例如，我们引入了一个新的坐标，从而使任何点$P’=(x’、y’)$变成$(x’、y’、1)$。类似地，任何点$P=(x、y、z)$变成$(x、y、z、1)$。这个增广空间被称为齐次坐标系。如前所示，为了将一些欧几里得向量$(v_1，…，v_n)$转换为齐次坐标，我们简单地在一个新的维数中附加一个$1$来得到$(v_1，…，v_n，1)$。请注意，向量及其齐次坐标之间的相等只在最终坐标等于$1$时才会发生。 因此，当从任意齐次坐标$(v_1、…，v_n，w)$转换回时，我们得到欧几里得坐标$(\frac{v_1}{w}，…，\frac{v_n}{w})$。利用齐次坐标，我们可以表示：</p>
+<script type="math/tex; mode=display">
+P_h'=\begin{bmatrix}
+\alpha x+c_x z\\
+\beta y+c_y z\\
+z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+x\\
+y\\
+z\\
+1
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}P_h\tag{5}</script><p>从这一点起，假设我们将在齐次坐标下工作，除非另有说明。我们将去掉$h$指数，这样任何点$P$或$P’$都可以假定在齐次坐标中。从公式$5$中可以看出，我们可以用矩阵向量关系来表示三维空间中的一个点与其图像坐标之间的关系：</p>
+<script type="math/tex; mode=display">
+P'=\begin{bmatrix}
+x'\\y'\\z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+x\\y\\z\\1
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot P
+=MP\tag{6}</script><p>我们可以把这个转换进一步分解为：</p>
+<script type="math/tex; mode=display">
+P'=MP=\begin{bmatrix}
+\alpha & 0 & c_x \\
+0 & \beta & c_y \\
+0 & 0 & 1 
+\end{bmatrix}\cdot
+\begin{bmatrix}
+I & 0
+\end{bmatrix}\cdot P=
+K\cdot\begin{bmatrix}
+I & 0
+\end{bmatrix}\cdot P\tag{7}</script><p>矩阵$K$通常被称为相机矩阵。这个矩阵包含了一些对表征照相机模型很有用的关键参数。我们的公式目前缺少两个参数：偏度和失真。我们经常说，当相机坐标系倾斜时，图像是倾斜的。在这种情况下，两个轴之间的夹角略大于或小于$90$​度。大多数相机都有零偏态，但由于传感器制造错误，可能会出现一定程度的偏态。证明新的相机矩阵超出了这类的范围，我们给你如下：</p>
+<script type="math/tex; mode=display">
+K=\begin{bmatrix}
+x'\\
+y'\\
+z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & -\alpha\cot \theta & c_x\\
+0 & \frac{\beta}{\sin\theta} & c_y
+\end{bmatrix}\tag{8}</script><p>我们在这类中引入的大多数方法都忽略了失真效应。因此，我们最终的相机矩阵有$5$个自由度：$2$焦距，$2$偏移量，$1$偏度。</p>
+<p>到目前为止，我们已经描述了三维相机参考系统中的一个点$P$到二维图像平面中的一个点$P’$之间的映射。但是如果关于3D世界的信息是不同的呢坐标系？然后，我们需要包括一个额外的转换，将点从世界参考系统到相机参考系统联系起来。这个转换被一个旋转器捕获离子矩阵$R$和平移向量$t$。因此，如果给定世界参考系统$P_w$中的一个点，我们可以计算其相机坐标如下：</p>
+<script type="math/tex; mode=display">
+P=\begin{bmatrix}
+R & T\\
+0 & 10
+\end{bmatrix} P_w\tag{9}</script><p>将其代入方程（7）并简化给出：</p>
+<script type="math/tex; mode=display">
+P'=K\begin{bmatrix}
+R&T
+\end{bmatrix} P_w=MP_w\tag{10}</script><p>这就完成了从任意世界参考系统中的三维点$P$​​到图像平面的映射。我们可以看到投影矩阵$M$​由两种类型的参数组成：固有参数和外部参数$c$​参数。相机矩阵$K$​中包含的所有参数都为固有参数，它们随相机类型的变化而变化。外在参数包括旋转和平移我并不依赖于相机的结构。总的来说，我们发现$3×4$​投影矩阵$M$​有$11$个自由度：$5$个来自内在相机矩阵，$3$个来自外在旋转，$3$个来自外在外在转化。</p>
+<h2 id="1-5-相机校准"><a href="#1-5-相机校准" class="headerlink" title="1.5 相机校准"></a>1.5 相机校准</h2><p>要精确地了解从真实的3D世界到数字图像的转换，就需要事先了解相机的许多内在参数。如果给了一个任意的相机，我们可能会，也可能不会可以访问这些参数。然而，我们确实可以看到照相机拍摄的图像。因此，我们能找到一种方法从图像中推断出它们吗？估计外在和内在的相机参数问题被称为相机校准。</p>
+<p><img src="https://s2.loli.net/2021/12/07/8BTWuQl7FkImVcz.png" alt="image-20211201100328709.png"></p>
+<p>​                                    图7：一个示例校准设备的设置。</p>
+<p>具体地说，我们通过求解公式10中的内在相机矩阵K和外在参数R、T来实现这一点。我们可以在校准设备的背景下来描述这个问题，如图7所示。设备通常由一个已知尺寸的简单图案（即棋盘）组成。此外，该设备定义了我们的世界参考系，包括原点$O_w$和轴$i_w$、$j_w$、$k_w$。从设备的已知模式来看，我们已经得到世界参考系$P_1,…,P_n$中的已知点。在我们从相机拍摄的图像中找到这些点会给出图像$p_1，…，p_n$中相应的点。</p>
+<p>我们从$n$个对应项中建立了一个线性方程组，对于每个对应项的$P_i$、$p_i$和相机矩阵$M$，其行分别为$m_1$、$m_2$、$m_3$：</p>
+<script type="math/tex; mode=display">
+p_i=\begin{bmatrix}
+u_i\\v_i
+\end{bmatrix}=MP_i=\begin{bmatrix}
+\frac{m_1P_i}{m_3P_i}\\[2ex]
+\frac{m_2P_i}{m_3P_i}
+\end{bmatrix}\tag{11}</script><p>正如我们从上面的方程中所看到的，每个对应关系都给出了我们两个方程，因此，也有两个求解$m$中所包含的未知参数的约束条件。从以前开始，我们知道相机矩阵有$11$个未知参数。这意味着我们至少需要$6$个对应关系来解决这个问题。然而，在现实世界中，我们经常使用更多的方法，作为我们的衡量标准设备通常是嘈杂的。为了明确地看到这一点，我们可以推导出一对将$u_i$和$v_i$与$P_i$相关联的方程。</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+u_i(m_3P_i)-m_1P_i=0\\
+v_i(m_3P_i)-m_2P_i=0
+\end{matrix}</script><p>给定这些对应点中的$n$​个，等式的整个线性系统变成：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+u_1(m_3P_1)-m_1P_1=0\\
+v_1(m_3P_1)-m_2P_1=0\\
+\vdots\\
+u_n(m_3P_n)-m_1P_n=0\\
+u_n(m_3P_n)-m_2P_n=0
+\end{matrix}</script><p>这可以格式化为矩阵向量乘积，如下所示：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+P_1^{\rm T} & 0^{\rm T} & -u_1P_1^{\rm T}\\[2ex]
+0^{\rm T} & P_1^{\rm T} & -v_1P_1^{\rm T}\\[2ex]
+\vdots&\vdots&\vdots\\[2ex]
+P_n^{\rm T} & 0^{\rm T} & -u_nP_n^{\rm T}\\[2ex]
+0^{\rm T} & P_n^{\rm T} & -v_nP_n^{\rm T}
+\end{bmatrix}\cdot
+\begin{bmatrix}
+m_1^{\rm T}\\[2ex]
+m_2^{\rm T}\\[2ex]
+m_3^{\rm T}
+\end{bmatrix}=P_m=0\tag{12}</script><p>当$2n&gt;11$时，我们的齐次线性系统被超确定。对于这样的系统，$m=0$总是一个简单的解决方案。此外，即使有其他一些$m$是一个非零的解决方案，那么$∀k∈R$，$km$也是一个解决方案。因此，为了约束我们的解决方案，我们完成了以下最小化操作：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+\min_{m} \,\,\, ||P_m||^2\\[2ex]
+{\rm subject\,\,\, to}\,\,\,  ||m||^2 = 1
+\end{matrix}\tag{13}</script><p>为了解决这个最小化问题，我们只需简单地使用奇异值分解。如果我们让$P=UDV^{\rm T}$，那么上述最小化的解是设置$m$等于$V$的最后一列。此解决方案的推导超出了本类的范围，详见哈特利和齐瑟曼公司第592-593节的第5.3节。</p>
+<p>在将向量$m$重新格式化为矩阵$M$后，我们现在想要显式地求解外部参数和内在参数。我们知道我们的SVD求解的$M$是公认的，这意味着相机矩阵的真值是$M$​的一些标量倍数：</p>
+<script type="math/tex; mode=display">
+\rho M=\begin{bmatrix}
+\alpha r_1^{\rm T}-\alpha \cot \theta r_2^{\rm T}+ c_x r_3^{\rm T}
+& \alpha t_x-\alpha\cot\theta t_y+c_xt_z\\[2ex]
+\frac{\beta}{\sin \theta}r_2^{\rm T}+c_yr_3^{\rm T} &
+\frac{\beta}{\sin \theta}t_y+c_yt_z\\[2ex]
+r_3^{\rm T} &
+t_z
+\end{bmatrix}\tag{14}</script><p>在这里，$r^{\rm T}_1$、$r^{\rm T}_2$和$r^{\rm T}_3$是$r$​的三行。除以缩放参数给出：</p>
+<script type="math/tex; mode=display">
+M=\frac{1}{\rho}\begin{bmatrix}
+\alpha r_1^{\rm T}-\alpha \cot\theta r_2^{\rm T}+c_xr_3^{\rm T} &
+\alpha t_x-\alpha \cot\theta t_y+c_xt_z \\[2ex]
+\frac{\beta}{\sin \theta}r_2^{\rm T}+c_yr_3^{\rm T} &
+\frac{\beta}{\sin \theta}t_y+c_y t_z\\[2ex]
+r_3^{\rm T}&
+t_z
+\end{bmatrix}=
+\begin{bmatrix}
+A & b
+\end{bmatrix}=
+\begin{bmatrix}
+a_1^{\rm T}\\
+a_2^{\rm T}\\
+a_3^{\rm T}
+\end{bmatrix}\cdot
+\begin{bmatrix}
+b_1\\b_2\\b_3
+\end{bmatrix}</script><p>解决内在因素给予：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+\rho=\pm\frac{1}{||a_3||}\\[2ex]
+c_x=\rho^2(a_1\cdot a_3)\\[2ex]
+c_y=\rho^2(a_2\cdot a_3)\\[2ex]
+\Large \theta=\cos^{-1}(-\frac{(a_1\times a_3)\cdot(a_2\times a_3)}{||a_1\times a_3||\cdot||a_2\times a_3||})\\[2ex]
+\alpha =\rho^2||a_1\times a_3||\sin \theta\\[2ex]
+\beta =\rho^2||a_2\times a_3||\sin\theta
+
+\end{matrix}\tag{15}</script><p>外部因素是：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+r_1=\frac{a_2\times a_3}{||a_2\times a_3||}\\
+r_2=r_3\times r_1\\
+r_3=\rho a_3\\
+T=\rho K^{-1}b
+\end{matrix}\tag{16}</script><p>我们把派生作为课堂练习，或者你可以参考福赛斯和庞塞教科书的第5.3.1节。</p>
+<p>在校准程序完成后，我们将对退化的情况发出警告。并不是所有的$n$个对应集都能工作。例如，如果点$P_i$位于同一个平面上，那么系统将无法被求解。这些不可解的点构型被称为简并构型。更一般地说，简并构型的点位于两个二次曲面的交点曲线上。虽然这超出了课程的范围，但你可以在福赛斯和庞塞教科书的第1.3节中找到更多的信息。</p>
+<h2 id="1-6-相机校准中的失真处理"><a href="#1-6-相机校准中的失真处理" class="headerlink" title="1.6 相机校准中的失真处理"></a>1.6 相机校准中的失真处理</h2><p>到目前为止，我们一直在使用理想的没有任何失真的镜头。然而，正如前面所看到的，真实的透镜可以偏离直线投影，这需要更先进的方法。本节仅简要介绍了处理畸变。</p>
+<p>通常，由于透镜的物理对称性，畸变是径向对称的。我们用一个各向同性的变换来模拟径向畸变：</p>
+<script type="math/tex; mode=display">
+QP_i=\begin{bmatrix}
+\frac{1}{\lambda} & 0 & 0\\
+0 & \frac{1}{\lambda} & 0\\
+0 & 0 & 1
+\end{bmatrix} M P_i=\begin{bmatrix}
+u_i\\
+v_i
+\end{bmatrix}=p_i\tag{17}</script><p>如果我们像以前一样把它重写成一个方程组，我们得到：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+u_iq_3P_i=q_1P_i\\[2ex]
+v_iq_3P_i=q_2P_i
+\end{matrix}</script><p>然而，该系统不再是线性的，我们需要使用非线性优化技术，这在福赛斯和庞塞的第22.2节中已经涵盖。如果我们做出一定的假设，我们可以简化校准问题的非线性优化。在径向失真中，我们注意到两个坐标$u_i$和$v_i$之间的比值不受影响。我们可以计算这个比率为：</p>
+<script type="math/tex; mode=display">
+\frac{u_i}{v_i}=\frac{\frac{m_1P_i}{m_3P_i}}{\frac{m_2P_i}{m_3P_i}}=\frac{m_1P_i}{m_2P_i}\tag{18}</script><p>假设有$n$个对应项可用，我们可以建立线性方程组：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+v_1(m_1P_1)-u_1(m_2P_1)=0\\
+\vdots\\
+v_n(m_1P_n)-u_n(m_2P_n)=0
+\end{matrix}</script><p>与之前类似，这给出了一个矩阵向量积，我们可以通过SVD来求解：</p>
+<script type="math/tex; mode=display">
+L_n=\begin{bmatrix}
+v_1P_1^{\rm T} & -u_1P_1^{\rm T}\\
+\vdots & \vdots\\
+v_nP_n^{\rm T} & -u_nP_n^{\rm T}
+\end{bmatrix}\cdot
+\begin{bmatrix}
+m_1^{\rm T}\\
+m_2^{\rm T}
+\end{bmatrix}\tag{19}</script><p>一旦估计了$m_1$和$m_2$，$m_3$就可以表示为$m_1$、$m_2$和$λ$的非线性函数。这需要解决一个非线性优化问题，该非线性优化问题的复杂性比原来的问题要简单得多。</p>
+<h2 id="1-7-附录A：刚性变形"><a href="#1-7-附录A：刚性变形" class="headerlink" title="1.7 附录A：刚性变形"></a>1.7 附录A：刚性变形</h2><p>基本的刚性转换是旋转、平移和缩放。本附录将涵盖它们的3D案例，因为它们是这类文章中的常见类型。</p>
+<p>在三维空间中旋转一个点可以通过分别绕着三个坐标轴旋转来表示。当绕着坐标轴旋转时，通常的惯例是沿逆时针方向旋转。一个直观的旋转思考方法是我们围绕每个自由度旋转了多少次，这通常被称为欧拉角。然而，这种方法可能会导致所谓的奇点，或万向节锁，其中某些配置会导致旋转自由度的损失。</p>
+<p>防止这种情况发生的一种方法是使用旋转矩阵，这是一种更一般的旋转表示形式。旋转矩阵是方阵，具有行列式为1的正交矩阵。给定一个旋转矩阵$R$和一个向量$v$，我们可以计算得到的向量$v’$为：</p>
+<script type="math/tex; mode=display">
+v'=Rv</script><p>由于旋转矩阵是矩阵的一个非常普遍的表示，我们可以围绕每个轴表示一个旋转$α$，$β$，$γ$如下：</p>
+<script type="math/tex; mode=display">
+R_x(\alpha)=\begin{bmatrix}
+1 & 0 & 0\\
+0 & \cos \alpha & - \sin\alpha\\
+0 & \sin\alpha & \cos
+\end{bmatrix}</script><script type="math/tex; mode=display">
+R_y(\beta)=\begin{bmatrix}
+\cos\beta & 0 & \sin\beta\\
+0 & 1 &0\\
+-\sin\beta & 0 & \cos \beta
+\end{bmatrix}</script><script type="math/tex; mode=display">
+R_z(\gamma)=\begin{bmatrix}
+\cos\gamma & -\sin \gamma & 0\\
+\sin \gamma & \cos \gamma & 0\\
+0 & 0 & 1
+\end{bmatrix}</script><p>根据矩阵乘法的惯例，首先绕$z$轴旋转，然后绕$y$轴旋转，然后$x$轴由矩阵乘积$R_xR_yR_z$给出。</p>
+<p>平移或位移被用来描述在一定方向上的运动。在三维空间中，我们定义了一个有$3$个值的平移向量$t$：$3$个轴上的位移，通常表示为$t_x$、$t_y$、$t_z$。因此，给定某个点$P$通过$t$转换为另一个点$P’$，我们可以将其写成：</p>
+<script type="math/tex; mode=display">
+P'=P+t=\begin{bmatrix}
+P_x\\
+P_y\\
+P_z
+\end{bmatrix}+\begin{bmatrix}
+t_x\\t_y\\t_z
+\end{bmatrix}</script><p>在矩阵形式中，平动可以用齐次坐标来写。如果我们构造一个平移矩阵为：</p>
+<script type="math/tex; mode=display">
+T=\begin{bmatrix}
+1 & 0 & 0 & t_x\\
+0 & 1 & 0 & t_y\\
+0 & 0 & 1 & t_z\\
+0 & 0 & 0 & 1
+\end{bmatrix}</script><p>然后我们看到$P’=TP$相当于$P’=P+t$。</p>
+<p>如果我们想将平移和旋转矩阵乘法相结合，我们可以再次使用齐次坐标。如果我们想用$R$旋转一个向量$v$，然后用$t$平移它，我们可以把得到的向量$v’$写成：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+v'\\
+1
+\end{bmatrix}=
+\begin{bmatrix}
+R & t\\
+0 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+v\\1
+\end{bmatrix}</script><p>最后，如果我们想在向量方向上按一定量的$S_x$、$S_y$、$S_z$，我们可以构造一个尺度矩阵</p>
+<script type="math/tex; mode=display">
+S=\begin{bmatrix}
+S_x & 0 & 0\\
+0 & S_y & 0\\
+0 & 0 & S_z
+\end{bmatrix}</script><p>因此，如果我们想缩放一个向量，然后旋转，然后平移，我们最终的变换矩阵将是：</p>
+<script type="math/tex; mode=display">
+T=\begin{bmatrix}
+RS & t\\
+0 & 1
+\end{bmatrix}</script><p>请注意，所有这些类型的变换都将是仿射变换的例子。回想一下，当$T$的最后一行不是$[0 \,\,\,0 \,\,\,0\,\,\, 1]$时，会发生射影变换。</p>
+<h2 id="1-8-附录B：不同的照相机型号"><a href="#1-8-附录B：不同的照相机型号" class="headerlink" title="1.8 附录B：不同的照相机型号"></a>1.8 附录B：不同的照相机型号</h2><p>我们现在将描述一个简单的模型，称为弱透视模型。在弱透视模型中，首先利用正交投影将点投影到参考平面上，然后进行投影用射影变换变换到图像平面。</p>
+<p>如图8所示，给定离相机中心$z_o$距离的参考平面$\Pi$，首先使用正交投影将点$P$、$Q$、$R$投影到平面$\Pi$上，生成点$P\_$, $Q\_$ , $R\_$。这是一个合理的近似，当深度与平面的偏差是很小时，与相机的距离。</p>
+<p><img src="https://obohe.com/i/2021/12/07/ihdyrl.png" alt=""></p>
+<p>​                        图8：弱透视模型：在参考平面上的正交投影</p>
+<p><img src="https://obohe.com/i/2021/12/07/ihmts6.png" alt=""></p>
+<p>​                            图9：弱透视模型：投影到图像平面上</p>
+<p>图9说明了点$P\_$、$Q\_$、$R\_$如何使用规则的投影变换投影到图像平面上，从而产生点$p’$、$q’$、$r’$。但是，请注意，由于我们已将每个点的深度近似为$z_o$，因此投影已被简化为一个简单的、恒定的放大倍数。放大倍数等于焦距$f’$除以$z_o$，导致</p>
+<script type="math/tex; mode=display">
+x'=\frac{f'}{z_0}x\,\,\,\,\,\,\,\,\,\,\,\,\,y'=\frac{f'}{z_0}y</script><p>该模型还简化了投影矩阵：</p>
+<script type="math/tex; mode=display">
+M=\begin{bmatrix}
+A & b\\
+0 & 1
+\end{bmatrix}</script><p>如我们所见，弱透视模型的$M$最后一行为$[0 \,\,\,0 \,\,\,0\,\,\, 1]$，而普通相机模型为$[v\,\,\,1]$。我们不证明这个结果并把它作为一个练习留给你吧。当将三维点映射到图像平面时，可以清楚地证明了这种简化性。</p>
+<script type="math/tex; mode=display">
+P'=MP=\begin{bmatrix}
+m_1\\m_2\\m_3
+\end{bmatrix}P=\begin{bmatrix}
+m_1P\\
+m_2P\\
+1
+\end{bmatrix}\tag{20}</script><p>因此，我们可以看到，图像平面点最终成为原始三维点的放大倍数，而与深度无关。射影变换的非线性消失了，使得弱透视变换仅仅是一个放大镜。</p>
+<p><img src="https://obohe.com/i/2021/12/07/ihn1hf.png" alt=""></p>
+<p>​                                        图10：正字法投影模型</p>
+<p>进一步简化后，得到了正字法（或仿射）投影模型。在这种情况下，光中心位于无穷远处。投影射线现在垂直于视网膜平面。因此，这个模型完全忽略了深度。因此，</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+x'=x\\
+y'=y
+\end{matrix}</script><p>正形投影模型经常用于建筑和工业设计。</p>
+<p>总的来说，弱视角模型的数学结果要简单得多，但代价是有些不精确。然而，当物体较小且远离相机时，它通常会产生非常准确的结果。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢打赏.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小学渣的春天 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小学渣的春天 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/tags/cs231a/" rel="tag"># cs231a</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/06/Chapter1/" rel="prev" title="npuSE Chapter 1 绪论">
+      <i class="fa fa-chevron-left"></i> npuSE Chapter 1 绪论
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/07/Chapter2/" rel="next" title="npuSE Chapter 2 图像形成">
+      npuSE Chapter 2 图像形成 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束------</div>
+    
+</div>
+    
+ </div>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Course-1-%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">Course 1: 相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E9%92%88%E5%AD%94%E7%9B%B8%E6%9C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 针孔相机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E7%9B%B8%E6%9C%BA%E5%92%8C%E9%95%9C%E5%A4%B4"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 相机和镜头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E8%BF%9B%E5%85%A5%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 进入数字图像空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E7%9B%B8%E6%9C%BA%E6%A0%A1%E5%87%86"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 相机校准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-%E7%9B%B8%E6%9C%BA%E6%A0%A1%E5%87%86%E4%B8%AD%E7%9A%84%E5%A4%B1%E7%9C%9F%E5%A4%84%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 相机校准中的失真处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-%E9%99%84%E5%BD%95A%EF%BC%9A%E5%88%9A%E6%80%A7%E5%8F%98%E5%BD%A2"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 附录A：刚性变形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-%E9%99%84%E5%BD%95B%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E7%85%A7%E7%9B%B8%E6%9C%BA%E5%9E%8B%E5%8F%B7"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 附录B：不同的照相机型号</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小学渣的春天"
+      src="/images/machao.jpg">
+  <p class="site-author-name" itemprop="name">小学渣的春天</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3djeDIwMDE=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wcx2001"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1430466592@qq.com" title="E-Mail → 1430466592@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cubndwdS5lZHUuY24v" title="https:&#x2F;&#x2F;www.nwpu.edu.cn&#x2F;">西北工业大学</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小学渣的春天</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>
