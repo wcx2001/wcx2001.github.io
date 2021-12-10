@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://wcx2001.github.io/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210120952526.png">
 <meta property="og:image" content="http://wcx2001.github.io/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210124008312.png">
 <meta property="article:published_time" content="2021-12-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-12-10T04:54:46.180Z">
+<meta property="article:modified_time" content="2021-12-10T05:15:43.535Z">
 <meta property="article:author" content="小学渣的春天">
 <meta property="article:tag" content="npuSE">
 <meta property="article:tag" content="机器学习">
@@ -235,7 +235,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-12-10 00:00:00 / 修改时间：12:54:46" itemprop="dateCreated datePublished" datetime="2021-12-10T00:00:00+08:00">2021-12-10</time>
+              <time title="创建时间：2021-12-10 00:00:00 / 修改时间：13:15:43" itemprop="dateCreated datePublished" datetime="2021-12-10T00:00:00+08:00">2021-12-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -290,7 +290,7 @@ E=\frac{\alpha}{m}</script><p>其中，$m$为样本数，$\alpha$分类错误数
 </ol>
 <p>欠拟合产生的原因：学习能力低下</p>
 <p>过拟合与欠拟合举例：</p>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209210639254.png" alt="image-20211209210639254" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209210639254.png" alt="图1"></p>
 <h3 id="2-1-2-模型选择"><a href="#2-1-2-模型选择" class="headerlink" title="2.1.2 模型选择"></a>2.1.2 模型选择</h3><p>问题：</p>
 <ul>
 <li>在现实任务中，有多种学习算法、不同的参数配置可供选择，如何选用</li>
@@ -336,15 +336,16 @@ E=\frac{\alpha}{m}</script><p>其中，$m$为样本数，$\alpha$分类错误数
 <li><p>单次使用留出法得到的估计结果往往不够稳定</p>
 <p>​    采用若干次随机划分、重复进行实验评估后取平均值作为留出法的评估结果</p>
 </li>
-<li><p>将数据集$D$​划分为两个互斥的集合，一个作为训练集$S$​，另一个作为测试集$T$​<br>  划分训练集、测试集的大小</p>
-<pre><code>  训练集$S$​大测试集$T$​小，训练出的模型更接近于用$D$​训练出的模型，但评估结果可能不够准确
-  训练集$S$​小测试集$T$​大，被评估的模型与用$D$​训练出的模型有较大差别，降低了评估结果的保真性
-  没有完美的解决方案，常用$\frac&#123;2&#125;&#123;3&#125;\sim\frac&#123;4&#125;&#123;5&#125;$​的样本用于训练，剩余用于测试
-</code></pre></li>
+<li><p>将数据集$D$​划分为两个互斥的集合，一个作为训练集$S$​，另一个作为测试集$T$​</p>
+<p>  划分训练集、测试集的大小</p>
+<p>  ​    训练集$S$大测试集$T$小，训练出的模型更接近于用$D$训练出的模型，但评估结果可能不够准确</p>
+<p>  ​    训练集$S$小测试集$T$大，被评估的模型与用$D$训练出的模型有较大差别，降低了评估结果的保真性</p>
+<p>  ​    没有完美的解决方案，常用$\frac{2}{3}\sim\frac{4}{5}$的样本用于训练，剩余用于测试</p>
+</li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209211558217.png" alt="image-20211209211558217" style="zoom: 67%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209211558217.png" alt="图2"></p>
 <h3 id="2-2-2-交叉验证法-k折交叉验证"><a href="#2-2-2-交叉验证法-k折交叉验证" class="headerlink" title="2.2.2 交叉验证法(k折交叉验证)"></a>2.2.2 交叉验证法(k折交叉验证)</h3><p>将数据集$D$划分为$k$​个大小相似的互斥子集，每个子集尽可能保持数据分布的一致性。每次用$k-1$个子集的并集作为训练集，余下的子集作为测试集，可得$k$组训练/测试集，最终返回的是$k$个测试结果的均值。</p>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209211935928.png" alt="image-20211209211935928"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209211935928.png" alt="图3"></p>
 <p>评估结果的稳定性和保真性在很大程度上取决于$k$的取值。</p>
 <ul>
 <li><p>常用$10$折交叉验证</p>
@@ -367,7 +368,7 @@ E=\frac{\alpha}{m}</script><p>其中，$m$为样本数，$\alpha$分类错误数
 <li>每次随机从$D$中挑选一个样本，将其拷贝放入$D’$</li>
 <li>再将该样本放回初始数据集$D$中，使得该样本在下次采样时仍有可能被采到</li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209212733547.png" alt="image-20211209212733547" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209212733547.png" alt="图4"></p>
 <p>重复执行$m$次后，得到包含$m$个样本的数据集$D’$，这就是自助采样的结果</p>
 <ul>
 <li>$D$中有一部分样本会在$D’$中多次出现，而另一部分样本不出现</li>
@@ -459,7 +460,7 @@ E(f;D)=\int_{x\sim D}I\left(f(x_i)\neq y_i\right)p(x){\rm d}x</script><p>精度<
 </ul>
 <h3 id="2-3-2-查准率、查全率"><a href="#2-3-2-查准率、查全率" class="headerlink" title="2.3.2 查准率、查全率"></a>2.3.2 查准率、查全率</h3><p>混淆矩阵</p>
 <p>对于二分类，将样例根据真实类别与学习器预测类别划分为真正例、假正例、真反例、假反例四种，令TP,FP,TN,FN表示对应的样例数，可构建</p>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209214600406.png" alt="image-20211209214600406" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209214600406.png" alt="图5"></p>
 <p>查准率：</p>
 <script type="math/tex; mode=display">
 P=\frac{TP}{TP+FP}</script><p>查全率：</p>
@@ -482,7 +483,7 @@ R=\frac{TP}{TP+FN}</script><p>查准率和查全率是一对矛盾的度量</p>
 <li>计算出当前的查全率、查准率作图，简称P-R曲线</li>
 <li>查准率=查全率时，就是平衡点(BEP)</li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209214842201.png" alt="image-20211209214842201" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209214842201.png" alt="图6"></p>
 <ul>
 <li><p>P-R图显示学习器在样本总体上的查全率、查准率</p>
 </li>
@@ -497,7 +498,7 @@ R=\frac{TP}{TP+FN}</script><p>查准率和查全率是一对矛盾的度量</p>
 <p>​    过于简单</p>
 </li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209220255153.png" alt="image-20211209220255153" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209220255153.png" alt="图7"></p>
 <p>F1度量</p>
 <ul>
 <li>BEP还是过于简化，常用的是F1度量</li>
@@ -555,7 +556,7 @@ F_\beta=\frac{(1—\beta^2)\times P\times R}{(\beta ^2\times P)+R}</script><p>�
 <li>对角线：随机猜测模型</li>
 <li>点$(0,1)$：理想模型</li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209225318228.png" alt="image-20211209225318228" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209225318228.png" alt="图8"></p>
 <ul>
 <li><p>现实中测试样例有限，近似绘制ROC图</p>
 <p>给定$m^+$正例和$m^-$反例，根据学习器预测结果排序</p>
@@ -567,7 +568,7 @@ F_\beta=\frac{(1—\beta^2)\times P\times R}{(\beta ^2\times P)+R}</script><p>�
 <p>用线段连接相邻点即得</p>
 </li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209225619838.png" alt="image-20211209225619838" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209225619838.png" alt="图9"></p>
 <p>ROC、AUC</p>
 <p>ROC(受试者工作特征)曲线</p>
 <ul>
@@ -590,7 +591,7 @@ l_{\rm rank}=\frac{1}{m^ + m^ -}\sum_{x^+\in D^+}\sum_{x^-\in D^-} \left\{I\left
 <p>​    $\cos t_{ij}$表示将第$i$类样本预测为第$j$类样本的代价</p>
 </li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209231004633.png" alt="image-20211209231004633" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209231004633.png" alt="图10"></p>
 <p>​        代价敏感错误率(归一化的总体代价)</p>
 <script type="math/tex; mode=display">
 E(f;D;\cos t)=\frac{1}{m}\left(\sum_{x_i\in D^+}I[f(x_i)\neq y_i]\times\cos t_{01}+\sum_{x_i\in D^-}I[f(x_i)\neq y_i]\times \cos t_{10}\right)</script><p>​        代价曲线与期望总体代价</p>
@@ -617,7 +618,7 @@ P(+)\cos t=\frac{p\times \cos t_{01}}{p\times \cos t_{01}+(1-p)\times\cos t_{01}
 <p>取所有线段的下界，围成的面积即为在所有条件下学习器的期望总体代价</p>
 </li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209232215675.png" alt="image-20211209232215675" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211209232215675.png" alt="图11"></p>
 <h2 id="2-4-比较检验"><a href="#2-4-比较检验" class="headerlink" title="2.4 比较检验"></a>2.4 比较检验</h2><ul>
 <li><p>取得某种性能度量评估结果后，能否直接比较学习器</p>
 <p>​    比较的是泛化性能，获得的是测试性能</p>
@@ -645,7 +646,7 @@ P(\hat{\varepsilon};\varepsilon)=\begin{pmatrix}m\\ \hat{\varepsilon}\times m\en
 </li>
 </ul>
 <p>在$\alpha$的显著度下，假设$1-\alpha$不能被拒绝，即能以$\varepsilon\leq \varepsilon_0$的的的置信度认为，学习器的泛化错误率不大于$\varepsilon_0$​；否则该假设可被拒绝，即在$\alpha$​的显著度下可认为学习器的泛化错误率大于$\varepsilon_0$</p>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210114141388.png" alt="image-20211210114141388" style="zoom: 67%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210114141388.png" alt="图12"></p>
 <h3 id="2-4-2-交叉验证-t-检验（基于成对-t-检验）"><a href="#2-4-2-交叉验证-t-检验（基于成对-t-检验）" class="headerlink" title="2.4.2 交叉验证$t$检验（基于成对$t$检验）"></a>2.4.2 交叉验证$t$检验（基于成对$t$检验）</h3><p>使用$k$折交叉验证</p>
 <ul>
 <li>设使用$k$折交叉验证法得到两学习器的测试错误率分别为$\varepsilon_i^A$，$\varepsilon_i^B$</li>
@@ -687,7 +688,7 @@ P(\hat{\varepsilon};\varepsilon)=\begin{pmatrix}m\\ \hat{\varepsilon}\times m\en
 <ul>
 <li>有显著差别且平均错误率较小的学习器性能较优</li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210120952526.png" alt="image-20211210120952526" style="zoom: 67%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210120952526.png" alt="图13"></p>
 <p>两两比较</p>
 <ul>
 <li>每个数据集上分别列出两两比较的结果</li>
@@ -711,7 +712,7 @@ P(\hat{\varepsilon};\varepsilon)=\begin{pmatrix}m\\ \hat{\varepsilon}\times m\en
 <script type="math/tex; mode=display">
 \tau_{χ^2}=\frac{12N}{k(k+1)}\left(\sum_{i=1}^kr_i^2-\frac{k(k+1)^2}{4}\right)</script><p>​            在$k$和$N$都较大时，服从自由度为$k-1$的$χ^2$分布</p>
 <script type="math/tex; mode=display">
-\tau_{F}=\frac{(N-1)\tau_{χ^2}}{N(k-1)-\tau_{χ^2}}</script><p>​            服从自由度为$k-1$和(k-1)(N-1)的F分布</p>
+\tau_{F}=\frac{(N-1)\tau_{χ^2}}{N(k-1)-\tau_{χ^2}}</script><p>​            服从自由度为$k-1$和$(k-1)(N-1)$的$F$分布</p>
 <ul>
 <li><p>若所有算法的性能相同假设被拒绝，则说明算法的性能显著不同</p>
 <p>​    若所有算法的性能相同假设被拒绝，则说明算法的性能显著不同</p>
@@ -754,7 +755,7 @@ P(\hat{\varepsilon};\varepsilon)=\begin{pmatrix}m\\ \hat{\varepsilon}\times m\en
 <li>不同训练集产生的方差</li>
 </ul>
 <script type="math/tex; mode=display">
-\var(x)=E_D[f(x;D)-\overline{f(x)}^2]</script><ul>
+{\rm var}(x)=E_D[f(x;D)-\overline{f(x)}^2]</script><ul>
 <li><p>噪声</p>
 <script type="math/tex; mode=display">
 \varepsilon^2=E_D[(y_D-y)^2]</script></li>
@@ -789,7 +790,7 @@ E(f;D) &= E_D[((f(x; D)-y_D)^2]\\
 <p>训练充足，学习器的拟合很强，训练数据发生轻微扰动导致学习器显著变化，过拟合，方差主导</p>
 </li>
 </ul>
-<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210124008312.png" alt="image-20211210124008312" style="zoom:50%;"></p>
+<p><img src="/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/image-20211210124008312.png" alt="图14"></p>
 
     </div>
 
