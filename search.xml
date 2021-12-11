@@ -40,6 +40,325 @@
       </tags>
   </entry>
   <entry>
+    <title>npuSE Chapter 3：线性模型</title>
+    <url>/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="Chapter-3：线性模型"><a href="#Chapter-3：线性模型" class="headerlink" title="Chapter 3：线性模型"></a>Chapter 3：线性模型</h1><h2 id="3-1-基本形式"><a href="#3-1-基本形式" class="headerlink" title="3.1 基本形式"></a>3.1 基本形式</h2><p>线性模型是通过属性的线性组合来进行预测的函数</p>
+<ul>
+<li>给定由$d$个属性的示例$x=(x_1;\cdots x_i,\cdots,x_d)$，则：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+f(x) &= w_1x_1+\cdots+w_ix_i+\cdots+w_dx_d+b\\
+&=w^{\rm T}x+b
+\end{align}</script><p>通过学习，$w^{\rm T}$、$b$可确定</p>
+<ul>
+<li><p>特点</p>
+<p>形式简单、易于建模</p>
+<p>基本，许多非线性模型可在此基础上通过高维映射得到</p>
+<p>解释性好，$w^{\rm T}$直观表达了各属性的重要性</p>
+</li>
+</ul>
+<h2 id="3-2-线性回归"><a href="#3-2-线性回归" class="headerlink" title="3.2 线性回归"></a>3.2 线性回归</h2><p>线性回归，试图学得一个线性模型以尽可能准确地预测实值输出标记。</p>
+<h3 id="3-2-1-一元线性回归"><a href="#3-2-1-一元线性回归" class="headerlink" title="3.2.1 一元线性回归"></a>3.2.1 一元线性回归</h3><ul>
+<li><p>给定一维属性数据集$D=\{(x_i,y_i)\}^m_{i=1}$​，要得到$f(x_i)=wx_i+b$，使$f(x_i)\approx y_i$</p>
+<p>对离散属性，若属性值间存在序关系，可通过连续化将其转化为连续值</p>
+<p>如二分类$0.0$、$1.0$，三分类$0.0$、$0.5$、$1.0$</p>
+</li>
+<li><p>确定 $w$、$b$​</p>
+<p>性能度量</p>
+</li>
+</ul>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211210215541011.png" alt="图1"></p>
+<p>​        令均方误差最小化</p>
+<script type="math/tex; mode=display">
+(w^*,b^*)=\arg \min_{(w,b)}\sum_{i=1}^m(f(x_i)-y_i)^2=\arg\min_{(w,b)}\left(y_i-wx_i-b\right)^2</script><p>​            最小二乘法，最小二乘参数估计</p>
+<p>​            找到一直线，使所有样本到直线的欧氏距离之和最小</p>
+<p>​        令$E_{(w,b)}=\sum_{i=1}^m(y_i-wx_i-b)^2$，分别对$w$，$b$求导并令导数为$0$，可得</p>
+<script type="math/tex; mode=display">
+w=\frac{\sum_{i=1}^m y_i(x_i-\overline{x})}{\sum_{i=1}^mx_i^2-\frac{1}{m} \left( \sum_{i=1}^m x_i \right)^2}</script><script type="math/tex; mode=display">
+b=\frac{1}{m}\sum_{i=1}^m(y_i-wx_i)</script><h3 id="3-2-2-多元线性回归"><a href="#3-2-2-多元线性回归" class="headerlink" title="3.2.2 多元线性回归"></a>3.2.2 多元线性回归</h3><ul>
+<li>对于$d$维属性数据集</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{matrix}
+D=\{(x_i,y_i)\}_{i=1}^m\\[2ex]
+x_i=(x_{i1};\cdots;x_{id})
+\end{matrix}</script><ul>
+<li><p>要得到$f(x_i)=wx_i+b$，使$f(x_i)\approx y_i$</p>
+</li>
+<li><p>令$\hat{w}=(w;b)$，$y=(y_1;\cdots;y_m)$，数据集表示为</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+X=\begin{pmatrix}
+x_{11} & x_{12} & \cdots & x_{1d} & 1\\
+x_{21} & x_{22} & \cdots & x_{2d} & 1\\
+\cdots & \cdots & \cdots & \cdots & \cdots\\
+x_{m1} & x_{m2} & \cdots & x_{md} & 1
+\end{pmatrix} = \begin{pmatrix}
+x_1^{\rm T} & 1\\
+x_2^{\rm T} & 1\\
+\cdots & \cdots\\
+x_m^{\rm T} & 1
+\end{pmatrix}</script><ul>
+<li>采用最小二乘法求解，有</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{\partial E_{\hat{w}}}{\partial \hat{w}}=2X^{\rm T}(X\hat{w}-y)</script><p>​        若$X^{\rm T}X$满秩或正定，则</p>
+<script type="math/tex; mode=display">
+\hat{w}^*=(X^{\rm T}X)^{-1}X^{\rm T}y</script><p>​        若$X^{\rm T}X$​不满秩，则可解出多个$\hat{w}$</p>
+<p>​            此时需求助于归纳偏好，或引入正则化项</p>
+<ul>
+<li>令$\hat{x_i}=(x_i;1)$，则学得的多元线性回归模型为</li>
+</ul>
+<script type="math/tex; mode=display">
+f(\hat{x_i})=\hat{x_i}^{\rm T}(X^{\rm T}X)^{-1}X^{\rm T}y</script><h3 id="3-2-3-线性模型的衍生"><a href="#3-2-3-线性模型的衍生" class="headerlink" title="3.2.3 线性模型的衍生"></a>3.2.3 线性模型的衍生</h3><ul>
+<li>对于样例$(x,y),y\in R$ ，若希望线性模型的预测值逼近真实标记，则得到线性回归模型</li>
+</ul>
+<script type="math/tex; mode=display">
+y=w^{\rm T}x+b</script><ul>
+<li><p>如果输出的标记是在指数尺度上变化    </p>
+<p>若令$\ln y=w^{\rm T}x+b$，就是对数线性回归</p>
+<p>​    实际是在用$e^{w^{\rm T}+b}$逼近</p>
+<p>​    实质上在求取输入空间到输出空间的非线性函数映射</p>
+</li>
+</ul>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211210222541388.png" alt="图2"></p>
+<ul>
+<li><p>广义线性模型</p>
+<p>一般形式</p>
+<p>​    考虑单调可微函数$g(\cdot)$</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+y=g^{-1}(w^{\rm T}x+b)\\[2ex]
+g(y)=w^{\rm T}x+b
+\end{matrix}</script><p>$g$​称为联系函数</p>
+<p>$g$不同，就有不同的线性回归</p>
+</li>
+</ul>
+<h2 id="3-3-对数几率回归"><a href="#3-3-对数几率回归" class="headerlink" title="3.3 对数几率回归"></a>3.3 对数几率回归</h2><h3 id="3-3-1-二分类任务"><a href="#3-3-1-二分类任务" class="headerlink" title="3.3.1 二分类任务"></a>3.3.1 二分类任务</h3><ul>
+<li>期望输出$y\in\{0,1\}$</li>
+<li>线性回归模型产生的实值输出$z=w^{\rm T}x+b$</li>
+<li>找$z$和$y$的联系函数</li>
+<li>理想的函数，单位阶跃函数</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{cases}
+0,\,\,\,\,\,\,\,\,\,\,\,\,z<0;\\
+0.5,\,\,\,\,\,\,\,\,\,\,\,\, z=0;\\
+1,\,\,\,\,\,\,\,\,\,\,\,\, z>0;
+\end{cases}</script><p>​        性质不好，</p>
+<p>​        函数不连续，</p>
+<p>​        没有$g^{-1}$</p>
+<p>​        需找替代函数</p>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211210223406905.png" alt="图3"></p>
+<h3 id="3-3-2-对率回归"><a href="#3-3-2-对率回归" class="headerlink" title="3.3.2 对率回归"></a>3.3.2 对率回归</h3><ul>
+<li>对数几率函数</li>
+</ul>
+<script type="math/tex; mode=display">
+y=\frac{1}{1+e^{-z}}</script><p>​        常用的替代函数</p>
+<p>​        一种Sigmoid函数</p>
+<p>​        单调可微、任意阶可导</p>
+<p>​        它将$z$值转化为一个接近$0$或$1$的$y$值，输出值在$z=0$附近变化很陡</p>
+<ul>
+<li><p>以对率函数为联系函数</p>
+<p>对数几率回归</p>
+<script type="math/tex; mode=display">
+y = \frac{1}{1+e^{-(w^{\rm T}x+b)}},\,\,\,\,\ln\frac{y}{1-y}=w^{\rm T}x+b</script><p>​    若将$y$视为样本二作为正例的可能性，则$1-y$是其反例可能性</p>
+<p>​    两者的比值$y/(1-y)$称为几率，反映了$x$作为正例的相对可能性。              </p>
+<p>​    $\ln \left[y/1-y\right]$称为对数几率</p>
+</li>
+<li><p>以对率函数为联系函数</p>
+<p>优点：</p>
+<p>直接对分类可能性进行建模，无需事先假设数据分布，这样就避免了假设分布不准确所带来的问题</p>
+<p>不是仅预测出类别，而是得到近似概率预测，这对许多需利用概率辅助决策的任务很有用</p>
+<p>对率函数是任意阶可导的凸函数，有很好的数学性质，现有许多数值优化算法都可直接用于求取最优解</p>
+</li>
+<li><p>求解$w$，$b$</p>
+<p>将$y$看作类后验概率估计$p(y=1|x)$，则</p>
+<script type="math/tex; mode=display">
+\ln\frac{p(y=1|x)}{p(y=0|x)}=w^{\rm T}x+ b</script></li>
+</ul>
+<p>其中，</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+(y=1|x)=\frac{e^{w^{\rm T}x+b}}{1+e^{w^{\rm T}x+b}}\\[2ex]
+(y=0|x)=\frac{1}{1+e^{w^{\rm T}x+b}}\\[2ex]
+\end{matrix}</script><p>可使用极大似然法估计$w$,$b$​</p>
+<p>给定数据集$\{(x_i,y_i)\}_{i=1}^m$，则最大化如下对数似然函数</p>
+<script type="math/tex; mode=display">
+l(w,b)=\sum_{i=1}^m\ln p(y_i|x_i;w,b)</script><p>求$w$,$b$ ，使每个样本属于其真实标记的概率越大越好    </p>
+<p>令：$\beta=(w;b),\hat{x}=(x;1)$，则$w^{\rm T}x+b$简写为$\beta^{\rm T}\hat{x}$</p>
+<p>令：</p>
+<script type="math/tex; mode=display">
+p_1(\hat{x_i};\beta)=p(y=1|\hat{x};\beta)=\frac{e^{w^{\rm T}x+b}}{1+e^{w^{\rm T}x+b}}</script><script type="math/tex; mode=display">
+p_0(\hat{x_i};\beta)=p(y=0|\hat{x}; \beta)=1-p_i(\hat{x_i};\beta)=\frac{1}{1+e^{w^{\rm T}x+b}}</script><p>则似然项：</p>
+<script type="math/tex; mode=display">
+p(y_i|x_i;w,b)=y_ip_1(\hat{x_i}; \beta)+(1-y_i)p_0(\hat{x_i};\beta)</script><p>最大化似然函数$l(w,b)=\sum_{i=1}^m\ln p(y_i|x_i;w,b)$等价于最小化</p>
+<script type="math/tex; mode=display">
+l(\beta)=\sum_{i=1}^m\left[-y_i\beta^{\rm T}\hat{x_i}+\ln(1+e^{\beta ^{\rm T}\hat{x_i}})\right]</script><p>即：</p>
+<script type="math/tex; mode=display">
+\beta^*=\arg\min_\beta l(\beta)</script><p>关于$β$的高阶可导连续凸函数，可用经典的数值优化方法（梯度下降法、牛顿法）</p>
+<h2 id="3-4-线性判别分析"><a href="#3-4-线性判别分析" class="headerlink" title="3.4 线性判别分析"></a>3.4 线性判别分析</h2><p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211211125831205.png" alt="图4"></p>
+<ul>
+<li>LDA(线性判别分析)</li>
+</ul>
+<p>线性判别分析Lincar Discriminant Analysis</p>
+<p>由Fisher 1936提出，亦称Fishy判别分析</p>
+<ul>
+<li>思想</li>
+</ul>
+<p>给定训练样例集，设法将训练样例投影到一条直线上</p>
+<p>使得同类样例投影点尽可能接近、异类样例投影点尽可能远离</p>
+<p>将新样本投影到这条直线上，根据投影点位置来确定新样本的类别</p>
+<h3 id="3-4-1-目标函数"><a href="#3-4-1-目标函数" class="headerlink" title="3.4.1 目标函数"></a>3.4.1 目标函数</h3><ul>
+<li>函数的表达</li>
+</ul>
+<p>令给定数据集$D=\{(x_i,y_i)\}_{i=1^m}$</p>
+<p>第$i$类示例的集合$X_i$</p>
+<p>第$i$类示例的均值向量$\mu_i$</p>
+<p>第$i$类示例的协方差矩阵</p>
+<p>两类样本的中心在直线上的投影$w^{\rm T}\mu_0$，$w^{\rm T}\mu_1$</p>
+<p>两类样本的协方差$w^{\rm T}\Sigma_0w$，$w^{\rm T}\Sigma_1w$</p>
+<p>使同类样例的投影点尽可能近，可让同类样例投影点的协方差$w^{\rm T}\Sigma_0w+w^{\rm T}\Sigma_1w$​尽可能小</p>
+<p>使异类样例的投影点尽可能远，可让类中心之间的距离$|w^{\rm T}\mu_0-w^{\rm T}\mu_1|^2$​尽可能大</p>
+<p>欲最大化的目标函数为</p>
+<script type="math/tex; mode=display">
+J=\frac{||w^{\rm T}\mu_0-w^{\rm T}\mu_1||_2^2}{w^{\rm T}\Sigma_0w+w^{\rm T}\Sigma_1w}=\frac{w^{\rm T}(\mu_0-\mu_1)(\mu_0-\mu_1)^{\rm T}w}{w^{\rm T}(\Sigma_0+\Sigma_1)w}</script><p>定义类内散度矩阵</p>
+<script type="math/tex; mode=display">
+\begin{align}
+S_w &= \sum_0+ \sum_1\\
+&=\sum_{x\in X_0}(x-\mu_0)(x-\mu_0)^{\rm T}+\sum_{x\in X_1}(x-\mu_1)(x-\mu_1)^{\rm T}
+
+\end{align}</script><p>定义类间散度矩阵</p>
+<script type="math/tex; mode=display">
+S_b=(\mu_0-\mu_1)(\mu_0-\mu_1)^{\rm T}</script><p>目标函数可以写成：</p>
+<script type="math/tex; mode=display">
+J=\frac{w^{\rm T}S_bw}{w^{\rm T}S_ww}</script><p>​        即$S_b$与$S_w$的广义瑞利商</p>
+<p>​        成倍缩放不影响$J$值仅考虑方向</p>
+<p>求解$w$</p>
+<p>​    令$w^{\rm T}S_w w=1$，最大化广义瑞利商等价为</p>
+<script type="math/tex; mode=display">
+\min_{w}\,\,\,\,-w^{\rm T}S_bw</script><script type="math/tex; mode=display">
+s.t.\,\,\,\,w^{\rm T}S_ww=1</script><p>用拉格朗日乘子法，有</p>
+<script type="math/tex; mode=display">
+S_bw=\lambda S_w w</script><p>$S_bw$的方向恒为$\mu_0-\mu_1$，可令$S_bw=\lambda(\mu_0-\mu_1)$，有：</p>
+<script type="math/tex; mode=display">
+w=S_w^{-1}(\mu_0-\mu_1)</script><p>实践中通常是进行奇异值分解$S_w=U\Sigma V^{\rm T}$，然后：</p>
+<script type="math/tex; mode=display">
+S_w^{-1}=V\Sigma^{-1}U^{\rm T}</script><h3 id="3-4-2-推广到多类"><a href="#3-4-2-推广到多类" class="headerlink" title="3.4.2 推广到多类"></a>3.4.2 推广到多类</h3><ul>
+<li>有$N$个类，第$i$类示例数为$m_i$，所有示例的均值向量为$\mu$</li>
+</ul>
+<p>定义类间散度矩阵</p>
+<script type="math/tex; mode=display">
+S_b=\sum_{i=1}^N m_i(\mu_i-\mu)(\mu_i-\mu)^{\rm T}</script><p>类内散度矩阵</p>
+<script type="math/tex; mode=display">
+S_w=\sum_{i=1}^NS_{w_i},\,\,\,\,S_{w_i}=\sum_{x\in X_i}(x-\mu_i)(x-\mu_i)^{\rm T}</script><p>全局散度矩阵</p>
+<script type="math/tex; mode=display">
+S_i=\sum_{i=1}^{m}(x_i-\mu)(x_i-\mu)^{\rm T}=S_b+S_w</script><ul>
+<li>多分类LDA有多种实现方法，可使用三者中的任何两个即可</li>
+</ul>
+<p>如优化目标</p>
+<script type="math/tex; mode=display">
+\max_w\frac{tr(W^{\rm T}S_bW)}{tr(W^{\rm T}S_wW)}\implies S_bW=\lambda S_wW</script><p>$W$​的闭式解是$S_w^{-1}S_b$​的$N-1$个最大广义特征值所对应的特征向量矩阵</p>
+<p>若将$W$视为一个投影矩阵，则多分类LDA将样本投影到$N-1$维空间</p>
+<p>​    $N-1$通常远小于数据原有的属性数，可通过这个投影来减小样本点的维数，且投影过程中使用了类别信息</p>
+<p>​    LDA也常被视为一种经典的监督降维技术</p>
+<h2 id="3-5-多分类学习"><a href="#3-5-多分类学习" class="headerlink" title="3.5 多分类学习"></a>3.5 多分类学习</h2><ul>
+<li>思路</li>
+</ul>
+<p>有些二分类学习方法直接推广到多分类</p>
+<p>通常基于一些基本策略，利用二分类学习器解决多分类问题</p>
+<h3 id="3-5-1-拆解法"><a href="#3-5-1-拆解法" class="headerlink" title="3.5.1 拆解法"></a>3.5.1 拆解法</h3><ul>
+<li><p>多分类任务拆为若干个二分类任务求解</p>
+</li>
+<li><p>对问题进行拆分，为拆出的每个二分类任务训练一个分类器</p>
+</li>
+<li><p>测试时，对这些分类器的预测结果进行集成以获得最终的多分类结果</p>
+</li>
+<li><p>关键：如何对多分类任务进行拆分，如何对多个分类器进行集成</p>
+<p>给定数据集：</p>
+<script type="math/tex; mode=display">
+D=\{(x_1,y_1),\cdots,(x_i,y_i),\cdots,(x_m,y_m)\},y_i\in\{C_1,C_2,\cdots,C_N\}</script></li>
+</ul>
+<h4 id="3-5-1-1-一对一拆分策略-One-vs-One，Ov0"><a href="#3-5-1-1-一对一拆分策略-One-vs-One，Ov0" class="headerlink" title="3.5.1.1 一对一拆分策略(One vs.One，Ov0)"></a>3.5.1.1 一对一拆分策略(One vs.One，Ov0)</h4><p>$N$个类别两两配对，产生$N(N-1)/2$个二分类任务</p>
+<p>为类别$C_i$​和$C_j$​训练一个分类器，把$C_i$​类样例作为正例，$C_j$类样例作为反例</p>
+<p>测试阶段，新样本同时提交给所有分类器，得到$N(N-1)/2$个分类结果，把被预测的最多类别作为最终结果</p>
+<p>特点</p>
+<p>​    训练$N(N-1)/2$个分类器，存储开销和测试时间大</p>
+<p>​    每个分类器训练只用两个类的样例，训练时间短</p>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211211135844318.png" alt="图5"></p>
+<h4 id="3-5-1-2-一对其余-One-vs-Rest，OvR"><a href="#3-5-1-2-一对其余-One-vs-Rest，OvR" class="headerlink" title="3.5.1.2 一对其余(One vs.Rest，OvR)"></a>3.5.1.2 一对其余(One vs.Rest，OvR)</h4><p>每次将一个类的样例作为正例，其他类的样例作为反例，训练$N$个分类器</p>
+<p>测试时若仅有一个分类器预测为正类，则对应的类别标记作为最终分类结果</p>
+<p>若有多个分类器预测为正类，则通常考虑各分类器的预测置信度，选择置信度最大的类别标记</p>
+<p>特点</p>
+<p>​    训练$N$个分类器，存储开销和测试时间小</p>
+<p>​    每个分类器训练用到全部训练样例，训练时间长</p>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211211135929336.png" alt="图6"></p>
+<h4 id="3-5-1-3-多对多-Many-vs-Many，MvM"><a href="#3-5-1-3-多对多-Many-vs-Many，MvM" class="headerlink" title="3.5.1.3 多对多(Many vs.Many，MvM)"></a>3.5.1.3 多对多(Many vs.Many，MvM)</h4><p>每次将若干类作为正类，若干其他类作为反类</p>
+<p>OvO和OvR是MvM的特例</p>
+<p>正反类构造必须有特殊的设计，不能随意选取，下面介绍一种</p>
+<p>纠错输出码(ECOC)（一种MvM技术）</p>
+<p>​    将编码思想引入类别拆分，尽量使解码过程具有容错性</p>
+<p>​    工作过程</p>
+<p>​        编码<br>​                    对$N$个类别做$M$次划分</p>
+<p>​              每次划分将一部分划为正类一部分划为反类</p>
+<p>​              共产生M个训练集，可训练出M个分类器</p>
+<p>​        解码</p>
+<p>​              $M$个分类器分别预测，预测标记组成一个编码</p>
+<p>​              将预测编码与每个类别编码比较，返回距离最小的类别预测结果</p>
+<p>纠错输出码(ECOC)</p>
+<p>工作过程</p>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211211140258236.png" alt="图7"></p>
+<p>编码矩阵</p>
+<p>类别划分通过编码矩阵指定</p>
+<p>二元码：将每个类别分别指定为正类和反类</p>
+<p>三元码：在正、反类之外，可指定停用类</p>
+<p><img src="/2021/12/11/Chapter3%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/image-20211211140319206.png" alt="图8"></p>
+<p>ECOC编码对分类器错误有一定容忍和修正能力，编码越长、纠错能力越强，因此称为纠错输出码</p>
+<p>编码越长，所需训练的分类器越多，计算、存储开销都会增大</p>
+<p>对有限类别数，可能的组合数目是有限的，码长超过一定范围后就失去了意义</p>
+<p>对同等长度的编码，理论上来说，任意两个类别之间的编码距离越远，则纠错能力越强</p>
+<p>码长较小时可计算出理论最优编码</p>
+<p>码长稍大难以有效地确定最优编码，是NP难问题</p>
+<p>不是编码理论性质越好，分类性能就越好，机器学习问题涉及很多因素，如以下两个很难比较</p>
+<p>理论纠错性质很好、二分类问题较难的编码</p>
+<p>理论纠错性质差一些、二分类问题较简单的编码</p>
+<h2 id="3-6-类别不平衡问题"><a href="#3-6-类别不平衡问题" class="headerlink" title="3.6 类别不平衡问题"></a>3.6 类别不平衡问题</h2><ul>
+<li>类别不平衡是指分类任务中不同类别的训练样例数目差别很大的情况</li>
+</ul>
+<p>会对学习过程造成困扰，如$998$个反例$2$正例</p>
+<ul>
+<li>解决思路</li>
+</ul>
+<p>① 假设二分类$y=w^{\rm T}x+b$</p>
+<p>进行分类时，用预测出的$y$值与阈值比较，如$y&gt;0.5$时为正例，否则为反例</p>
+<p>$y$实际上表达了正例的可能性，几率$y/(1-y)$反映了正例可能性与反例可能性之比</p>
+<p>若阈值为$0.5$，分类器决策规则可写为“$y/(1-y)&gt;1$，则为正例”</p>
+<p>当训练集正反例的数目不同，令$m^+$表示正例数，$m^-$表示反例数，则观测几率是$m^+/m^-$，因此，若$\frac{y}{1-y}&gt;\frac{m^+}{m^-}$，则为正例</p>
+<p>② 再缩放：对其预测值进行调整</p>
+<script type="math/tex; mode=display">
+\frac{y'}{1-y'}=\frac{y}{1-y}\times\frac{m^-}{m^+}</script><p>简单，但实际不易，因为未必能基于训练集观测几率来推断真实几率，训练集不是无偏采样</p>
+<p>③ 欠采样</p>
+<p>去除一些反例使正反例数目接近，然后进行学习</p>
+<p>学习时间开销小</p>
+<p>④ 过采样</p>
+<p>增加一些正例使正反例数目接近，然后进行学习</p>
+<p>学习时间开销大</p>
+<p>不能简单进行重复采样，否则过拟合</p>
+<p>对正例进行插值来产生额外的正例</p>
+<p>⑤ 阈值移动</p>
+<p>基于原始训练集进行学习，将上式嵌入到决策过程中</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>npuSE</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cs231a Course 2:单视图计量</title>
     <url>/2021/12/07/L2/</url>
     <content><![CDATA[<h1 id="Course-2-单视图计量"><a href="#Course-2-单视图计量" class="headerlink" title="Course 2: 单视图计量"></a>Course 2: 单视图计量</h1><h2 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h2><p>在之前的课堂讲稿中，我们讨论了如何利用相机的外部和内在特性将点从真实的三维世界转换为数字图像。我们研究了如何在校准装置中使用已知的结构及其相应的图像来推断出这些相机的特性。这一次，我们将研究一个相关的问题：如果我们有一张图像，并知道拍摄图像的相机的属性，我们能恢复三维世界的已知结构吗？然后，我们将更一般地讨论，从单个图像中可以推导出哪些信息。</p>
@@ -261,229 +580,6 @@ w_4 & w_5 & w_6
       <tags>
         <tag>计算机视觉</tag>
         <tag>cs231a</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>npuSE Chapter 2 图像形成</title>
-    <url>/2021/12/07/Chapter2/</url>
-    <content><![CDATA[<h1 id="npuSE-Chapter-2-图像形成"><a href="#npuSE-Chapter-2-图像形成" class="headerlink" title="npuSE Chapter 2 图像形成"></a>npuSE Chapter 2 图像形成</h1><h2 id="1-1-针孔相机"><a href="#1-1-针孔相机" class="headerlink" title="1.1.针孔相机"></a>1.1.针孔相机</h2><p>(ref: cs231a notes 1-camera-models)</p>
-<h3 id="什么是针孔相机？"><a href="#什么是针孔相机？" class="headerlink" title="什么是针孔相机？"></a>什么是针孔相机？</h3><p><img src="https://s4.ax1x.com/2021/12/07/o6QXGt.png" alt></p>
-<p>​                        图1：一个简单的工作相机模型：针孔相机模型。</p>
-<p>让我们设计一个简单的照相系统——一个可以在3D世界中记录物体或场景图像的系统。这种相机系统可以通过在3D物体和摄影胶片或传感器之间放置一个小孔圈的屏障来设计。如图1所示，3D对象上的每个点都会向外发出多条光线。如果没有适当的屏障，薄膜上的每一个点都会受到3D物体上每个点发出的光线的影响。由于障碍物，只有一条（或少数）这些光线穿过孔径并击中薄膜。因此，我们可以在三维物体和薄膜上的点之间建立一个一对一的映射。其结果是，通过这种映射，胶片被三维物体的“图像”曝光。这个简单的模型被称为针孔照相机模型。</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6QOPI.png" alt></p>
-<p>​                                图2：针孔照相机模型的正式构造。</p>
-<p>针孔照相机的一个更正式的结构如图$2$所示。在这种结构中，薄膜（像）通常被称为图像或视网膜平面。这个孔径被称为针孔$O$或中心相机。图像平面与针孔$O$之间的距离为焦距$f$。有时，视网膜平面被放置在$O$和三维物体之间，距离$O$为$f$。在这种情况下，它被称为虚拟图像或虚拟视网膜平面。请注意，对象在图像平面中的投影与对象在虚拟图像平面中的图像的投影在一定比例内是相同的（相似性）转换。</p>
-<h3 id="针孔相机是如何是如何实现的变化？"><a href="#针孔相机是如何是如何实现的变化？" class="headerlink" title="针孔相机是如何是如何实现的变化？"></a>针孔相机是如何是如何实现的变化？</h3><p>现在，我们如何使用针孔照相机呢？设$P=[x\,\,\,\,y\,\,\,\,z]^{\rm T}$​​是针孔相机可见的某些三维物体上的一个点。$P$​​将被映射或投影到图像平面$\Pi’$​​上，得到$P’=[x’\,\,\,y’]^{\rm T}$​​（将三维图形投影到二维平面，因此$P’$比$P$少了一个维度）。类似地，针孔本身也可以投射到图像平面上，给出一个新的点$C’$​。</p>
-<p>在这里，我们可以定义一个以针孔$O$​为中心的坐标系$[i\,\,\,j\,\,\,k]$​，使轴$k$​垂直于图像平面并指向它。这个坐标系通常被称为照相机参考系统或照相机坐标系。由$ C’$​和$O$​定义的线称为照相机系统的光轴。</p>
-<p>回想一下，该点$P’$​是由三维点$P$​在图像平面$\Pi’$​​上的投影产生而得到的。因此，如果我们推导出三维点$P$​和图像平面点$P’$​之间的关系，我们就可以理解如何理解3D世界把自己印在针孔相机拍摄的图像上。请注意，三角形$P’C’O$​类似于由$P$​、$O$​和$(0、0、z)$​形成的三角形。因此，利用相似三角形定律我们发现：</p>
-<script type="math/tex; mode=display">
-P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script><p><img src="https://s4.ax1x.com/2021/12/07/o6QqIA.png" alt></p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6Qbad.png" style="zoom:50%;"></p>
-<p>请注意，我们在这个针孔模型中所做的一个很大的假设是，孔径是一个单点。然而，在大多数真实世界的场景中，我们不能假设孔径可以无限小。钍孔径大小的影响是什么？</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6Qvxf.png" alt></p>
-<p>图3：孔径大小对图像的影响。随着孔径尺寸的减小，图像会变得更清晰，但颜色会更暗。</p>
-<p>随着孔径尺寸的增加，通过势垒的光线数量因此增加。随着更多的光线通过，薄膜上的每个点都会受到l的影响光线来自三维空间中的多点，模糊图像。虽然我们可能倾向于试图使孔径尽可能小，但请记住，较小的孔径尺寸会导致光线减少通过，导致更清晰但更暗的图像。因此，我们得出了针孔公式提出的基本问题：我们能开发出拍摄清晰明亮图像的相机吗?</p>
-<h2 id="1-2-透镜"><a href="#1-2-透镜" class="headerlink" title="1.2.透镜"></a>1.2.透镜</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xNDc4NjI2Nzg=">计算机图形学十六：照相机与透镜(光圈,快门和景深) - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span>)</p>
-<h3 id="透镜概念"><a href="#透镜概念" class="headerlink" title="透镜概念"></a>透镜概念</h3><p><img src="https://img-blog.csdnimg.cn/2020061215504231.png" alt="img"></p>
-<p>(1) 所有平行射入透镜的光都会集中于一点，称该点为焦点</p>
-<p>(2) 所有从焦点射入透镜的光都会平行射出(光路可逆性)</p>
-<p>(3) 焦距可以被随意改变(这里单个透镜当然不行，但在现实中大部分的照相机都是一个透镜组，可以做到焦距随意改变)</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6QzM8.png" alt></p>
-<p>细透镜方程：</p>
-<script type="math/tex; mode=display">
-\frac{1}{f}=\frac{1}{u}+\frac{1}{v}</script><h3 id="景深"><a href="#景深" class="headerlink" title="景深"></a>景深</h3><p>了解了上述的透镜成像规律之后，让我们一起观察一下景深模糊所产生的的原因：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200612160611963.png" alt="img"></p>
-<p>当一个传感器平面不在一个物体真正精确的成像平面之上时，便会出现模糊。如上图所示，当传感器平面在根据透镜成像规律所计算出的成像平面Image之后时，一个点经过透镜到传感器上变成了一条线(从三维去看就是一个圆)，因此就出现了模糊，把上图中模糊之后的长度C称为 Circle of Confusion，同样利用三角形相似推导如下：</p>
-<script type="math/tex; mode=display">
-\frac{C}{A}=\frac{d'}{z_i}=\frac{|z_s-z_i|}{z_i}</script><p>不难看出，C与棱镜长度A成正比，而棱镜长度也与光圈的直径成正比，因此当光圈越大，C也就越大，此时出现的景深模糊也就越明显。</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lCZQ.png" alt></p>
-<p>​                (左图大光圈，右图小光圈)明显看出右图要更加的清晰。</p>
-<p>回顾一下在之前曾提到，光圈大小F-Number值与光圈直径的倒数成正比，更具体来说，$N = \frac{f}{D}$， 即焦距比上直径，因此换算Circle of Confusion当中的光圈直径$A=\frac{f}{N}$，得到如下图当中的式子：<br><img src="https://img-blog.csdnimg.cn/2020061216211332.png" alt="img"></p>
-<p>同时这里也给出了不同光圈大小拍照的例子，小光圈锐利，景深模糊不明显，大光圈则有明显的景深模糊</p>
-<p>那么回归到本章的主题，Depth of Field，它与景深模糊并不是同一个东西，景深模糊是一种情形，而景深则是一个具体的数值，其具体指</p>
-<p>当我们固定一个可以接受的Circle of Confusion C值之后，可以逆向推导出小于该C值的对应的一段距离是多少，这个距离就是景深，如下图所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200612164410710.png" alt="img"></p>
-<p>孔径如何影响景深？</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lPaj.png" alt></p>
-<p>孔径小使得更大范围的目标近似聚焦。</p>
-<h3 id="视场角-FOV"><a href="#视场角-FOV" class="headerlink" title="视场角(FOV)"></a>视场角(FOV)</h3><p>视场(角)：相机能够拍摄的最大角度范围</p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6lAGq.png" alt></p>
-<p>视场角取决于焦距大小</p>
-<ul>
-<li><p>随着焦距变小，图像能够观察更大角度范围</p>
-</li>
-<li><p>随着焦距增大，图像能够观察得更远</p>
-</li>
-</ul>
-<p>视场角的定义：</p>
-<ol>
-<li>在光学仪器中，以光学仪器的镜头为顶点，以被测目标的物像可通过镜头的最大范围的两条边缘构成的夹角，称为视场角。如图一。 视场角的大小决定了光学仪器的视野范围，视场角越大，视野就越大，光学倍率就越小。通俗地说，目标物体超过这个角就不会被收在镜头里。</li>
-</ol>
-<p><img src="https://www.colorspace.com.cn/wiki/uploads/201801/151493499806jjJQoP.jpg" alt="img"></p>
-<ol>
-<li>在显示系统中，视场角就是显示器边缘与观察点（眼睛）连线的夹角。例如在图二中，AOB角就是水平视场角，BOC就是垂直视场角。</li>
-</ol>
-<p>一台相机的FOV</p>
-<p><img src="/2021/12/07/Chapter2/image-20211201231725526.png" alt="image-20211201231725526"></p>
-<p><img src="https://s4.ax1x.com/2021/12/07/o6liIs.png" alt></p>
-<script type="math/tex; mode=display">
-φ=\tan^{-1}(\frac{d}{2f})</script><p>可以得到结论：$f$（焦距）越大，FOV越小</p>
-<h2 id="1-3-几何模型"><a href="#1-3-几何模型" class="headerlink" title="1.3.几何模型"></a>1.3.几何模型</h2><p>(ref: cs231a notes 1-camera-models)</p>
-<p>在本节中，我们将讨论在建模从三维空间到我们所知道的数字图像的投影时必须考虑的参数的细节。所有得到的结果都将使用烟晕但它们也适用于近轴折射模型。</p>
-<p>如前所述，三维空间中的一个点P可以被映射（或投影）到图像平面$\Pi’$中的一个二维点$P’$​中。这种$R^3→R^2$映射被称为射影变换。这个投影图像平面上的三维点并不直接对应于我们在实际数字图像中看到的，有几个原因。首先，数字图像中的点通常是用不同的参考中比图像平面上的系统要高。第二，数字图像被划分为离散的像素，而图像平面上的点是连续的。最后，物理传感器可以引入非线性传感器比如对映射的失真。为了解释这些差异，我们将引入一些额外的转换，允许我们将来自三维世界的任何点映射到像素坐标。</p>
-<p>图像坐标的原点$C’$在k轴与图像平面相交的图像中心。另一方面，数字图像通常来自于i图像的左下角法师。因此，图像平面上的二维点和图像中的二维点被平移向量偏移$[c_x,c_y]^{\rm T}$。为了适应坐标系统的这种变化，映射现在变为：</p>
-<script type="math/tex; mode=display">
-P'=
-\begin{bmatrix}
-x'\\
-y'
-\end{bmatrix}
-=
-\begin{bmatrix}
-f\frac{x}{z}+c\\
-f\frac{y}{z}+c\\
-\end{bmatrix}\tag{3}</script><p>下一个效果是，我们必须考虑到数字图像中的点用像素表示，而图像平面上的点用物理测量值表示（例如厘米）。为了适应这个单位的变化，我们必须引入两个新的参数$k$和$l$。这些参数，其单位大概是像“像素/厘米”，对应于图像平面的两个轴上单位的变化。请注意，$k$和$l$可能会有所不同，因为单元元素的长宽比不保证为$1$。如果$k=l$，我们通常说相机有方形像素。我们调整了我们之前的映射为：</p>
-<script type="math/tex; mode=display">
-P'=
-\begin{bmatrix}
-x'\\
-y'
-\end{bmatrix}=
-\begin{bmatrix}
-fk\frac{x}{z}+c_x\\
-fl\frac{y}{z}+c_y
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha\frac{x}{z}+c_x\\
-\beta\frac{y}{z}+c_y
-\end{bmatrix}\tag{4}</script><p>有没有更好的方法从$P→P’$来表示这个投影？如果这个投影是一个线性变换，那么它可以表示为一个矩阵和输入向量的乘积(在这种情况下，它将是$P$。然而，从方程4中，我们可以看到这个问题$P→P’$不是线性的，因为操作划分了其中一个输入参数(即z)。尽管如此，将这个投影表示为矩阵向量乘积对于未来的推导将是有用的。因此，我们是否可以将我们的变换表示为矩阵向量积，尽管它具有非线性？</p>
-<p>解决这个问题的一种方法是改变坐标系。例如，我们引入了一个新的坐标，从而使任何点$P’=(x’、y’)$变成$(x’、y’、1)$。类似地，任何点$P=(x、y、z)$变成$(x、y、z、1)$。这个增广空间被称为齐次坐标系。如前所示，为了将一些欧几里得向量$(v_1，…，v_n)$转换为齐次坐标，我们简单地在一个新的维数中附加一个$1$来得到$(v_1，…，v_n，1)$。请注意，向量及其齐次坐标之间的相等只在最终坐标等于$1$时才会发生。 因此，当从任意齐次坐标$(v_1、…，v_n，w)$转换回时，我们得到欧几里得坐标$(\frac{v_1}{w}，…，\frac{v_n}{w})$。利用齐次坐标，我们可以表示：</p>
-<script type="math/tex; mode=display">
-P_h'=\begin{bmatrix}
-\alpha x+c_x z\\
-\beta y+c_y z\\
-z
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha & 0 & c_x & 0\\
-0 & \beta & c_y & 0\\
-0 & 0 & 1 & 0
-\end{bmatrix}\cdot
-\begin{bmatrix}
-x\\
-y\\
-z\\
-1
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha & 0 & c_x & 0\\
-0 & \beta & c_y & 0\\
-0 & 0 & 1 & 0
-\end{bmatrix}P_h\tag{5}</script><p>从这一点起，假设我们将在齐次坐标下工作，除非另有说明。我们将去掉$h$指数，这样任何点$P$或$P’$都可以假定在齐次坐标中。从公式$5$中可以看出，我们可以用矩阵向量关系来表示三维空间中的一个点与其图像坐标之间的关系：</p>
-<script type="math/tex; mode=display">
-P'=\begin{bmatrix}
-x'\\y'\\z
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha & 0 & c_x & 0\\
-0 & \beta & c_y & 0\\
-0 & 0 & 1 & 0
-\end{bmatrix}\cdot
-\begin{bmatrix}
-x\\y\\z\\1
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha & 0 & c_x & 0\\
-0 & \beta & c_y & 0\\
-0 & 0 & 1 & 0
-\end{bmatrix}\cdot P
-=MP\tag{6}</script><p>我们可以把这个转换进一步分解为：</p>
-<script type="math/tex; mode=display">
-P'=MP=\begin{bmatrix}
-\alpha & 0 & c_x \\
-0 & \beta & c_y \\
-0 & 0 & 1 
-\end{bmatrix}\cdot
-\begin{bmatrix}
-I & 0
-\end{bmatrix}\cdot P=
-K\cdot\begin{bmatrix}
-I & 0
-\end{bmatrix}\cdot P\tag{7}</script><p>矩阵$K$通常被称为相机矩阵。这个矩阵包含了一些对表征照相机模型很有用的关键参数。我们的公式目前缺少两个参数：偏度和失真。我们经常说，当相机坐标系倾斜时，图像是倾斜的。在这种情况下，两个轴之间的夹角略大于或小于$90$​度。大多数相机都有零偏态，但由于传感器制造错误，可能会出现一定程度的偏态。证明新的相机矩阵超出了这类的范围，我们给你如下：</p>
-<script type="math/tex; mode=display">
-K=\begin{bmatrix}
-x'\\
-y'\\
-z
-\end{bmatrix}=
-\begin{bmatrix}
-\alpha & -\alpha\cot \theta & c_x\\
-0 & \frac{\beta}{\sin\theta} & c_y
-\end{bmatrix}\tag{8}</script><p>我们在这类中引入的大多数方法都忽略了失真效应。因此，我们最终的相机矩阵有$5$个自由度：$2$焦距，$2$偏移量，$1$偏度。</p>
-<p>到目前为止，我们已经描述了三维相机参考系统中的一个点$P$到二维图像平面中的一个点$P’$之间的映射。但是如果关于3D世界的信息是不同的呢坐标系？然后，我们需要包括一个额外的转换，将点从世界参考系统到相机参考系统联系起来。这个转换被一个旋转器捕获离子矩阵$R$和平移向量$t$。因此，如果给定世界参考系统$P_w$中的一个点，我们可以计算其相机坐标如下：</p>
-<script type="math/tex; mode=display">
-P=\begin{bmatrix}
-R & T\\
-0 & 10
-\end{bmatrix} P_w\tag{9}</script><p>将其代入方程（7）并简化给出：</p>
-<script type="math/tex; mode=display">
-P'=K\begin{bmatrix}
-R&T
-\end{bmatrix} P_w=MP_w\tag{10}</script><p>这就完成了从任意世界参考系统中的三维点$P$​​到图像平面的映射。我们可以看到投影矩阵$M$​由两种类型的参数组成：固有参数和外部参数$c$​参数。相机矩阵$K$​中包含的所有参数都为固有参数，它们随相机类型的变化而变化。外在参数包括旋转和平移我并不依赖于相机的结构。总的来说，我们发现$3×4$​投影矩阵$M$​有$11$个自由度：$5$个来自内在相机矩阵，$3$个来自外在旋转，$3$个来自外在外在转化。</p>
-<h2 id="1-4-光照模型"><a href="#1-4-光照模型" class="headerlink" title="1.4.光照模型"></a>1.4.光照模型</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NTUyODg2L2FydGljbGUvZGV0YWlscy83OTA4OTQxOA==">(51条消息) 经典光照模型（illumination model）_miaobeihai的博客-CSDN博客_光照模型<i class="fa fa-external-link-alt"></i></span>)</p>
-<h3 id="光照模型分类"><a href="#光照模型分类" class="headerlink" title="光照模型分类"></a>光照模型分类</h3><p>光照模型（ illumination model ），也称为明暗模型，用于计算物体某点处的光强（颜色值）。</p>
-<h4 id="①-从算法理论基础而言"><a href="#①-从算法理论基础而言" class="headerlink" title="① 从算法理论基础而言"></a>① 从算法理论基础而言</h4><p>从算法理论基础而言，光照模型分为两类：一种是基于物理理论的，另一种是基于经验模型的。</p>
-<p>基于物理理论的光照模型，偏重于使用物理的度量和统计方法，比较典型的有 ward BRDF 模型，其中的不少参数是需要仪器测量的，使用这种光照模型的好处是 “ 效果非常真实” ，但是 “计算复杂，实现起来也较为困难 ” </p>
-<p>经验模型更加偏重于使用特定的概率公式，使之与一组表面类型相匹配，所以经验模型大都比较简洁，效果偏向理想化。</p>
-<p>其实两者之间的界限并不是明确到 “非黑即白” 的地步，无论何种光照模型本质上还是基于物理的，只不过在求证方法上各有偏重而已。</p>
-<h4 id="②-从使用角度而言"><a href="#②-从使用角度而言" class="headerlink" title="② 从使用角度而言"></a>② 从使用角度而言</h4><p>从使用角度而言，光照模型分为局部光照模型和全局光照模型。</p>
-<p>所谓局部光照模型，是将光照的种类进行分解，在计算时只考虑其中的一种；</p>
-<p>而全局光照模型则是考虑到所有的光照种类。</p>
-<p>一个比较类似的例子是物理力学，牛顿力学最初是考虑理想状态下的运动方式，无摩擦力；然后慢慢的会在力的条件中考虑到摩擦力因素；接着会学习弹性系数。</p>
-<p>总之是将一个原本复杂的过程分解为各种子过程，然后渐进叠加。</p>
-<p>当光照射到物体表面时，一部分被物体表面吸收，另一部分被反射，对于透明物体而言，还有一部分光穿过透明体，产生透射光。被物体吸收的光能转化为热量，只有反射光和透射光能够进入眼睛，产生视觉效果。通过反射和透射产生的光波（光具有波粒二相性）决定了物体呈现的亮度和颜色，即反射和投射光的强度决定了物体表面的亮度，而它们含有的不同波长光的比例决定了物体表面的色彩。所以，物体表面光照颜色由入射光、物体材质，以及材质和光的交互规律共同决定。光与物体最基本的交互方式就是反射，遵循反射定律：反射光与入射光位于表面法向两侧，对理想反射面（如镜面），入射角等于反射角，观察者只能在表面法向的反射方向一侧才能看到反射光。 不过世界上并不存在真正的理想反射体，正如物理学中绝对的匀速状态是不存在的。</p>
-<h3 id="光源"><a href="#光源" class="headerlink" title="光源"></a>光源</h3><p>环境光 (Ambient Light): 从物体表面所产生的反射光的统一照明，称为环境光或背景光（计算机图形学第二版 389 页）。例如房间里面并没有受到灯光或者太阳光的直接照射，而是由墙壁、天花板、地板及室内各物体之间光的多次反射进行自然照明。通常我们认为理想的环境光具有如下特性：没有空间或方向性；在所有方向上和所有物体表面上投射的环境光强度是统一的恒定值。</p>
-<p>由于环境光给予物体各个点的光照强度相同，且没有方向之分，所以在只有环境光的情况下，同一物体各点的明暗程度均一样，因此，只有环境光是不能产生具有真实感的图形效果。</p>
-<p>环境光是对光照现象的最简单抽象，局限性很大。它仅能描述光线在空间中无方向并均匀散布时的状态。真实的情况是：光线通常都有方向。点光源是发光体的最简单的模型，光线由光源出发向四周发散。还有一种是平行光，即光线都从同一个方向照射。通过模拟方向光和物体表面的交互模式，可以渲染出具有高真实感（明暗变化、镜面反射等）的三维场景。</p>
-<h3 id="漫反射与-Lambert-模型"><a href="#漫反射与-Lambert-模型" class="headerlink" title="漫反射与 Lambert 模型"></a>漫反射与 Lambert 模型</h3><p>粗糙的物体表面向各个方向等强度地反射光，这种等同地向各个方向散射的现象称为光的漫反射（ diffuse reflection ）。产生光的漫反射现象的物体表面称为理想漫反射体，也称为朗伯（ Lambert ）反射体。</p>
-<p>粗糙的物体表面向各个方向等强度地反射光，这种等同地向各个方向散射的现象称为光的漫反射（ diffuse reflection ）。产生光的漫反射现象的物体表面称为 理想漫反射体，也称为朗伯（ Lambert ）反射体。</p>
-<p>对于仅暴露在环境光下的朗伯反射体，可以用公式(9-1)表示某点处漫反射的光强：</p>
-<script type="math/tex; mode=display">
-I_{\rm ambiff}=k_dI_a\tag{9-1}</script><p>其中$I$表示环境光强度（简称光强），$k(0&lt;k &lt;1)$为材质对环境光的反射系数，I  ambdiff是漫反射体与环境光交互反射的光强。</p>
-<p>即使一个理想的漫反射体在所有方向上具有等量的反射光线，但是表面光强还依赖于光线的入射方向（方向光）。例如，入射光方向垂直的表面与入射光方向成斜角的表面相比，其光强要大的多。这种现象可以用 Lambert 定律进行数学上的量化。即，当方向光照射到朗伯反射体上时，漫反射光的光强与入射光的方向和入射点表面法向夹角的余弦成正比，这称之为 Lambert 定律，并由此构造出 Lambert漫反射模型：</p>
-<script type="math/tex; mode=display">
-I_{\rm ibiff}=k_dI_i\cos \theta\tag{9-2}</script><p>$I$ 是点光源强度， $θ$ 是入射光方向与顶点法线的夹角，称为入射$(0≤ θ ≤90°)$，ldiff  I 是漫反射体与方向光交互反射的光强。入射角为零时，说明光线垂直于物体表面，漫反射光强最大；$90°$时光线与物体表面平行，物体接收不到任何光线。若 $N$ 为顶点单位法向量， $L$ 表示从顶点指向光源的单位向量（注意，是由顶点指向光源，不要弄反了），则 $cos θ$ 等价于 $N$ 与 $L$ 的点积。所以公式(9-2)可以表示为公式(9-3)：</p>
-<script type="math/tex; mode=display">
-I_{idiff}=k_dI_i(N\cdot L)\tag{9-3}</script><p>综合考虑环境光和方向来，Lambert光照模型可写为：</p>
-<script type="math/tex; mode=display">
-I_{diff}=I_{ambdiff}+I_{idiff}=k_dI_a+k_dI_i(N\cdot L)\tag{9-4}</script><h3 id="镜面反射与-Phong-模型"><a href="#镜面反射与-Phong-模型" class="headerlink" title="镜面反射与 Phong 模型"></a>镜面反射与 Phong 模型</h3><p>Lambert 模型较好地表现了粗糙表面上的光照现象，如石灰粉刷的墙壁、纸张等，但在用于诸如金属材质制成的物体时，则会显得呆板，表现不出光泽，主要原因是该模型没有考虑这些表面的镜面反射效果。一个光滑物体被光照射时，可以在某个方向上看到很强的反射光，这是因为在接近镜面反射角的一个区域内，反射了入射光的全部或绝大部分光强，该现象称为镜面反射。故此，Phong Bui Tuong 提出一个计算镜面反射光强的经验模型，称为 phong模型，认为镜面反射的光强与反射光线和视线的夹角相关，其数学表达如公式(9-5)所示：</p>
-<script type="math/tex; mode=display">
-I_{\rm spec}=k_sI_i(V\cdot R)^{n_i}\tag{9-5}</script><p>$k$​​ 为材质的镜面反射系数，$n$​​ 是高光指数， $V$​​ 表示从顶点到视点的观察方向， $R$​​ 代表反射光方向。高光指数反映了物体表面的光泽程度。$n$​ 越大，反射光越集中，当偏离反射方向时，光线衰减的越厉害，只有当视线方向与反射光线方向非常接近时才能看到镜面反射的高光现象，此时，镜面反射光将会在反射方向附近形成亮且小的光斑；$n$​ 越小，表示物体越粗糙，反射光分散，观察到的光斑区域小，强度弱。反射光的方向 $R$​ 可以通过入射光方向 $L$​ （从顶点指向光源）和物体法向量 $N$​ 求出：</p>
-<script type="math/tex; mode=display">
-R+L=(2N\cdot L)N\tag{9-6}</script><p>所以有：</p>
-<script type="math/tex; mode=display">
-R=(2N\cdot L)N - L\tag{9-7}</script><h3 id="Blinn-Phong-光照模型"><a href="#Blinn-Phong-光照模型" class="headerlink" title="Blinn-Phong 光照模型"></a>Blinn-Phong 光照模型</h3><p>Blinn-Phong 光照模型，又称为 Blinn-phong 反射模型（ Blinn–Phong reflection model ）或者 phong 修正模型（ modified Phong reflection model ），是由 Jim Blinn于 1977 年在文章 “Models of light reflection for computer synthesized pictures” 中对传统 phong 光照模型基础上进行修改提出的。和传统 phong 光照模型相比，Blinn-phong 光照模型混合了 Lambert 的漫射部分和标准的高光，渲染效果有时比 Phong  高光更柔和、更平滑，此外它在速度上相当快，因此成为许多 CG 软件中的默认光照渲染方法。此外它也集成在了大多数图形芯片中，用以产生实时快速的渲染。在 OpenGL 和 Direct3D 渲染管线中， Blinn-Phong 就是默认的渲染模型。</p>
-<p>phong 光照模型中，必须计算 $V\cdot R$​  的值，其中 $R$​ 为反射光线方向单位向量，$V$ 为视线方向单位向量，但是在 Blinn-phong 光照模型中，用 $N\cdot H$ 的值取代了$V\cdot R$​  。 </p>
-<p>Blinn-phong 光照模型公式为：</p>
-<script type="math/tex; mode=display">
-I_{spec} = k_s I_l(N\cdot H)^{n_s}\tag{9-8}</script><p>其中 N 是入射点的单位法向量， H 是“光入射方向 L 和视点方向 V 的中间向量”，通常也称之为半角向量。注意：半角向量被广泛用于各类光照模型，原因不但在于半角向量蕴含的信息价值，也在于计算半角向量是一件简单、耗时不多的工作。</p>
-<script type="math/tex; mode=display">
-H=\frac{L+V}{|L+V|}\tag{9-9}</script><p>通常情况下，使用 Blinn-phong 光照模型渲染的效果和 phong 模型渲染的效果没有太大的区别，有些艺术工作者认为 phong 光照模型比 blinn-phong 更加真实，实际上也是如此。 Blinn-phong 渲染效果要更加柔和一些， Blinn-phong 光照模型省去了计算反射光线方向向量的两个乘法运算，速度更快。由于 Blinn-phong和 phong 模型的唯一区别一个使用半角向量，一个使用反射光方向向量。</p>
-<h2 id="1-5-感光元件"><a href="#1-5-感光元件" class="headerlink" title="1.5.感光元件"></a>1.5.感光元件</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hlbGxvWkVYL2FydGljbGUvZGV0YWlscy84MDkwMTc2Ng==">(45条消息) 【图像处理】数码相机工作原理完整解析_Twinkle-CSDN博客<i class="fa fa-external-link-alt"></i></span>)</p>
-<p>相比传统的胶片相机来说，数码相机最大的改变就是将感光元件从胶片转变为了CCD/CMOS。传统胶片相机使用银盐作为感光材料，即胶卷作为感光元件，拍摄后还需经过冲洗才能得到最终成片。不但无法第一时间得知最终效果而且在保存上也不太方便。而数码相机的“胶卷”就是其成像感光元件，它与相机融为一体，是数码相机的心脏。感光元件是数码相机的核心，也是最关键的技术。数码相机的发展道路，可以说就是感光元件的发展道路。目前数码相机的核心成像部件有两种：一种是CCD，一种是CMOS。</p>
-<p>它们每个感光元件的像素点分别对应图像传感器中的一个像点，由于感光元件只能感应光的强度，无法捕获色彩信息，因此彩色CCD/CMOS图像传感器必须在感光元件上方覆盖彩色滤光片。在这方面，不同的传感器厂商有不同的解决方案，最常用的做法是覆盖RGB红绿蓝三色滤光片，以1：2：1的构成由四个像点构成一个彩色像素（即红蓝滤光片分别覆盖一个像点，剩下的两个像点都覆盖绿色滤光片），这种解决方案就是大名鼎鼎的拜耳滤镜。</p>
-<h2 id="1-6-色彩空间"><a href="#1-6-色彩空间" class="headerlink" title="1.6.色彩空间"></a>1.6.色彩空间</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Npbl9nZWVrL2FydGljbGUvZGV0YWlscy8yMjMyNTIyOQ==">(45条消息) 颜色迁移之一——基础知识（色彩空间及其转换）_Sin_Geek成长の迹-CSDN博客_颜色迁移<i class="fa fa-external-link-alt"></i></span>)</p>
-<h3 id="色彩空间"><a href="#色彩空间" class="headerlink" title="色彩空间"></a>色彩空间</h3><p>色彩空间是进行颜色信息研究的理论基础，它将颜色从人们的主观感受量化为具体的表达，为用计算机来记录和表现颜色提供了有力的依据。</p>
-<p>一幅图像可以用不同的色彩空间表示，其视觉效果是相同的。但色彩空间的选取对图像的色彩迁移算法是否有效有很大的影响，选择一个合适的色彩空间能够保证色彩迁移结果的准确性。用于彩色图像处理的色彩空间必须同时具有独立性和均匀性。独立性是指色彩空间的三个分量互不影响，对其中某个分量的处理不会导致其它分量相对于人眼感觉发生变化；均匀性是指对色彩空间的每一个分量来说，相同数量的变化能够产生大约相同视觉重要性的变化。</p>
-<p>   色彩空间的表达形式是多样的，不同的色彩空间具有不同的特性，但因为不同的色彩空间是同构的，所以它们之间可以互相转换。</p>
-<h3 id="RGB色彩空间"><a href="#RGB色彩空间" class="headerlink" title="RGB色彩空间"></a>RGB色彩空间</h3><p>色彩混合的基本定律表明：自然界任何一种色彩均可用红、绿、蓝三种原色光混合产生，这在几何上能够以R、G、B三个互相垂直的轴所构成的空间坐标系统来表示，称为RGB色彩空间。如图1所示，RGB色系坐标中三维空间的三个轴分别于红、绿、蓝三基色相对应，原点对应黑色，离原点最远的顶点对应白色，而立方体内其余各点对应不同的颜色。RGB色彩系统用R、G、B三原色通过不同比例的混合来表示任一种色彩，因而它不能直观地度量色调、饱和度和亮度。而且，各分量之间存在着一定的相关性，它们在大多数情况下都是成正比的，主要表现为自然场景中若某一通道大，则像素的其他通道值也较大。这意味着，如果要对图像的色彩进行处理，常常需要对像素的三个分量同时进行修改才不会影响图像的真实感，这将大大增加颜色调整过程的复杂性。因此，在RGB色彩空间下进行色彩迁移会比较复杂，得到的视觉效果也不自然。</p>
-]]></content>
-      <categories>
-        <category>计算机视觉</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-        <tag>npuSE</tag>
       </tags>
   </entry>
   <entry>
@@ -1021,6 +1117,229 @@ E(f;D) &= E_D[((f(x; D)-y_D)^2]\\
       <tags>
         <tag>npuSE</tag>
         <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npuSE Chapter 2 图像形成</title>
+    <url>/2021/12/07/Chapter2/</url>
+    <content><![CDATA[<h1 id="npuSE-Chapter-2-图像形成"><a href="#npuSE-Chapter-2-图像形成" class="headerlink" title="npuSE Chapter 2 图像形成"></a>npuSE Chapter 2 图像形成</h1><h2 id="1-1-针孔相机"><a href="#1-1-针孔相机" class="headerlink" title="1.1.针孔相机"></a>1.1.针孔相机</h2><p>(ref: cs231a notes 1-camera-models)</p>
+<h3 id="什么是针孔相机？"><a href="#什么是针孔相机？" class="headerlink" title="什么是针孔相机？"></a>什么是针孔相机？</h3><p><img src="https://s4.ax1x.com/2021/12/07/o6QXGt.png" alt></p>
+<p>​                        图1：一个简单的工作相机模型：针孔相机模型。</p>
+<p>让我们设计一个简单的照相系统——一个可以在3D世界中记录物体或场景图像的系统。这种相机系统可以通过在3D物体和摄影胶片或传感器之间放置一个小孔圈的屏障来设计。如图1所示，3D对象上的每个点都会向外发出多条光线。如果没有适当的屏障，薄膜上的每一个点都会受到3D物体上每个点发出的光线的影响。由于障碍物，只有一条（或少数）这些光线穿过孔径并击中薄膜。因此，我们可以在三维物体和薄膜上的点之间建立一个一对一的映射。其结果是，通过这种映射，胶片被三维物体的“图像”曝光。这个简单的模型被称为针孔照相机模型。</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6QOPI.png" alt></p>
+<p>​                                图2：针孔照相机模型的正式构造。</p>
+<p>针孔照相机的一个更正式的结构如图$2$所示。在这种结构中，薄膜（像）通常被称为图像或视网膜平面。这个孔径被称为针孔$O$或中心相机。图像平面与针孔$O$之间的距离为焦距$f$。有时，视网膜平面被放置在$O$和三维物体之间，距离$O$为$f$。在这种情况下，它被称为虚拟图像或虚拟视网膜平面。请注意，对象在图像平面中的投影与对象在虚拟图像平面中的图像的投影在一定比例内是相同的（相似性）转换。</p>
+<h3 id="针孔相机是如何是如何实现的变化？"><a href="#针孔相机是如何是如何实现的变化？" class="headerlink" title="针孔相机是如何是如何实现的变化？"></a>针孔相机是如何是如何实现的变化？</h3><p>现在，我们如何使用针孔照相机呢？设$P=[x\,\,\,\,y\,\,\,\,z]^{\rm T}$​​是针孔相机可见的某些三维物体上的一个点。$P$​​将被映射或投影到图像平面$\Pi’$​​上，得到$P’=[x’\,\,\,y’]^{\rm T}$​​（将三维图形投影到二维平面，因此$P’$比$P$少了一个维度）。类似地，针孔本身也可以投射到图像平面上，给出一个新的点$C’$​。</p>
+<p>在这里，我们可以定义一个以针孔$O$​为中心的坐标系$[i\,\,\,j\,\,\,k]$​，使轴$k$​垂直于图像平面并指向它。这个坐标系通常被称为照相机参考系统或照相机坐标系。由$ C’$​和$O$​定义的线称为照相机系统的光轴。</p>
+<p>回想一下，该点$P’$​是由三维点$P$​在图像平面$\Pi’$​​上的投影产生而得到的。因此，如果我们推导出三维点$P$​和图像平面点$P’$​之间的关系，我们就可以理解如何理解3D世界把自己印在针孔相机拍摄的图像上。请注意，三角形$P’C’O$​类似于由$P$​、$O$​和$(0、0、z)$​形成的三角形。因此，利用相似三角形定律我们发现：</p>
+<script type="math/tex; mode=display">
+P'=[x'\,\,\, y']^{\rm T}=[f\frac{x}{z}\,\,\,f\frac{y}{z}]^{\rm T}\tag{1}</script><p><img src="https://s4.ax1x.com/2021/12/07/o6QqIA.png" alt></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6Qbad.png" style="zoom:50%;"></p>
+<p>请注意，我们在这个针孔模型中所做的一个很大的假设是，孔径是一个单点。然而，在大多数真实世界的场景中，我们不能假设孔径可以无限小。钍孔径大小的影响是什么？</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6Qvxf.png" alt></p>
+<p>图3：孔径大小对图像的影响。随着孔径尺寸的减小，图像会变得更清晰，但颜色会更暗。</p>
+<p>随着孔径尺寸的增加，通过势垒的光线数量因此增加。随着更多的光线通过，薄膜上的每个点都会受到l的影响光线来自三维空间中的多点，模糊图像。虽然我们可能倾向于试图使孔径尽可能小，但请记住，较小的孔径尺寸会导致光线减少通过，导致更清晰但更暗的图像。因此，我们得出了针孔公式提出的基本问题：我们能开发出拍摄清晰明亮图像的相机吗?</p>
+<h2 id="1-2-透镜"><a href="#1-2-透镜" class="headerlink" title="1.2.透镜"></a>1.2.透镜</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xNDc4NjI2Nzg=">计算机图形学十六：照相机与透镜(光圈,快门和景深) - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span>)</p>
+<h3 id="透镜概念"><a href="#透镜概念" class="headerlink" title="透镜概念"></a>透镜概念</h3><p><img src="https://img-blog.csdnimg.cn/2020061215504231.png" alt="img"></p>
+<p>(1) 所有平行射入透镜的光都会集中于一点，称该点为焦点</p>
+<p>(2) 所有从焦点射入透镜的光都会平行射出(光路可逆性)</p>
+<p>(3) 焦距可以被随意改变(这里单个透镜当然不行，但在现实中大部分的照相机都是一个透镜组，可以做到焦距随意改变)</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6QzM8.png" alt></p>
+<p>细透镜方程：</p>
+<script type="math/tex; mode=display">
+\frac{1}{f}=\frac{1}{u}+\frac{1}{v}</script><h3 id="景深"><a href="#景深" class="headerlink" title="景深"></a>景深</h3><p>了解了上述的透镜成像规律之后，让我们一起观察一下景深模糊所产生的的原因：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200612160611963.png" alt="img"></p>
+<p>当一个传感器平面不在一个物体真正精确的成像平面之上时，便会出现模糊。如上图所示，当传感器平面在根据透镜成像规律所计算出的成像平面Image之后时，一个点经过透镜到传感器上变成了一条线(从三维去看就是一个圆)，因此就出现了模糊，把上图中模糊之后的长度C称为 Circle of Confusion，同样利用三角形相似推导如下：</p>
+<script type="math/tex; mode=display">
+\frac{C}{A}=\frac{d'}{z_i}=\frac{|z_s-z_i|}{z_i}</script><p>不难看出，C与棱镜长度A成正比，而棱镜长度也与光圈的直径成正比，因此当光圈越大，C也就越大，此时出现的景深模糊也就越明显。</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lCZQ.png" alt></p>
+<p>​                (左图大光圈，右图小光圈)明显看出右图要更加的清晰。</p>
+<p>回顾一下在之前曾提到，光圈大小F-Number值与光圈直径的倒数成正比，更具体来说，$N = \frac{f}{D}$， 即焦距比上直径，因此换算Circle of Confusion当中的光圈直径$A=\frac{f}{N}$，得到如下图当中的式子：<br><img src="https://img-blog.csdnimg.cn/2020061216211332.png" alt="img"></p>
+<p>同时这里也给出了不同光圈大小拍照的例子，小光圈锐利，景深模糊不明显，大光圈则有明显的景深模糊</p>
+<p>那么回归到本章的主题，Depth of Field，它与景深模糊并不是同一个东西，景深模糊是一种情形，而景深则是一个具体的数值，其具体指</p>
+<p>当我们固定一个可以接受的Circle of Confusion C值之后，可以逆向推导出小于该C值的对应的一段距离是多少，这个距离就是景深，如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200612164410710.png" alt="img"></p>
+<p>孔径如何影响景深？</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lPaj.png" alt></p>
+<p>孔径小使得更大范围的目标近似聚焦。</p>
+<h3 id="视场角-FOV"><a href="#视场角-FOV" class="headerlink" title="视场角(FOV)"></a>视场角(FOV)</h3><p>视场(角)：相机能够拍摄的最大角度范围</p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6lAGq.png" alt></p>
+<p>视场角取决于焦距大小</p>
+<ul>
+<li><p>随着焦距变小，图像能够观察更大角度范围</p>
+</li>
+<li><p>随着焦距增大，图像能够观察得更远</p>
+</li>
+</ul>
+<p>视场角的定义：</p>
+<ol>
+<li>在光学仪器中，以光学仪器的镜头为顶点，以被测目标的物像可通过镜头的最大范围的两条边缘构成的夹角，称为视场角。如图一。 视场角的大小决定了光学仪器的视野范围，视场角越大，视野就越大，光学倍率就越小。通俗地说，目标物体超过这个角就不会被收在镜头里。</li>
+</ol>
+<p><img src="https://www.colorspace.com.cn/wiki/uploads/201801/151493499806jjJQoP.jpg" alt="img"></p>
+<ol>
+<li>在显示系统中，视场角就是显示器边缘与观察点（眼睛）连线的夹角。例如在图二中，AOB角就是水平视场角，BOC就是垂直视场角。</li>
+</ol>
+<p>一台相机的FOV</p>
+<p><img src="/2021/12/07/Chapter2/image-20211201231725526.png" alt="image-20211201231725526"></p>
+<p><img src="https://s4.ax1x.com/2021/12/07/o6liIs.png" alt></p>
+<script type="math/tex; mode=display">
+φ=\tan^{-1}(\frac{d}{2f})</script><p>可以得到结论：$f$（焦距）越大，FOV越小</p>
+<h2 id="1-3-几何模型"><a href="#1-3-几何模型" class="headerlink" title="1.3.几何模型"></a>1.3.几何模型</h2><p>(ref: cs231a notes 1-camera-models)</p>
+<p>在本节中，我们将讨论在建模从三维空间到我们所知道的数字图像的投影时必须考虑的参数的细节。所有得到的结果都将使用烟晕但它们也适用于近轴折射模型。</p>
+<p>如前所述，三维空间中的一个点P可以被映射（或投影）到图像平面$\Pi’$中的一个二维点$P’$​中。这种$R^3→R^2$映射被称为射影变换。这个投影图像平面上的三维点并不直接对应于我们在实际数字图像中看到的，有几个原因。首先，数字图像中的点通常是用不同的参考中比图像平面上的系统要高。第二，数字图像被划分为离散的像素，而图像平面上的点是连续的。最后，物理传感器可以引入非线性传感器比如对映射的失真。为了解释这些差异，我们将引入一些额外的转换，允许我们将来自三维世界的任何点映射到像素坐标。</p>
+<p>图像坐标的原点$C’$在k轴与图像平面相交的图像中心。另一方面，数字图像通常来自于i图像的左下角法师。因此，图像平面上的二维点和图像中的二维点被平移向量偏移$[c_x,c_y]^{\rm T}$。为了适应坐标系统的这种变化，映射现在变为：</p>
+<script type="math/tex; mode=display">
+P'=
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}
+=
+\begin{bmatrix}
+f\frac{x}{z}+c\\
+f\frac{y}{z}+c\\
+\end{bmatrix}\tag{3}</script><p>下一个效果是，我们必须考虑到数字图像中的点用像素表示，而图像平面上的点用物理测量值表示（例如厘米）。为了适应这个单位的变化，我们必须引入两个新的参数$k$和$l$。这些参数，其单位大概是像“像素/厘米”，对应于图像平面的两个轴上单位的变化。请注意，$k$和$l$可能会有所不同，因为单元元素的长宽比不保证为$1$。如果$k=l$，我们通常说相机有方形像素。我们调整了我们之前的映射为：</p>
+<script type="math/tex; mode=display">
+P'=
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}=
+\begin{bmatrix}
+fk\frac{x}{z}+c_x\\
+fl\frac{y}{z}+c_y
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha\frac{x}{z}+c_x\\
+\beta\frac{y}{z}+c_y
+\end{bmatrix}\tag{4}</script><p>有没有更好的方法从$P→P’$来表示这个投影？如果这个投影是一个线性变换，那么它可以表示为一个矩阵和输入向量的乘积(在这种情况下，它将是$P$。然而，从方程4中，我们可以看到这个问题$P→P’$不是线性的，因为操作划分了其中一个输入参数(即z)。尽管如此，将这个投影表示为矩阵向量乘积对于未来的推导将是有用的。因此，我们是否可以将我们的变换表示为矩阵向量积，尽管它具有非线性？</p>
+<p>解决这个问题的一种方法是改变坐标系。例如，我们引入了一个新的坐标，从而使任何点$P’=(x’、y’)$变成$(x’、y’、1)$。类似地，任何点$P=(x、y、z)$变成$(x、y、z、1)$。这个增广空间被称为齐次坐标系。如前所示，为了将一些欧几里得向量$(v_1，…，v_n)$转换为齐次坐标，我们简单地在一个新的维数中附加一个$1$来得到$(v_1，…，v_n，1)$。请注意，向量及其齐次坐标之间的相等只在最终坐标等于$1$时才会发生。 因此，当从任意齐次坐标$(v_1、…，v_n，w)$转换回时，我们得到欧几里得坐标$(\frac{v_1}{w}，…，\frac{v_n}{w})$。利用齐次坐标，我们可以表示：</p>
+<script type="math/tex; mode=display">
+P_h'=\begin{bmatrix}
+\alpha x+c_x z\\
+\beta y+c_y z\\
+z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+x\\
+y\\
+z\\
+1
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}P_h\tag{5}</script><p>从这一点起，假设我们将在齐次坐标下工作，除非另有说明。我们将去掉$h$指数，这样任何点$P$或$P’$都可以假定在齐次坐标中。从公式$5$中可以看出，我们可以用矩阵向量关系来表示三维空间中的一个点与其图像坐标之间的关系：</p>
+<script type="math/tex; mode=display">
+P'=\begin{bmatrix}
+x'\\y'\\z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+x\\y\\z\\1
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & 0 & c_x & 0\\
+0 & \beta & c_y & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}\cdot P
+=MP\tag{6}</script><p>我们可以把这个转换进一步分解为：</p>
+<script type="math/tex; mode=display">
+P'=MP=\begin{bmatrix}
+\alpha & 0 & c_x \\
+0 & \beta & c_y \\
+0 & 0 & 1 
+\end{bmatrix}\cdot
+\begin{bmatrix}
+I & 0
+\end{bmatrix}\cdot P=
+K\cdot\begin{bmatrix}
+I & 0
+\end{bmatrix}\cdot P\tag{7}</script><p>矩阵$K$通常被称为相机矩阵。这个矩阵包含了一些对表征照相机模型很有用的关键参数。我们的公式目前缺少两个参数：偏度和失真。我们经常说，当相机坐标系倾斜时，图像是倾斜的。在这种情况下，两个轴之间的夹角略大于或小于$90$​度。大多数相机都有零偏态，但由于传感器制造错误，可能会出现一定程度的偏态。证明新的相机矩阵超出了这类的范围，我们给你如下：</p>
+<script type="math/tex; mode=display">
+K=\begin{bmatrix}
+x'\\
+y'\\
+z
+\end{bmatrix}=
+\begin{bmatrix}
+\alpha & -\alpha\cot \theta & c_x\\
+0 & \frac{\beta}{\sin\theta} & c_y
+\end{bmatrix}\tag{8}</script><p>我们在这类中引入的大多数方法都忽略了失真效应。因此，我们最终的相机矩阵有$5$个自由度：$2$焦距，$2$偏移量，$1$偏度。</p>
+<p>到目前为止，我们已经描述了三维相机参考系统中的一个点$P$到二维图像平面中的一个点$P’$之间的映射。但是如果关于3D世界的信息是不同的呢坐标系？然后，我们需要包括一个额外的转换，将点从世界参考系统到相机参考系统联系起来。这个转换被一个旋转器捕获离子矩阵$R$和平移向量$t$。因此，如果给定世界参考系统$P_w$中的一个点，我们可以计算其相机坐标如下：</p>
+<script type="math/tex; mode=display">
+P=\begin{bmatrix}
+R & T\\
+0 & 10
+\end{bmatrix} P_w\tag{9}</script><p>将其代入方程（7）并简化给出：</p>
+<script type="math/tex; mode=display">
+P'=K\begin{bmatrix}
+R&T
+\end{bmatrix} P_w=MP_w\tag{10}</script><p>这就完成了从任意世界参考系统中的三维点$P$​​到图像平面的映射。我们可以看到投影矩阵$M$​由两种类型的参数组成：固有参数和外部参数$c$​参数。相机矩阵$K$​中包含的所有参数都为固有参数，它们随相机类型的变化而变化。外在参数包括旋转和平移我并不依赖于相机的结构。总的来说，我们发现$3×4$​投影矩阵$M$​有$11$个自由度：$5$个来自内在相机矩阵，$3$个来自外在旋转，$3$个来自外在外在转化。</p>
+<h2 id="1-4-光照模型"><a href="#1-4-光照模型" class="headerlink" title="1.4.光照模型"></a>1.4.光照模型</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NTUyODg2L2FydGljbGUvZGV0YWlscy83OTA4OTQxOA==">(51条消息) 经典光照模型（illumination model）_miaobeihai的博客-CSDN博客_光照模型<i class="fa fa-external-link-alt"></i></span>)</p>
+<h3 id="光照模型分类"><a href="#光照模型分类" class="headerlink" title="光照模型分类"></a>光照模型分类</h3><p>光照模型（ illumination model ），也称为明暗模型，用于计算物体某点处的光强（颜色值）。</p>
+<h4 id="①-从算法理论基础而言"><a href="#①-从算法理论基础而言" class="headerlink" title="① 从算法理论基础而言"></a>① 从算法理论基础而言</h4><p>从算法理论基础而言，光照模型分为两类：一种是基于物理理论的，另一种是基于经验模型的。</p>
+<p>基于物理理论的光照模型，偏重于使用物理的度量和统计方法，比较典型的有 ward BRDF 模型，其中的不少参数是需要仪器测量的，使用这种光照模型的好处是 “ 效果非常真实” ，但是 “计算复杂，实现起来也较为困难 ” </p>
+<p>经验模型更加偏重于使用特定的概率公式，使之与一组表面类型相匹配，所以经验模型大都比较简洁，效果偏向理想化。</p>
+<p>其实两者之间的界限并不是明确到 “非黑即白” 的地步，无论何种光照模型本质上还是基于物理的，只不过在求证方法上各有偏重而已。</p>
+<h4 id="②-从使用角度而言"><a href="#②-从使用角度而言" class="headerlink" title="② 从使用角度而言"></a>② 从使用角度而言</h4><p>从使用角度而言，光照模型分为局部光照模型和全局光照模型。</p>
+<p>所谓局部光照模型，是将光照的种类进行分解，在计算时只考虑其中的一种；</p>
+<p>而全局光照模型则是考虑到所有的光照种类。</p>
+<p>一个比较类似的例子是物理力学，牛顿力学最初是考虑理想状态下的运动方式，无摩擦力；然后慢慢的会在力的条件中考虑到摩擦力因素；接着会学习弹性系数。</p>
+<p>总之是将一个原本复杂的过程分解为各种子过程，然后渐进叠加。</p>
+<p>当光照射到物体表面时，一部分被物体表面吸收，另一部分被反射，对于透明物体而言，还有一部分光穿过透明体，产生透射光。被物体吸收的光能转化为热量，只有反射光和透射光能够进入眼睛，产生视觉效果。通过反射和透射产生的光波（光具有波粒二相性）决定了物体呈现的亮度和颜色，即反射和投射光的强度决定了物体表面的亮度，而它们含有的不同波长光的比例决定了物体表面的色彩。所以，物体表面光照颜色由入射光、物体材质，以及材质和光的交互规律共同决定。光与物体最基本的交互方式就是反射，遵循反射定律：反射光与入射光位于表面法向两侧，对理想反射面（如镜面），入射角等于反射角，观察者只能在表面法向的反射方向一侧才能看到反射光。 不过世界上并不存在真正的理想反射体，正如物理学中绝对的匀速状态是不存在的。</p>
+<h3 id="光源"><a href="#光源" class="headerlink" title="光源"></a>光源</h3><p>环境光 (Ambient Light): 从物体表面所产生的反射光的统一照明，称为环境光或背景光（计算机图形学第二版 389 页）。例如房间里面并没有受到灯光或者太阳光的直接照射，而是由墙壁、天花板、地板及室内各物体之间光的多次反射进行自然照明。通常我们认为理想的环境光具有如下特性：没有空间或方向性；在所有方向上和所有物体表面上投射的环境光强度是统一的恒定值。</p>
+<p>由于环境光给予物体各个点的光照强度相同，且没有方向之分，所以在只有环境光的情况下，同一物体各点的明暗程度均一样，因此，只有环境光是不能产生具有真实感的图形效果。</p>
+<p>环境光是对光照现象的最简单抽象，局限性很大。它仅能描述光线在空间中无方向并均匀散布时的状态。真实的情况是：光线通常都有方向。点光源是发光体的最简单的模型，光线由光源出发向四周发散。还有一种是平行光，即光线都从同一个方向照射。通过模拟方向光和物体表面的交互模式，可以渲染出具有高真实感（明暗变化、镜面反射等）的三维场景。</p>
+<h3 id="漫反射与-Lambert-模型"><a href="#漫反射与-Lambert-模型" class="headerlink" title="漫反射与 Lambert 模型"></a>漫反射与 Lambert 模型</h3><p>粗糙的物体表面向各个方向等强度地反射光，这种等同地向各个方向散射的现象称为光的漫反射（ diffuse reflection ）。产生光的漫反射现象的物体表面称为理想漫反射体，也称为朗伯（ Lambert ）反射体。</p>
+<p>粗糙的物体表面向各个方向等强度地反射光，这种等同地向各个方向散射的现象称为光的漫反射（ diffuse reflection ）。产生光的漫反射现象的物体表面称为 理想漫反射体，也称为朗伯（ Lambert ）反射体。</p>
+<p>对于仅暴露在环境光下的朗伯反射体，可以用公式(9-1)表示某点处漫反射的光强：</p>
+<script type="math/tex; mode=display">
+I_{\rm ambiff}=k_dI_a\tag{9-1}</script><p>其中$I$表示环境光强度（简称光强），$k(0&lt;k &lt;1)$为材质对环境光的反射系数，I  ambdiff是漫反射体与环境光交互反射的光强。</p>
+<p>即使一个理想的漫反射体在所有方向上具有等量的反射光线，但是表面光强还依赖于光线的入射方向（方向光）。例如，入射光方向垂直的表面与入射光方向成斜角的表面相比，其光强要大的多。这种现象可以用 Lambert 定律进行数学上的量化。即，当方向光照射到朗伯反射体上时，漫反射光的光强与入射光的方向和入射点表面法向夹角的余弦成正比，这称之为 Lambert 定律，并由此构造出 Lambert漫反射模型：</p>
+<script type="math/tex; mode=display">
+I_{\rm ibiff}=k_dI_i\cos \theta\tag{9-2}</script><p>$I$ 是点光源强度， $θ$ 是入射光方向与顶点法线的夹角，称为入射$(0≤ θ ≤90°)$，ldiff  I 是漫反射体与方向光交互反射的光强。入射角为零时，说明光线垂直于物体表面，漫反射光强最大；$90°$时光线与物体表面平行，物体接收不到任何光线。若 $N$ 为顶点单位法向量， $L$ 表示从顶点指向光源的单位向量（注意，是由顶点指向光源，不要弄反了），则 $cos θ$ 等价于 $N$ 与 $L$ 的点积。所以公式(9-2)可以表示为公式(9-3)：</p>
+<script type="math/tex; mode=display">
+I_{idiff}=k_dI_i(N\cdot L)\tag{9-3}</script><p>综合考虑环境光和方向来，Lambert光照模型可写为：</p>
+<script type="math/tex; mode=display">
+I_{diff}=I_{ambdiff}+I_{idiff}=k_dI_a+k_dI_i(N\cdot L)\tag{9-4}</script><h3 id="镜面反射与-Phong-模型"><a href="#镜面反射与-Phong-模型" class="headerlink" title="镜面反射与 Phong 模型"></a>镜面反射与 Phong 模型</h3><p>Lambert 模型较好地表现了粗糙表面上的光照现象，如石灰粉刷的墙壁、纸张等，但在用于诸如金属材质制成的物体时，则会显得呆板，表现不出光泽，主要原因是该模型没有考虑这些表面的镜面反射效果。一个光滑物体被光照射时，可以在某个方向上看到很强的反射光，这是因为在接近镜面反射角的一个区域内，反射了入射光的全部或绝大部分光强，该现象称为镜面反射。故此，Phong Bui Tuong 提出一个计算镜面反射光强的经验模型，称为 phong模型，认为镜面反射的光强与反射光线和视线的夹角相关，其数学表达如公式(9-5)所示：</p>
+<script type="math/tex; mode=display">
+I_{\rm spec}=k_sI_i(V\cdot R)^{n_i}\tag{9-5}</script><p>$k$​​ 为材质的镜面反射系数，$n$​​ 是高光指数， $V$​​ 表示从顶点到视点的观察方向， $R$​​ 代表反射光方向。高光指数反映了物体表面的光泽程度。$n$​ 越大，反射光越集中，当偏离反射方向时，光线衰减的越厉害，只有当视线方向与反射光线方向非常接近时才能看到镜面反射的高光现象，此时，镜面反射光将会在反射方向附近形成亮且小的光斑；$n$​ 越小，表示物体越粗糙，反射光分散，观察到的光斑区域小，强度弱。反射光的方向 $R$​ 可以通过入射光方向 $L$​ （从顶点指向光源）和物体法向量 $N$​ 求出：</p>
+<script type="math/tex; mode=display">
+R+L=(2N\cdot L)N\tag{9-6}</script><p>所以有：</p>
+<script type="math/tex; mode=display">
+R=(2N\cdot L)N - L\tag{9-7}</script><h3 id="Blinn-Phong-光照模型"><a href="#Blinn-Phong-光照模型" class="headerlink" title="Blinn-Phong 光照模型"></a>Blinn-Phong 光照模型</h3><p>Blinn-Phong 光照模型，又称为 Blinn-phong 反射模型（ Blinn–Phong reflection model ）或者 phong 修正模型（ modified Phong reflection model ），是由 Jim Blinn于 1977 年在文章 “Models of light reflection for computer synthesized pictures” 中对传统 phong 光照模型基础上进行修改提出的。和传统 phong 光照模型相比，Blinn-phong 光照模型混合了 Lambert 的漫射部分和标准的高光，渲染效果有时比 Phong  高光更柔和、更平滑，此外它在速度上相当快，因此成为许多 CG 软件中的默认光照渲染方法。此外它也集成在了大多数图形芯片中，用以产生实时快速的渲染。在 OpenGL 和 Direct3D 渲染管线中， Blinn-Phong 就是默认的渲染模型。</p>
+<p>phong 光照模型中，必须计算 $V\cdot R$​  的值，其中 $R$​ 为反射光线方向单位向量，$V$ 为视线方向单位向量，但是在 Blinn-phong 光照模型中，用 $N\cdot H$ 的值取代了$V\cdot R$​  。 </p>
+<p>Blinn-phong 光照模型公式为：</p>
+<script type="math/tex; mode=display">
+I_{spec} = k_s I_l(N\cdot H)^{n_s}\tag{9-8}</script><p>其中 N 是入射点的单位法向量， H 是“光入射方向 L 和视点方向 V 的中间向量”，通常也称之为半角向量。注意：半角向量被广泛用于各类光照模型，原因不但在于半角向量蕴含的信息价值，也在于计算半角向量是一件简单、耗时不多的工作。</p>
+<script type="math/tex; mode=display">
+H=\frac{L+V}{|L+V|}\tag{9-9}</script><p>通常情况下，使用 Blinn-phong 光照模型渲染的效果和 phong 模型渲染的效果没有太大的区别，有些艺术工作者认为 phong 光照模型比 blinn-phong 更加真实，实际上也是如此。 Blinn-phong 渲染效果要更加柔和一些， Blinn-phong 光照模型省去了计算反射光线方向向量的两个乘法运算，速度更快。由于 Blinn-phong和 phong 模型的唯一区别一个使用半角向量，一个使用反射光方向向量。</p>
+<h2 id="1-5-感光元件"><a href="#1-5-感光元件" class="headerlink" title="1.5.感光元件"></a>1.5.感光元件</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hlbGxvWkVYL2FydGljbGUvZGV0YWlscy84MDkwMTc2Ng==">(45条消息) 【图像处理】数码相机工作原理完整解析_Twinkle-CSDN博客<i class="fa fa-external-link-alt"></i></span>)</p>
+<p>相比传统的胶片相机来说，数码相机最大的改变就是将感光元件从胶片转变为了CCD/CMOS。传统胶片相机使用银盐作为感光材料，即胶卷作为感光元件，拍摄后还需经过冲洗才能得到最终成片。不但无法第一时间得知最终效果而且在保存上也不太方便。而数码相机的“胶卷”就是其成像感光元件，它与相机融为一体，是数码相机的心脏。感光元件是数码相机的核心，也是最关键的技术。数码相机的发展道路，可以说就是感光元件的发展道路。目前数码相机的核心成像部件有两种：一种是CCD，一种是CMOS。</p>
+<p>它们每个感光元件的像素点分别对应图像传感器中的一个像点，由于感光元件只能感应光的强度，无法捕获色彩信息，因此彩色CCD/CMOS图像传感器必须在感光元件上方覆盖彩色滤光片。在这方面，不同的传感器厂商有不同的解决方案，最常用的做法是覆盖RGB红绿蓝三色滤光片，以1：2：1的构成由四个像点构成一个彩色像素（即红蓝滤光片分别覆盖一个像点，剩下的两个像点都覆盖绿色滤光片），这种解决方案就是大名鼎鼎的拜耳滤镜。</p>
+<h2 id="1-6-色彩空间"><a href="#1-6-色彩空间" class="headerlink" title="1.6.色彩空间"></a>1.6.色彩空间</h2><p>(ref: <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Npbl9nZWVrL2FydGljbGUvZGV0YWlscy8yMjMyNTIyOQ==">(45条消息) 颜色迁移之一——基础知识（色彩空间及其转换）_Sin_Geek成长の迹-CSDN博客_颜色迁移<i class="fa fa-external-link-alt"></i></span>)</p>
+<h3 id="色彩空间"><a href="#色彩空间" class="headerlink" title="色彩空间"></a>色彩空间</h3><p>色彩空间是进行颜色信息研究的理论基础，它将颜色从人们的主观感受量化为具体的表达，为用计算机来记录和表现颜色提供了有力的依据。</p>
+<p>一幅图像可以用不同的色彩空间表示，其视觉效果是相同的。但色彩空间的选取对图像的色彩迁移算法是否有效有很大的影响，选择一个合适的色彩空间能够保证色彩迁移结果的准确性。用于彩色图像处理的色彩空间必须同时具有独立性和均匀性。独立性是指色彩空间的三个分量互不影响，对其中某个分量的处理不会导致其它分量相对于人眼感觉发生变化；均匀性是指对色彩空间的每一个分量来说，相同数量的变化能够产生大约相同视觉重要性的变化。</p>
+<p>   色彩空间的表达形式是多样的，不同的色彩空间具有不同的特性，但因为不同的色彩空间是同构的，所以它们之间可以互相转换。</p>
+<h3 id="RGB色彩空间"><a href="#RGB色彩空间" class="headerlink" title="RGB色彩空间"></a>RGB色彩空间</h3><p>色彩混合的基本定律表明：自然界任何一种色彩均可用红、绿、蓝三种原色光混合产生，这在几何上能够以R、G、B三个互相垂直的轴所构成的空间坐标系统来表示，称为RGB色彩空间。如图1所示，RGB色系坐标中三维空间的三个轴分别于红、绿、蓝三基色相对应，原点对应黑色，离原点最远的顶点对应白色，而立方体内其余各点对应不同的颜色。RGB色彩系统用R、G、B三原色通过不同比例的混合来表示任一种色彩，因而它不能直观地度量色调、饱和度和亮度。而且，各分量之间存在着一定的相关性，它们在大多数情况下都是成正比的，主要表现为自然场景中若某一通道大，则像素的其他通道值也较大。这意味着，如果要对图像的色彩进行处理，常常需要对像素的三个分量同时进行修改才不会影响图像的真实感，这将大大增加颜色调整过程的复杂性。因此，在RGB色彩空间下进行色彩迁移会比较复杂，得到的视觉效果也不自然。</p>
+]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+        <tag>npuSE</tag>
       </tags>
   </entry>
   <entry>
