@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wcx2001.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是ACM初级培训第四讲">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npuCS 第四讲 数学知识">
+<meta property="og:url" content="http://wcx2001.github.io/2022/01/08/basicACML4/index.html">
+<meta property="og:site_name" content="Wei">
+<meta property="og:description" content="本文是ACM初级培训第四讲">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-08T14:38:27.414Z">
+<meta property="article:author" content="小学渣的春天">
+<meta property="article:tag" content="ACM">
+<meta property="article:tag" content="基础算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://wcx2001.github.io/2022/01/08/basicACML4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>npuCS 第四讲 数学知识 | Wei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wcx2001.github.io/2022/01/08/basicACML4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/machao.jpg">
+      <meta itemprop="name" content="小学渣的春天">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          npuCS 第四讲 数学知识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-08 00:00:00 / 修改时间：22:38:27" itemprop="dateCreated datePublished" datetime="2022-01-08T00:00:00+08:00">2022-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">本文是ACM初级培训第四讲</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="第四讲-数学知识"><a href="#第四讲-数学知识" class="headerlink" title="第四讲 数学知识"></a>第四讲 数学知识</h1><h2 id="4-1-质数"><a href="#4-1-质数" class="headerlink" title="4.1 质数"></a>4.1 质数</h2><h3 id="4-1-1-试除法判定质数"><a href="#4-1-1-试除法判定质数" class="headerlink" title="4.1.1 试除法判定质数"></a>4.1.1 试除法判定质数</h3><h4 id="1-原理讲解"><a href="#1-原理讲解" class="headerlink" title="1. 原理讲解"></a>1. 原理讲解</h4><p>素数定义：因数只有1与本身的数</p>
+<p>从定义出发，若 $a$​ 为素数，则2~$a-1$​均非其因数，即不能除尽，余数不为零<br>思路是正确的，但是，能不能优化呢？</p>
+<p>我们发现，一个数可以表示成</p>
+<script type="math/tex; mode=display">
+a=i×j</script><p>若$i=j$,则</p>
+<script type="math/tex; mode=display">
+a=i^2</script><p>若 $i&gt;j$，则</p>
+<script type="math/tex; mode=display">
+a<i^2</script><p>于是，可以总结为</p>
+<script type="math/tex; mode=display">
+a≤i^2</script><p>判定范围变成了·</p>
+<script type="math/tex; mode=display">
+2≤i≤a/i</script><h4 id="2-模板讲解"><a href="#2-模板讲解" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_prime</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= x / i; i ++ )</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-1-1：试除法判定质数"><a href="#例4-1-1：试除法判定质数" class="headerlink" title="例4.1.1：试除法判定质数"></a>例4.1.1：试除法判定质数</h4><p>给定 $n$ 个正整数 $a_i$，判定每个数是否是质数。</p>
+<h5 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个正整数 $a_i$。</p>
+<h5 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h5><p>共 $n$ 行，其中第 $i$ 行输出第 $i$ 个正整数 $a_i$ 是否为质数，是则输出 <em>Yes</em>，否则输出 <em>No</em>。</p>
+<h5 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h5><script type="math/tex; mode=display">
+1≤n≤100;</script><script type="math/tex; mode=display">
+1≤a_i≤2^{31}−1;</script><h5 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br><span class="line">No</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-2-试除法分解质因数"><a href="#4-1-2-试除法分解质因数" class="headerlink" title="4.1.2 试除法分解质因数"></a>4.1.2 试除法分解质因数</h3><h4 id="1-知识讲解"><a href="#1-知识讲解" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>由4.1.1我们知道如何判定素数，现在我们由小及大地求其所有质因数及其指数<br>可以方便的想到，先由小及大地判断其因数，除去后再求商的质因数，由于非质因数可以分解成较小的质因数，而这在之前及时除尽了，故找到的因数都是质因数</p>
+<h4 id="2-模板讲解-1"><a href="#2-模板讲解-1" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= x / i; i ++ )</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (x % i == <span class="number">0</span>) x /= i, s ++ ;</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; s &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; <span class="number">1</span>) cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-1-2：分解质因数"><a href="#例4-1-2：分解质因数" class="headerlink" title="例4.1.2：分解质因数"></a>例4.1.2：分解质因数</h4><p>给定 $n$ 个正整数 $a_i$，将每个数分解质因数，并按照质因数从小到大的顺序输出每个质因数的底数和指数。</p>
+<h5 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个正整数 $a_i$。</p>
+<h5 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h5><p>对于每个正整数 $a_i$，按照从小到大的顺序输出其分解质因数后，每个质因数的底数和指数，每个底数和指数占一行。</p>
+<p>每个正整数的质因数全部输出完毕后，输出一个空行。</p>
+<h5 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h5><script type="math/tex; mode=display">
+1≤n≤100</script><script type="math/tex; mode=display">
+1≤a_i≤2×10^9</script><h5 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">6</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2 1</span><br><span class="line">3 1</span><br><span class="line"></span><br><span class="line">2 3</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-3-朴素筛法求素数"><a href="#4-1-3-朴素筛法求素数" class="headerlink" title="4.1.3 朴素筛法求素数"></a>4.1.3 朴素筛法求素数</h3><h4 id="1-知识讲解-1"><a href="#1-知识讲解-1" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>我们之前求素数，是直接对所有数进行一次判断</p>
+<p>事实上，对于从 1~ $n$​​ 的自然数列，我们不能先判断哪些数是，却可以先判断哪些数不是</p>
+<p>这种不断筛去非理想的数，最后得到理想数集的思想就是筛法</p>
+<p>对于基数 $a$ ,它是否是素数不确定，但是 2$a$ ，3$a$….k$a$​一定不是素数</p>
+<p>基于这个思想，我们可以由小及大地排除掉一些数</p>
+<p>当基数足够大时，自然数列中就只剩下素数了，这就是朴素筛法</p>
+<h4 id="2-模板讲解-2"><a href="#2-模板讲解-2" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> primes[N], cnt;     <span class="comment">// primes[]存储所有素数</span></span><br><span class="line"><span class="keyword">bool</span> st[N];         <span class="comment">// st[x]存储x是否被筛掉</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_primes</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (st[i]) <span class="keyword">continue</span>;</span><br><span class="line">        primes[cnt ++ ] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + i; j &lt;= n; j += i)</span><br><span class="line">            st[j] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-1-3-筛质数"><a href="#例4-1-3-筛质数" class="headerlink" title="例4.1.3 筛质数"></a>例4.1.3 筛质数</h4><p>给定一个正整数 $n$，请你求出 $1∼n$ 中质数的个数。</p>
+<h5 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h5><p>共一行，包含整数 $n$。</p>
+<h5 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h5><p>共一行，包含一个整数，表示 $1∼n$ 中质数的个数。</p>
+<h5 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤10^6$</p>
+<h5 id="输入样例：-2"><a href="#输入样例：-2" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-2"><a href="#输出样例：-2" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 1000010;int primes[N], cnt;</span><br><span class="line">bool st[N];</span><br><span class="line"></span><br><span class="line">void get_primes(int n)</span><br><span class="line">&#123;</span><br><span class="line">    for(int i = 2; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(!st[i]) primes[cnt++] = i;</span><br><span class="line">        for(int j = 0; primes[j] &lt;= n / i; j ++)</span><br><span class="line">        &#123;</span><br><span class="line">            st[primes[j]*i] = true;</span><br><span class="line">            if(i % primes[j] == 0) break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    get_primes(n);</span><br><span class="line">    cout &lt;&lt; cnt &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-4-线性筛法求素数"><a href="#4-1-4-线性筛法求素数" class="headerlink" title="4.1.4 线性筛法求素数"></a>4.1.4 线性筛法求素数</h3><h4 id="1-知识讲解-2"><a href="#1-知识讲解-2" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>在4.1.3里，我们初步了解了筛法的原理</p>
+<p>朴素筛法很好，但是我们不妨问问自己，这就够了吗？</p>
+<p>仔细研究下朴素筛法，我们发现，有的数被筛过不止一次</p>
+<p>例如36，可以被2，3先后筛去，造成了资源的浪费</p>
+<p>仔细研究发现，我们发现要筛去一个合数，可以只通过其最小质因数筛去<br>例如</p>
+<script type="math/tex; mode=display">
+a_j=i×p[j]</script><p>其中 $i$ 是循环数，$p[j]$ 是自前而后第 $j$ 个素数，且 $i&gt;p[j]$，$a&lt;N$</p>
+<p>若 $i ％ p[j]≠ 0$，则 $p[j]$ 是 $a_j$ 的最小素数因子， $a_j$ 可以被 $p[j]$ 筛去，此时 $j++$<br>再筛去下一个数</p>
+<p>若 $i ％ p[j]=0$，则 $p[j]$ 是$i$ 的最小素数因子，数 $i$ 可以被 $p[j]$ 筛去</p>
+<p>那么所有的数 $a_j$ 自然也能被 $p[j]$ 筛去，即使数 $a$ 也能被 $p[j+1]$ 筛去，避免了重复计算，所以此时$i++$进入下一轮筛去</p>
+<h4 id="2-模板讲解-3"><a href="#2-模板讲解-3" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> primes[N], cnt;     <span class="comment">// primes[]存储所有素数</span></span><br><span class="line"><span class="keyword">bool</span> st[N];         <span class="comment">// st[x]存储x是否被筛掉</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_primes</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!st[i]) primes[cnt ++ ] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; primes[j] &lt;= n / i; j ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            st[primes[j] * i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-1-4：筛质数"><a href="#例4-1-4：筛质数" class="headerlink" title="例4.1.4：筛质数"></a>例4.1.4：筛质数</h4><p>给定一个正整数 $n$，请你求出 ${1∼n}$ 中质数的个数。</p>
+<h5 id="输入格式-3"><a href="#输入格式-3" class="headerlink" title="输入格式"></a>输入格式</h5><p>共一行，包含整数 $n$。</p>
+<h5 id="输出格式-3"><a href="#输出格式-3" class="headerlink" title="输出格式"></a>输出格式</h5><p>共一行，包含一个整数，表示 ${1∼n}$ 中质数的个数。</p>
+<h5 id="数据范围-3"><a href="#数据范围-3" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤10^6}$</p>
+<h5 id="输入样例：-3"><a href="#输入样例：-3" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-3"><a href="#输出样例：-3" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-约数"><a href="#4-2-约数" class="headerlink" title="4.2 约数"></a>4.2 约数</h2><h3 id="4-2-1-试除法求所有约数"><a href="#4-2-1-试除法求所有约数" class="headerlink" title="4.2.1 试除法求所有约数"></a>4.2.1 试除法求所有约数</h3><h4 id="1-知识讲解-3"><a href="#1-知识讲解-3" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>采用遍历法，于是有</p>
+<script type="math/tex; mode=display">
+a_i=i × (a_i/i)</script><p>若 $a_i%i$ % $i$=0,则记录下 $i$ 与 $a_i$ ；若 $a_i=i^2$,记录下 $i$ 即可</p>
+<h4 id="2-模板讲解-4"><a href="#2-模板讲解-4" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">get_divisors</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= x / i; i ++ )</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span> (i != x / i) res.<span class="built_in">push_back</span>(x / i);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">sort</span>(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-2-1：试除法求约数"><a href="#例4-2-1：试除法求约数" class="headerlink" title="例4.2.1：试除法求约数"></a>例4.2.1：试除法求约数</h4><p>给定 $n$ 个正整数 $a_i$，对于每个整数 $a_i$，请你按照从小到大的顺序输出它的所有约数。</p>
+<h5 id="输入格式-4"><a href="#输入格式-4" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个整数 $a_i$。</p>
+<h5 id="输出格式-4"><a href="#输出格式-4" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出共 $n$ 行，其中第 $i$ 行输出第 $i$ 个整数 $a_i$ 的所有约数。</p>
+<h5 id="数据范围-4"><a href="#数据范围-4" class="headerlink" title="数据范围"></a>数据范围</h5><script type="math/tex; mode=display">
+1≤n≤100,</script><script type="math/tex; mode=display">
+2≤a_i≤2×10^9</script><h5 id="输入样例：-4"><a href="#输入样例：-4" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">6</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-4"><a href="#输出样例：-4" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 6 </span><br><span class="line">1 2 4 8</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    int k;</span><br><span class="line">    cin&gt;&gt;k;</span><br><span class="line">    while(k--)</span><br><span class="line">    &#123;</span><br><span class="line">        int n;</span><br><span class="line">        cin&gt;&gt;n;</span><br><span class="line">        vector&lt;int&gt; a;</span><br><span class="line">        for(int i=1;i&lt;=n/i;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(n%i==0)</span><br><span class="line">            &#123;</span><br><span class="line">            a.push_back(i);        </span><br><span class="line">            if(i!=n/i) a.push_back(n/i);</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line">        sort(a.begin(),a.end());</span><br><span class="line">        for(auto t:a) cout&lt;&lt;t&lt;&lt;&quot; &quot;;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">return 0;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-2-约数个数和约数之和"><a href="#4-2-2-约数个数和约数之和" class="headerlink" title="4.2.2 约数个数和约数之和"></a>4.2.2 约数个数和约数之和</h3><h4 id="1-知识讲解-4"><a href="#1-知识讲解-4" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><h4 id="2-模板讲解-5"><a href="#2-模板讲解-5" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果 N = p1^c1 * p2^c2 * ... *pk^ck</span><br><span class="line">约数个数： (c1 + <span class="number">1</span>) * (c2 + <span class="number">1</span>) * ... * (ck + <span class="number">1</span>)</span><br><span class="line">约数之和： (p1^<span class="number">0</span> + p1^<span class="number">1</span> + ... + p1^c1) * ... * (pk^<span class="number">0</span> + pk^<span class="number">1</span> + ... + pk^ck)</span><br></pre></td></tr></table></figure>
+<h4 id="例4-2-2-1-约数个数"><a href="#例4-2-2-1-约数个数" class="headerlink" title="例4.2.2.1 约数个数"></a>例4.2.2.1 约数个数</h4><p>给定 $n$ 个正整数 $a_i$，请你输出这些数的乘积的约数个数，答案对10^9+7取模</p>
+<h5 id="输入格式-5"><a href="#输入格式-5" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个整数 $a_i$。</p>
+<h5 id="输出格式-5"><a href="#输出格式-5" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出一个整数，表示所给正整数的乘积的约数个数，答案需对 $10^9+7$ 取模。</p>
+<h5 id="数据范围-5"><a href="#数据范围-5" class="headerlink" title="数据范围"></a>数据范围</h5><script type="math/tex; mode=display">
+1≤n≤100,</script><script type="math/tex; mode=display">
+1≤a_i≤2×10^9</script><h5 id="输入样例：-5"><a href="#输入样例：-5" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">6</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-5"><a href="#输出样例：-5" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+<h4 id="例4-2-2-2：约数之和"><a href="#例4-2-2-2：约数之和" class="headerlink" title="例4.2.2.2：约数之和"></a>例4.2.2.2：约数之和</h4><p>给定 $n$ 个正整数 $a_i$，请你输出这些数的乘积的约数之和，答案对 $10^9+7$ 取模。</p>
+<h5 id="输入格式-6"><a href="#输入格式-6" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个整数 $a_i$。</p>
+<h5 id="输出格式-6"><a href="#输出格式-6" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出一个整数，表示所给正整数的乘积的约数之和，答案需对 $10^9$+7$ 取模。</p>
+<h5 id="数据范围-6"><a href="#数据范围-6" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤100$,</p>
+<p>$1≤a_i≤2×10^9$</p>
+<h5 id="输入样例：-6"><a href="#输入样例：-6" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">6</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-6"><a href="#输出样例：-6" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">252</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-欧拉函数"><a href="#4-3-欧拉函数" class="headerlink" title="4.3 欧拉函数"></a>4.3 欧拉函数</h2><h3 id="4-3-1-欧几里得算法"><a href="#4-3-1-欧几里得算法" class="headerlink" title="4.3.1 欧几里得算法"></a>4.3.1 欧几里得算法</h3><h4 id="1-知识讲解-5"><a href="#1-知识讲解-5" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>辗转相除法， 又名欧几里德算法（Euclidean algorithm），是求最大公约数的一种方法。它的具体做法是：用较大数除以较小数，再用出现的余数（第一余数）去除除数，再用出现的余数（第二余数）去除第一余数，如此反复，直到最后余数是$0$为止。如果是求两个数的最大公约数，那么最后的除数就是这两个数的最大公约数。</p>
+<p>另一种求两数的最大公约数的方法是更相减损法。</p>
+<p>辗转相除法举例：</p>
+<p>求 $10$ ，$25$的最大公约数：</p>
+<p>$25 / 10 = 2 ······5$</p>
+<p>$10 / 5   = 2 ······0$</p>
+<p>所以$10$，$25$的最大公约数为$5$</p>
+<p>优点</p>
+<ol>
+<li><p><em>gcd</em>函数的递归层数不会超过$4.785\lg N + 1.6723$, 其中$N == \max\{ a，b \}$，所以不会导致栈溢出。</p>
+</li>
+<li><p><em>gcd</em>函数不仅可以求解$(a, b)$的最大公约数，还可以求解小公倍数，$lcm(a, b)$ 代表$(a, b)$的最小公倍数</p>
+<p>那么有 $lcm(a, b) * gcd(a, b) = a * b$​<br>所以：$lcm(a,b) = a * b / gcd(a, b)$ 但是最好写成：$lcm(a,b) = a  / gcd(a, b) * b$  这样一定程度可以避免 $a * b$ 爆<em>long long</em> .</p>
+</li>
+</ol>
+<h4 id="2-模板讲解-6"><a href="#2-模板讲解-6" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b ? <span class="built_in">gcd</span>(b, a % b) : a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-3-1：最大公约数"><a href="#例4-3-1：最大公约数" class="headerlink" title="例4.3.1：最大公约数"></a>例4.3.1：最大公约数</h4><p>给定 $n$ 对正整数 $a_i,b_i$，请你求出每对数的最大公约数。</p>
+<h5 id="输入格式-7"><a href="#输入格式-7" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个整数对 $a_i,b_i$。</p>
+<h5 id="输出格式-7"><a href="#输出格式-7" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出共 $n$ 行，每行输出一个整数对的最大公约数。</p>
+<h5 id="数据范围-7"><a href="#数据范围-7" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤10^5}$,</p>
+<p>${1≤a_i,b_i≤2×10^9}$</p>
+<h5 id="输入样例：-7"><a href="#输入样例：-7" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3 6</span><br><span class="line">4 6</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-7"><a href="#输出样例：-7" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int gcd(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">    return b ? gcd(b, a % b) : a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123; </span><br><span class="line">int n,a,b,c;</span><br><span class="line">scanf(&quot;%d&quot;,n);</span><br><span class="line">for(int i=0;i&lt;n;i++)</span><br><span class="line">&#123;</span><br><span class="line">scanf(&quot;%d %d&quot;,&amp;a,&amp;b);</span><br><span class="line">c=gdc(a,b);</span><br><span class="line">printf(&quot;%d\n&quot;,c);</span><br><span class="line">&#125;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-2-求欧拉函数"><a href="#4-3-2-求欧拉函数" class="headerlink" title="4.3.2 求欧拉函数"></a>4.3.2 求欧拉函数</h3><h4 id="1-知识讲解-6"><a href="#1-知识讲解-6" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>欧拉函数的定义：</p>
+<p>$1∼N$ 中与 $N$ 互质的数的个数被称为欧拉函数，记为 $ϕ(N)$。</p>
+<p>若在算数基本定理中，$N=p^{a1}_1p^{a2}_2…p^{a_m}_m$​，则：$ϕ(N) = N×\frac{p_1−1}{p_1}×\frac{p_2−1}{p_2}×…×\frac{p_m−1}{p_m}$​<br>其中$p(1),p(2)…p(n)$为$x$的所有质因数;x是正整数; $\phi (1)=1$(唯一和$1$互质的数，且小于等于1)。注意：每种质因数只有一个。</p>
+<h4 id="2-模板讲解-7"><a href="#2-模板讲解-7" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">phi</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= x / i; i ++ )</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            res = res / i * (i - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">while</span> (x % i == <span class="number">0</span>) x /= i;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; <span class="number">1</span>) res = res / x * (x - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-3-2：欧拉函数"><a href="#例4-3-2：欧拉函数" class="headerlink" title="例4.3.2：欧拉函数"></a>例4.3.2：欧拉函数</h4><p>给定 $n$ 个正整数 $a_i$，请你求出每个数的欧拉函数。</p>
+<p>欧拉函数的定义：</p>
+<p>$1∼N$ 中与 $N$ 互质的数的个数被称为欧拉函数，记为 $ϕ(N)$。</p>
+<p>若在算数基本定理中，$N=p^{a1}_1p^{a2}_2…p^{a_m}_m$，则：$ϕ(N) = N×\frac{p_1−1}{p_1}×\frac{p_2−1}{p_2}×…×\frac{p_m−1}{p_m}$</p>
+<h5 id="输入格式-8"><a href="#输入格式-8" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一个正整数 $a_i$。</p>
+<h5 id="输出格式-8"><a href="#输出格式-8" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出共 $n$ 行，每行输出一个正整数 $a_i$ 的欧拉函数。</p>
+<h5 id="数据范围-8"><a href="#数据范围-8" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤100$,</p>
+<p>$1≤a_i≤2×10^9$</p>
+<h5 id="输入样例：-8"><a href="#输入样例：-8" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-8"><a href="#输出样例：-8" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line"> #include&lt;math.h&gt;</span><br><span class="line">  int eular(int n)</span><br><span class="line"> &#123;</span><br><span class="line">      int res=n;</span><br><span class="line">   for(int i=2;i&lt;=sqrt(n);i++)//判断n是否为质数</span><br><span class="line">      &#123;</span><br><span class="line">          if(n%i==0)res=res/i*(i-1);//res=res*(1-1/i)先进行除法防止溢出 </span><br><span class="line">          while(n%i==0)n/=i;</span><br><span class="line">     &#125;</span><br><span class="line">     if(n&gt;1)res=res/n*(n-1);</span><br><span class="line">     return res;</span><br><span class="line"> &#125;</span><br><span class="line">14 int main() </span><br><span class="line">&#123;</span><br><span class="line">     int n;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    printf(&quot;%d&quot;,eular(n));</span><br><span class="line">     return 0;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-3-筛法求欧拉函数"><a href="#4-3-3-筛法求欧拉函数" class="headerlink" title="4.3.3 筛法求欧拉函数"></a>4.3.3 筛法求欧拉函数</h3><h4 id="1-知识讲解-7"><a href="#1-知识讲解-7" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>用到以下几个性质：</p>
+<ol>
+<li>$phi(p) == p-1$​ 因为素数$p$除了$1$以外的因子只有$p$，所以与 $p$ 互素的个数是 $p - 1$个</li>
+<li>$phi(p^k) == p^k - p^(k-1) == (p-1) * p^(k-1)$</li>
+</ol>
+<p>证明：</p>
+<p>令$n == p^k$​​​​​,小于 $n$​​​​ 的正整数共有 $p^k-1$​​​​ 个,其中与 $p$​​​​ 不互素的个数共 $p^{k-1}-1 $​​​​个，它们是 $1*p,2*p,3*p … (p^{k-1}-1)*p$​</p>
+<p>所以$phi(p^k) == (p^k-1) - (p^(k-1)-1) == p^k - p^(k-1) == (p-1) * p^(k-1)$​。</p>
+<ol>
+<li>如果$i \mod p == 0$, 那么 $\phi(i * p) == p * \phi(i)$ （证明略）</li>
+</ol>
+<p>举个例子：</p>
+<p>假设 $p = 3$,$i = 6$,$p * i = 18 = 2 * 3^2$;</p>
+<p>$\phi(3 * 6) == 18*(1-1/2)*(1-1/3) = 6$</p>
+<p>$p * \phi(i) = 3 * \phi(6) = 3 * 6 * (1-1/2) *  (1-1/3) = 6 = \phi(i * p)$ 正确</p>
+<ol>
+<li>如果$i \mod p != 0$, 那么 $\phi(i * p) == \phi(i) * (p-1)$</li>
+</ol>
+<p>证明：</p>
+<p>$i \mod p$ 不为$0$且$p$为质数, 所以$i$与$p$互质, 那么根据积性函数的性质 $\phi(i * p) == \phi(i) * \phi(p)$ 其中$\phi(p) == p-1$</p>
+<p>所以$ \phi(i * p) == \phi(i) * (p-1)$​.</p>
+<p>再举个例子：</p>
+<p>假设$i = 4, p = 3, i * p = 3 * 4 = 12$</p>
+<p>$\phi(12) = 12 * (1-1/2) * (1-1/3) = 4$</p>
+<p>$\phi(i) * (p-1) = \phi(4) * (3-1) = 4 * (1-1/2) * 2 = 4 = \phi(i * p)$正确</p>
+<h4 id="2-模板讲解-8"><a href="#2-模板讲解-8" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> primes[N], cnt;     <span class="comment">// primes[]存储所有素数</span></span><br><span class="line"><span class="keyword">int</span> euler[N];           <span class="comment">// 存储每个数的欧拉函数</span></span><br><span class="line"><span class="keyword">bool</span> st[N];         <span class="comment">// st[x]存储x是否被筛掉</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_eulers</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    euler[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!st[i])</span><br><span class="line">        &#123;</span><br><span class="line">            primes[cnt ++ ] = i;</span><br><span class="line">            euler[i] = i - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; primes[j] &lt;= n / i; j ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = primes[j] * i;</span><br><span class="line">            st[t] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                euler[t] = euler[i] * primes[j];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            euler[t] = euler[i] * (primes[j] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-3-3：筛法求欧拉函数"><a href="#例4-3-3：筛法求欧拉函数" class="headerlink" title="例4.3.3：筛法求欧拉函数"></a>例4.3.3：筛法求欧拉函数</h4><p>给定一个正整数 $n$，求 $1∼n$ 中每个数的欧拉函数之和。</p>
+<h5 id="输入格式-9"><a href="#输入格式-9" class="headerlink" title="输入格式"></a>输入格式</h5><p>共一行，包含一个整数 $n$。</p>
+<h5 id="输出格式-9"><a href="#输出格式-9" class="headerlink" title="输出格式"></a>输出格式</h5><p>共一行，包含一个整数，表示 $1∼n$ 中每个数的欧拉函数之和。</p>
+<h5 id="数据范围-9"><a href="#数据范围-9" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤10^6$</p>
+<h5 id="输入样例：-9"><a href="#输入样例：-9" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-9"><a href="#输出样例：-9" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-快速幂"><a href="#4-4-快速幂" class="headerlink" title="4.4 快速幂"></a>4.4 快速幂</h2><h4 id="1-知识讲解-8"><a href="#1-知识讲解-8" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>快速幂:乘积的模，等于因子的模的乘积取模</p>
+<script type="math/tex; mode=display">
+(a×b)\%p=((a\%p)×(b\%p))\%p</script><p>压缩性能:把底数平方而让指数减半，达到缩短循环的目的</p>
+<script type="math/tex; mode=display">
+a^b=(a^2)^{b/2}</script><p>其中指数减半可以通过位运算来快速操作</p>
+<h4 id="2-模板讲解-9"><a href="#2-模板讲解-9" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">求 m^k mod p，时间复杂度 <span class="built_in">O</span>(logk)。</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qmi</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> k, <span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span> % p, t = m;</span><br><span class="line">    <span class="keyword">while</span> (k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (k&amp;<span class="number">1</span>) res = res * t % p;</span><br><span class="line">        t = t * t % p;</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-4：快速幂"><a href="#例4-4：快速幂" class="headerlink" title="例4.4：快速幂"></a>例4.4：快速幂</h4><p>给定 $n$ 组 $a_i,b_i,p_i$，对于每组数据，求出 $a_i^{b_i} \mod p_i$ 的值。</p>
+<h5 id="输入格式-10"><a href="#输入格式-10" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含三个整数 $a_i,b_i,p_i$。</p>
+<h5 id="输出格式-10"><a href="#输出格式-10" class="headerlink" title="输出格式"></a>输出格式</h5><p>对于每组数据，输出一个结果，表示 $a_i^{b_i} \mod p_i$ 的值。</p>
+<p>每个结果占一行。</p>
+<h5 id="数据范围-10"><a href="#数据范围-10" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤100000}$,</p>
+<p>${1≤a_i,b_i,p_i≤2×10^9}$</p>
+<h5 id="输入样例：-10"><a href="#输入样例：-10" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3 2 5</span><br><span class="line">4 3 9</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-10"><a href="#输出样例：-10" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h2 id="4-5-扩展欧几里得算法"><a href="#4-5-扩展欧几里得算法" class="headerlink" title="4.5 扩展欧几里得算法"></a>4.5 扩展欧几里得算法</h2><h4 id="1-知识讲解-9"><a href="#1-知识讲解-9" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>贝祖定理：已知整数$a,b,gcd(a,b)$,则一定存在整数 $x, y$ 满足等式 $ a * x + b * y = gcd(a,b)$；已知整数$a,b,x,y$,一定存在整数$k,d$满足 $a * x + b * y = d$,  $d=k*gcd(a,b)$​</p>
+<p>这里的$a,b$是已知，$gcd(a,b)$表示的是$a$和$b$的最大公约数，所以扩展欧几里得算法既可以计算出最大公约数$gcd(a,b)$，又可以计算出变量$x$,$y$的一组解。</p>
+<p>当$k$不为整数时，我们称$x，y$不全满足贝祖定理</p>
+<p>在辗转相除法中，</p>
+<script type="math/tex; mode=display">
+a=a\%b+(a/b)*b</script><p>且</p>
+<script type="math/tex; mode=display">
+b*x_1+(a\%b)*y_1=gcd</script><p>代入得</p>
+<script type="math/tex; mode=display">
+a*y_1+b*(x_1-a/b*y_1)=gcd</script><p>故而我们得到x,y的一组解</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x=y_1\\
+y=x_1-(a/b)*y_1\\
+\end{cases}</script><p>这就是我们的递归方程组</p>
+<h4 id="2-模板讲解-10"><a href="#2-模板讲解-10" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求x, y，使得ax + by = gcd(a, b)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> &amp;x, <span class="keyword">int</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!b)</span><br><span class="line">    &#123;</span><br><span class="line">        x = <span class="number">1</span>; y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> d = <span class="built_in">exgcd</span>(b, a % b, y, x);</span><br><span class="line">    y -= (a/b) * x;</span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-7-扩展欧几里得算法"><a href="#例4-7-扩展欧几里得算法" class="headerlink" title="例4.7 扩展欧几里得算法"></a>例4.7 扩展欧几里得算法</h4><p>给定 $n$ 对正整数 $a_i,b_i$，对于每对数，求出一组 $x_i,y_i$i，使其满足 $a_i×x_i+b_i×y_i=gcd(a_i,b_i)$。</p>
+<h5 id="输入格式-11"><a href="#输入格式-11" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含两个整数 $a_i,b_i$。</p>
+<h5 id="输出格式-11"><a href="#输出格式-11" class="headerlink" title="输出格式"></a>输出格式</h5><p>输出共 $n$ 行，对于每组 $a_i,b_i$，求出一组满足条件的 $x_i,y_i$，每组结果占一行。</p>
+<p>本题答案不唯一，输出任意满足条件的 $x_i,y_i$ 均可。</p>
+<h5 id="数据范围-11"><a href="#数据范围-11" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤10^5}$,</p>
+<p>${1≤a_i,b_i≤2×10^9}$</p>
+<h5 id="输入样例：-11"><a href="#输入样例：-11" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4 6</span><br><span class="line">8 18</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-11"><a href="#输出样例：-11" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1 1</span><br><span class="line">-2 1</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-4"><a href="#示例代码-4" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int e_gcd(int a, int b, int* x, int* y)</span><br><span class="line">&#123;</span><br><span class="line">	if (b == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		*x = 1, *y = 0;</span><br><span class="line">		return a;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		int r = e_gcd(b, a % b, x, y);</span><br><span class="line">		/* r = GCD(a, b) = GCD(b, a%b) */</span><br><span class="line">		int t = *x;</span><br><span class="line">		*x = *y;</span><br><span class="line">		*y = t - a / b * *y;</span><br><span class="line">		return r;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int f=0;</span><br><span class="line">	int i,j;</span><br><span class="line">	int* x= &amp;i;</span><br><span class="line">	int* y= &amp;j;</span><br><span class="line">	f = e_gcd(5, 3, x, y);</span><br><span class="line">	printf(&quot;%d  %d&quot;,*y,*x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-6-中国剩余定理"><a href="#4-6-中国剩余定理" class="headerlink" title="4.6 中国剩余定理"></a>4.6 中国剩余定理</h2><h2 id="4-7-高斯消元"><a href="#4-7-高斯消元" class="headerlink" title="4.7 高斯消元"></a>4.7 高斯消元</h2><h4 id="1-知识讲解-10"><a href="#1-知识讲解-10" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>高斯消元法是求解线性方阵组的一种算法，它也可用来求矩阵的秩，以及求可逆方阵的逆矩阵。它通过逐步消除未知数来将原始线性系统转化为另一个更简单的等价的系统。它的实质是通过初等行变化，将线性方程组的增广矩阵转化为行阶梯矩阵.</p>
+<p>例如，已知线性方程组</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+3x_1+2x_2+x_n=6\\
+2x_1+2x_2+2x_n=4\\
+4x_1-2x_2-2x_n=2\\
+\end{cases}</script><p>记为矩阵形式,</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x&y&z&val\\
+3&2&1&6\\
+2&2&2&2\\
+4&-2&-2&2\\
+\end{bmatrix}</script><p>消去x，y</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x&y&z&val\\
+1&2\over3&1\over3&2\\
+0&2\over3&4\over3&0\\
+0&0&18\over3&-6\\
+\end{bmatrix}</script><p>回带得解</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1\\2\\-1
+\end{bmatrix}</script><p>无解：当消元完毕后，发现有一行系数都为 $0$，但是常数项不为 $0$，此时无解</p>
+<p>例如：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x&y&z&val\\
+1&2\over3&1\over3&2\\
+0&1&2&0\\
+0&0&0&-6\\
+\end{bmatrix}</script><p>多解：当消元完毕后，发现有多行系数、常数项均为 $0$，此时多解，有几行为全为 $0$，就有几个自由元，即变量的值可以任取，有无数种情况可以满足给出的方程组</p>
+<p>例如：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x&y&z&val\\
+1&2\over3&1\over3&2\\
+0&0&0&0\\
+0&0&0&0\\
+\end{bmatrix}</script><p>，此时自由元个数为 $2$</p>
+<h4 id="2-模板讲解-11"><a href="#2-模板讲解-11" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a[N][N]是增广矩阵</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gauss</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c, r;</span><br><span class="line">    <span class="keyword">for</span> (c = <span class="number">0</span>, r = <span class="number">0</span>; c &lt; n; c ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t = r;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = r; i &lt; n; i ++ )   <span class="comment">// 找到绝对值最大的行</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">fabs</span>(a[i][c]) &gt; <span class="built_in">fabs</span>(a[t][c]))</span><br><span class="line">                t = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">fabs</span>(a[t][c]) &lt; eps) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = c; i &lt;= n; i ++ ) <span class="built_in">swap</span>(a[t][i], a[r][i]);      <span class="comment">// 将绝对值最大的行换到最顶端</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= c; i -- ) a[r][i] /= a[r][c];      <span class="comment">// 将当前行的首位变成1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = r + <span class="number">1</span>; i &lt; n; i ++ )       <span class="comment">// 用当前行将下面所有的列消成0</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">fabs</span>(a[i][c]) &gt; eps)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = n; j &gt;= c; j -- )</span><br><span class="line">                    a[i][j] -= a[r][j] * a[i][c];</span><br><span class="line"></span><br><span class="line">        r ++ ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (r &lt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = r; i &lt; n; i ++ )</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">fabs</span>(a[i][n]) &gt; eps)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">2</span>; <span class="comment">// 无解</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// 有无穷多组解</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i -- )</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j ++ )</span><br><span class="line">            a[i][n] -= a[i][j] * a[j][n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 有唯一解</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-7：高斯消元解线性方程组"><a href="#例4-7：高斯消元解线性方程组" class="headerlink" title="例4.7：高斯消元解线性方程组"></a>例4.7：高斯消元解线性方程组</h4><p>输入一个包含 $n$个方程 $n$ 个未知数的线性方程组。</p>
+<p>方程组中的系数为实数。</p>
+<p>求解这个方程组。</p>
+<p>下图为一个包含 $m$ 个方程 $n$ 个未知数的线性方程组示例：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n=b_1,\\[2ex]
+a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n=b2,\\[2ex]
+\cdots\\
+a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n = b_m,
+
+\end{cases}</script><h5 id="输入格式-12"><a href="#输入格式-12" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含 $n+1$ 个实数，表示一个方程的 $n$ 个系数以及等号右侧的常数。</p>
+<h5 id="输出格式-12"><a href="#输出格式-12" class="headerlink" title="输出格式"></a>输出格式</h5><p>如果给定线性方程组存在唯一解，则输出共 $n$ 行，其中第 $i$ 行输出第 $i$ 个未知数的解，结果保留两位小数。</p>
+<p>如果给定线性方程组存在无数解，则输出 <em>Infinite group solutions</em>。</p>
+<p>如果给定线性方程组无解，则输出 <em>No solution</em>。</p>
+<h5 id="数据范围-12"><a href="#数据范围-12" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤100}$,</p>
+<p>所有输入系数以及常数均保留两位小数，绝对值均不超过 ${100}$。</p>
+<h5 id="输入样例：-12"><a href="#输入样例：-12" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">1.00 2.00 -1.00 -6.00</span><br><span class="line">2.00 1.00 -3.00 -9.00</span><br><span class="line">-1.00 -1.00 2.00 7.00</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-12"><a href="#输出样例：-12" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.00</span><br><span class="line">-2.00</span><br><span class="line">3.00</span><br></pre></td></tr></table></figure>
+<h2 id="4-8-组合计数"><a href="#4-8-组合计数" class="headerlink" title="4.8 组合计数"></a>4.8 组合计数</h2><h3 id="4-8-1-递归法求组合数"><a href="#4-8-1-递归法求组合数" class="headerlink" title="4.8.1 递归法求组合数"></a>4.8.1 递归法求组合数</h3><h4 id="1-知识讲解-11"><a href="#1-知识讲解-11" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>如果$m$为$0$，那么一定只有一种取法，不用管$n$的个数 ，返回$1$；如果$n$小于$m$，比如从$3$个里面取$4$个，很显然是不可能的，返回$0$；如果$n$等于$m$，返回$1$；其他情况：假设有一个标记的球（实际没有），那么从$n$个球中取出$m$个球就有两种结果，带有标记的一堆，和不带有标记的一堆，假设函数$F(N,M)$，那么将是$F(N-1,M-1)+F(N-1,M)$​</p>
+<h4 id="2-模板讲解-12"><a href="#2-模板讲解-12" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c[a][b] 表示从a个苹果中选b个的方案数</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i ++ )</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++ )</span><br><span class="line">        <span class="keyword">if</span> (!j) c[i][j] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> c[i][j] = (c[i - <span class="number">1</span>][j] + c[i - <span class="number">1</span>][j - <span class="number">1</span>]) % mod;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-8-1：求组合数-I"><a href="#例4-8-1：求组合数-I" class="headerlink" title="例4.8.1：求组合数 I"></a>例4.8.1：求组合数 I</h4><p>给定 $n$ 组询问，每组询问给定两个整数 $a，b$，请你输出 $C^a_b \mod (10^9+7)$ 的值。</p>
+<h5 id="输入格式-13"><a href="#输入格式-13" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一组 $a$ 和 $b$。</p>
+<h5 id="输出格式-13"><a href="#输出格式-13" class="headerlink" title="输出格式"></a>输出格式</h5><p>共 $n$ 行，每行输出一个询问的解。</p>
+<h5 id="数据范围-13"><a href="#数据范围-13" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤10000}$,</p>
+<p>${1≤b≤a≤2000}$</p>
+<h5 id="输入样例：-13"><a href="#输入样例：-13" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3 1</span><br><span class="line">5 3</span><br><span class="line">2 2</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-13"><a href="#输出样例：-13" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">10</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-5"><a href="#示例代码-5" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2010, mod = 1e9 + 7;</span><br><span class="line">int c[N][N];</span><br><span class="line">void init()</span><br><span class="line">&#123;</span><br><span class="line">    for(int i = 0; i &lt; N; i ++)</span><br><span class="line">        for(int j = 0; j &lt;= i; j ++)</span><br><span class="line">            if(!j) c[i][j] = 1;</span><br><span class="line">            else c[i][j] = (c[i - 1][j] + c[i - 1][j - 1]) % mod;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    init();</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">    while(n --)&#123;</span><br><span class="line">        int a, b;</span><br><span class="line">        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);</span><br><span class="line">        printf(&quot;%d\n&quot;, c[a][b]);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-8-2-通过预处理逆元的方式求组合数"><a href="#4-8-2-通过预处理逆元的方式求组合数" class="headerlink" title="4.8.2 通过预处理逆元的方式求组合数"></a>4.8.2 通过预处理逆元的方式求组合数</h3><h4 id="1-知识讲解-12"><a href="#1-知识讲解-12" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>首先预处理出所有阶乘取模的余数fact[N]，以及所有阶乘取模的逆元infact[N]<br>如果取模的数是质数，可以用费马小定理求逆元</p>
+<script type="math/tex; mode=display">
+C^b_a=\frac{a!}{b!*(a-b)!}\\
+fact[i]=i!{\ }mod{\ }10^9+7\\
+infact[i]=(i!)^{-1}{\ }mod{\ }10^9+7\\</script><p>故而</p>
+<script type="math/tex; mode=display">
+C_a^b=fact[a]*infact[b]*infact[a-b]</script><h4 id="2-模板讲解-13"><a href="#2-模板讲解-13" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">首先预处理出所有阶乘取模的余数fact[N]，以及所有阶乘取模的逆元infact[N]</span><br><span class="line">如果取模的数是质数，可以用费马小定理求逆元</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qmi</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> k, <span class="keyword">int</span> p)</span>    <span class="comment">// 快速幂模板</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (k &amp; <span class="number">1</span>) res = (LL)res * a % p;</span><br><span class="line">        a = (LL)a * a % p;</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 预处理阶乘的余数和阶乘逆元的余数</span></span><br><span class="line">fact[<span class="number">0</span>] = infact[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    fact[i] = (LL)fact[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">    infact[i] = (LL)infact[i - <span class="number">1</span>] * <span class="built_in">qmi</span>(i, mod - <span class="number">2</span>, mod) % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-8-2：求组合数-II"><a href="#例4-8-2：求组合数-II" class="headerlink" title="例4.8.2：求组合数 II"></a>例4.8.2：求组合数 II</h4><p>给定 $n$ 组询问，每组询问给定两个整数 $a，b$，请你输出 $C^a_b \mod (10^9+7)$ 的值。</p>
+<h5 id="输入格式-14"><a href="#输入格式-14" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一组 $a$ 和 $b$。</p>
+<h5 id="输出格式-14"><a href="#输出格式-14" class="headerlink" title="输出格式"></a>输出格式</h5><p>共 $n$ 行，每行输出一个询问的解。</p>
+<h5 id="数据范围-14"><a href="#数据范围-14" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n≤10000}$,</p>
+<p>${1≤b≤a≤10^5}$</p>
+<h5 id="输入样例：-14"><a href="#输入样例：-14" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3 1</span><br><span class="line">5 3</span><br><span class="line">2 2</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-14"><a href="#输出样例：-14" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">10</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-6"><a href="#示例代码-6" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int N = 100010, mod = 1e9 + 7;</span><br><span class="line">int fact[N], infact[N];</span><br><span class="line"></span><br><span class="line">int qmi(int a, int k, int p)</span><br><span class="line">&#123;</span><br><span class="line">    int res = 1;</span><br><span class="line">    while(k)&#123;</span><br><span class="line">        if(k &amp; 1) res = (ll)res * a % p;</span><br><span class="line">        a = (ll) a * a % p;</span><br><span class="line">        k &gt;&gt;= 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    fact[0] = infact[0] = 1;</span><br><span class="line">    for(int i = 1; i &lt; N; i ++)&#123;</span><br><span class="line">        //表示i的阶乘</span><br><span class="line">        fact[i] = (ll)fact[i - 1] * i % mod;</span><br><span class="line">        //表示i的阶乘的逆元</span><br><span class="line">        infact[i] = (ll)infact[i - 1] * qmi(i, mod - 2, mod) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">    while(n --)&#123;</span><br><span class="line">        int a, b;</span><br><span class="line">        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);</span><br><span class="line">        printf(&quot;%d\n&quot;, (ll)fact[a] * infact[b] % mod * infact[a - b] % mod);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-8-3-Lucas定理"><a href="#4-8-3-Lucas定理" class="headerlink" title="4.8.3 Lucas定理"></a>4.8.3 Lucas定理</h3><h4 id="1-知识讲解-13"><a href="#1-知识讲解-13" class="headerlink" title="1. 知识讲解"></a>1. 知识讲解</h4><p>概述：</p>
+<p>Lucas（卢斯卡）定理是用来求C(n,m) mod p的值。其中：n和m是非负整数，p是素数。一般用于m，n很大而p很小，或者n，m不大但大于怕、，这样用阶乘就解决不了问题。</p>
+<p>结论</p>
+<script type="math/tex; mode=display">
+C_n^m {\   } mod{\     } p=C_{n/p}^{m/p}×C_{n{\ }mod{\ }p}^{m{\ }mod{\ }p}{\ }mod{\  }p,p是素数</script><p>接下来，我么可以运用组合数和快速幂的知识解决</p>
+<h4 id="2-模板讲解-14"><a href="#2-模板讲解-14" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">若p是质数，则对于任意整数 <span class="number">1</span> &lt;= m &lt;= n，有：</span><br><span class="line">    <span class="built_in">C</span>(n, m) = <span class="built_in">C</span>(n % p, m % p) * <span class="built_in">C</span>(n / p, m / p) (mod p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">qmi</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> k, <span class="keyword">int</span> p)  <span class="comment">// 快速幂模板</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span> % p;</span><br><span class="line">    <span class="keyword">while</span> (k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (k &amp; <span class="number">1</span>) res = (LL)res * a % p;</span><br><span class="line">        a = (LL)a * a % p;</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> p)</span>  <span class="comment">// 通过定理求组合数C(a, b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &lt; b) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    LL x = <span class="number">1</span>, y = <span class="number">1</span>;  <span class="comment">// x是分子，y是分母</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = a, j = <span class="number">1</span>; j &lt;= b; i --, j ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        x = (LL)x * i % p;</span><br><span class="line">        y = (LL) y * j % p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x * (LL)<span class="built_in">qmi</span>(y, p - <span class="number">2</span>, p) % p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lucas</span><span class="params">(LL a, LL b, <span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &lt; p &amp;&amp; b &lt; p) <span class="keyword">return</span> <span class="built_in">C</span>(a, b, p);</span><br><span class="line">    <span class="keyword">return</span> (LL)<span class="built_in">C</span>(a % p, b % p, p) * <span class="built_in">lucas</span>(a / p, b / p, p) % p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-8-3：求组合数-III"><a href="#例4-8-3：求组合数-III" class="headerlink" title="例4.8.3：求组合数 III"></a>例4.8.3：求组合数 III</h4><p>给定 $n$ 组询问，每组询问给定三个整数 $a,b,p$，其中 $p$ 是质数，请你输出 $C^b_a \mod (10^9+7)$ 的值。</p>
+<h5 id="输入格式-15"><a href="#输入格式-15" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $n$。</p>
+<p>接下来 $n$ 行，每行包含一组 $a,b,p$。</p>
+<h5 id="输出格式-15"><a href="#输出格式-15" class="headerlink" title="输出格式"></a>输出格式</h5><p>共 $n$ 行，每行输出一个询问的解。</p>
+<h5 id="数据范围-15"><a href="#数据范围-15" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤20$,</p>
+<p>$1≤b≤a≤10^{18}$,</p>
+<p>$1≤p≤10^5$,</p>
+<h5 id="输入样例：-15"><a href="#输入样例：-15" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">5 3 7</span><br><span class="line">3 1 5</span><br><span class="line">6 4 13</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-15"><a href="#输出样例：-15" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-7"><a href="#示例代码-7" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int N = 100010, mod = 1e9 + 7;</span><br><span class="line">int p;</span><br><span class="line"></span><br><span class="line">int qmi(int a, int k)</span><br><span class="line">&#123;</span><br><span class="line">    int res = 1;</span><br><span class="line">    while(k)&#123;</span><br><span class="line">        if(k &amp; 1) res = (ll)res * a % p;</span><br><span class="line">        a = (ll)a * a % p;</span><br><span class="line">        k &gt;&gt;= 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int C(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">    int res = 1;</span><br><span class="line">    for(int i = 1, j = a; i &lt;= b; i ++, j --)&#123;</span><br><span class="line">        res = (ll)res * j % p;</span><br><span class="line">        //除i等于乘以i的逆元，费马定理i模p的逆元就是i ^(p-2)</span><br><span class="line">        res = (ll)res * qmi(i, p - 2) % p;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int lucas(ll a, ll b)</span><br><span class="line">&#123;</span><br><span class="line">    if(a &lt; p &amp;&amp; b &lt; p) return C(a, b);</span><br><span class="line">    return (ll)C(a % p, b % p) * lucas(a / p, b / p) % p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n; cin &gt;&gt; n;</span><br><span class="line">    while(n --)&#123;</span><br><span class="line">        ll a, b;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b &gt;&gt; p;</span><br><span class="line">        cout &lt;&lt; lucas(a, b) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-8-4-分解质因数法求组合数"><a href="#4-8-4-分解质因数法求组合数" class="headerlink" title="4.8.4 分解质因数法求组合数"></a>4.8.4 分解质因数法求组合数</h3><h4 id="1-原理讲解-1"><a href="#1-原理讲解-1" class="headerlink" title="1. 原理讲解"></a>1. 原理讲解</h4><p>当我们需要求出组合数而非其余数时，分解质因数的方式比较好用：</p>
+<ol>
+<li>筛法求出范围内的所有质数</li>
+<li>通过 $C(a, b) = a! / b! / (a - b)!$ 这个公式求出每个质因子的次数。 $n!$ 中$p$的次数是 $n / p + n / p^2 + n / p^3 + …$</li>
+<li>用高精度乘法将所有质因子相乘</li>
+</ol>
+<h4 id="2-模板讲解-15"><a href="#2-模板讲解-15" class="headerlink" title="2. 模板讲解"></a>2. 模板讲解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">当我们需要求出组合数的真实值，而非对某个数的余数时，分解质因数的方式比较好用：</span><br><span class="line">    <span class="number">1.</span> 筛法求出范围内的所有质数</span><br><span class="line">    <span class="number">2.</span> 通过 <span class="built_in">C</span>(a, b) = a! / b! / (a - b)! 这个公式求出每个质因子的次数。 n! 中p的次数是 n / p + n / p^<span class="number">2</span> + n / p^<span class="number">3</span> + ...</span><br><span class="line">    <span class="number">3.</span> 用高精度乘法将所有质因子相乘</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> primes[N], cnt;     <span class="comment">// 存储所有质数</span></span><br><span class="line"><span class="keyword">int</span> sum[N];     <span class="comment">// 存储每个质数的次数</span></span><br><span class="line"><span class="keyword">bool</span> st[N];     <span class="comment">// 存储每个数是否已被筛掉</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_primes</span><span class="params">(<span class="keyword">int</span> n)</span>      <span class="comment">// 线性筛法求素数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!st[i]) primes[cnt ++ ] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; primes[j] &lt;= n / i; j ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            st[primes[j] * i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> p)</span>       <span class="comment">// 求n！中的次数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (n)</span><br><span class="line">    &#123;</span><br><span class="line">        res += n / p;</span><br><span class="line">        n /= p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">mul</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; a, <span class="keyword">int</span> b)</span>       <span class="comment">// 高精度乘低精度模板</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; c;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        t += a[i] * b;</span><br><span class="line">        c.<span class="built_in">push_back</span>(t % <span class="number">10</span>);</span><br><span class="line">        t /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (t)</span><br><span class="line">    &#123;</span><br><span class="line">        c.<span class="built_in">push_back</span>(t % <span class="number">10</span>);</span><br><span class="line">        t /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">get_primes</span>(a);  <span class="comment">// 预处理范围内的所有质数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i ++ )     <span class="comment">// 求每个质因数的次数</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> p = primes[i];</span><br><span class="line">    sum[i] = <span class="built_in">get</span>(a, p) - <span class="built_in">get</span>(b, p) - <span class="built_in">get</span>(a - b, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">res.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i ++ )     <span class="comment">// 用高精度乘法将所有质因子相乘</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; sum[i]; j ++ )</span><br><span class="line">        res = <span class="built_in">mul</span>(res, primes[i]);</span><br></pre></td></tr></table></figure>
+<h4 id="例4-8-4：求组合数-IV"><a href="#例4-8-4：求组合数-IV" class="headerlink" title="例4.8.4：求组合数 IV"></a>例4.8.4：求组合数 IV</h4><p>输入 $a,b$，求 $C^b_a$ 的值。</p>
+<p>注意结果可能很大，需要使用高精度计算。</p>
+<h5 id="输入格式-16"><a href="#输入格式-16" class="headerlink" title="输入格式"></a>输入格式</h5><p>共一行，包含两个整数 $a$ 和 $b$。</p>
+<h5 id="输出格式-16"><a href="#输出格式-16" class="headerlink" title="输出格式"></a>输出格式</h5><p>共一行，输出 $C^b_a$ 的值。</p>
+<h5 id="数据范围-16"><a href="#数据范围-16" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤b≤a≤5000}$</p>
+<h5 id="输入样例：-16"><a href="#输入样例：-16" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 3</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-16"><a href="#输出样例：-16" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-8"><a href="#示例代码-8" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 5500 ;</span><br><span class="line">int prime[N] , sum[N] , tot;</span><br><span class="line">bool st[N];</span><br><span class="line">void get_prime(int n)</span><br><span class="line">&#123;</span><br><span class="line">    for(int i = 2;i &lt;= n;i ++)</span><br><span class="line">     &#123;</span><br><span class="line">         if(!st[i]) prime[tot ++] = i ;</span><br><span class="line">         for(int j = 0; j &lt; tot &amp;&amp; i * prime[j] &lt;= n ;j ++)</span><br><span class="line">          &#123;</span><br><span class="line">              st[i * prime[j]] = true ;</span><br><span class="line">              if(i % prime[j] == 0) break ;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     return ;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">int get(int a , int p)</span><br><span class="line">&#123;</span><br><span class="line">    int sum = 0 ;</span><br><span class="line">    while(a)</span><br><span class="line">    &#123;</span><br><span class="line">         sum += a / p ;</span><br><span class="line">         a /= p ;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum ;</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;int&gt; muti(vector&lt;int&gt; a , int b)</span><br><span class="line">&#123;</span><br><span class="line">    int t = 0 ;</span><br><span class="line">    vector&lt;int&gt; res ;</span><br><span class="line">    for(int i = 0;i &lt; a.size() ;i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        t += a[i] * b ;</span><br><span class="line">        res.push_back(t % 10) ;</span><br><span class="line">        t /= 10 ;</span><br><span class="line">    &#125;</span><br><span class="line">    while(t)</span><br><span class="line">    &#123;</span><br><span class="line">        res.push_back(t % 10) ;</span><br><span class="line">        t /= 10 ;</span><br><span class="line">    &#125;</span><br><span class="line">    return res ;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    int a , b ;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt;  b ;</span><br><span class="line">    get_prime(a);</span><br><span class="line">    for(int i = 0; i &lt; tot ;i ++)</span><br><span class="line">     &#123;</span><br><span class="line">         int p = prime[i] ;</span><br><span class="line">         sum[i] = get(a,p) - get(b,p) - get(a-b , p);</span><br><span class="line">     &#125;</span><br><span class="line">     vector&lt;int&gt; res; </span><br><span class="line">     res.push_back(1);</span><br><span class="line">     for(int i = 0;i &lt; tot ; i ++)</span><br><span class="line">      for(int j = 0; j &lt; sum[i] ;j ++)</span><br><span class="line">       res = muti(res, prime[i]);</span><br><span class="line">     for(int i = res.size() - 1;i &gt;= 0;i --)</span><br><span class="line">      cout &lt;&lt; res[i]  ;</span><br><span class="line">     cout &lt;&lt; endl ;</span><br><span class="line">    return 0;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-8-5-卡特兰数"><a href="#4-8-5-卡特兰数" class="headerlink" title="4.8.5 卡特兰数"></a>4.8.5 卡特兰数</h3><p>给定$n$​个${0}$​和$n$​个${1}$​，它们按照某种顺序排成长度为${2n}$​的序列，满足任意前缀中$0$的个数都不少于$1$的个数的序列的数量为： $Cat(n) = C(2n, n) / (n + 1)$​</p>
+<h4 id="例4-8-5：满足条件的01序列"><a href="#例4-8-5：满足条件的01序列" class="headerlink" title="例4.8.5：满足条件的01序列"></a>例4.8.5：满足条件的01序列</h4><p>给定 $n$ 个 ${0}$ 和 $n$ 个 ${1}$，它们将按照某种顺序排成长度为 ${2n}$ 的序列，求它们能排列成的所有序列中，能够满足任意前缀序列中 $0$ 的个数都不少于 1  的个数的序列有多少个。</p>
+<p>输出的答案对 ${10^9+7}$ 取模。</p>
+<h5 id="输入格式-17"><a href="#输入格式-17" class="headerlink" title="输入格式"></a>输入格式</h5><p>共一行，包含整数 $n$。</p>
+<h5 id="输出格式-17"><a href="#输出格式-17" class="headerlink" title="输出格式"></a>输出格式</h5><p>共一行，包含一个整数，表示答案。</p>
+<h5 id="数据范围-17"><a href="#数据范围-17" class="headerlink" title="数据范围"></a>数据范围</h5><p>$1≤n≤10^5$</p>
+<h5 id="输入样例：-17"><a href="#输入样例：-17" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-17"><a href="#输出样例：-17" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-9"><a href="#示例代码-9" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"> </span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">typedef long long LL;</span><br><span class="line"> </span><br><span class="line">const int mod = 1e9 + 7;</span><br><span class="line"> </span><br><span class="line">int qmi(int a, int k, int p)</span><br><span class="line">&#123;</span><br><span class="line">	int res = 1;</span><br><span class="line">	while(k)</span><br><span class="line">	&#123;</span><br><span class="line">		if(k &amp; 1) res = (LL)res * a % p;</span><br><span class="line">		a = (LL)a * a % p; </span><br><span class="line">		k &gt;&gt;= 1;</span><br><span class="line">	&#125;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n; </span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	int a = 2 * n, b = n;</span><br><span class="line">	</span><br><span class="line">	int res = 1;</span><br><span class="line">	for(int i = a; i &gt;= a - b + 1; i --) res = (LL)res * i % mod;</span><br><span class="line">	for(int i = 1; i &lt;= b; i ++) res = (LL)res * qmi(i, mod - 2, mod) % mod;</span><br><span class="line">	res = (LL)res * qmi(n + 1, mod - 2, mod) % mod;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; res;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-9-容斥原理"><a href="#4-9-容斥原理" class="headerlink" title="4.9 容斥原理"></a>4.9 容斥原理</h2><h3 id="4-9-1原理讲解"><a href="#4-9-1原理讲解" class="headerlink" title="4.9.1原理讲解"></a>4.9.1原理讲解</h3><p>要计算几个集合并集的大小，我们要先将所有单个集合的大小计算出来，然后减去所有两个集合相交的部分，再加回所有三个集合相交的部分，再减去所有四个集合相交的部分，依此类推，一直计算到所有集合相交的部分。<br>写成公式就是</p>
+<script type="math/tex; mode=display">
+\Bigg\lvert\bigcup\limits_{i=1}^n A_i\Bigg\rvert=\sum\limits_{i=1}^n\Bigg\lvert A_i\Bigg\rvert -\sum\limits_{1\leq i\leq j\leq n}^n\Bigg\lvert A_i\bigcap A_j\Bigg\rvert+...+(-1)^{n-1}\Bigg\lvert A_1\bigcap...\bigcap A_n\Bigg\rvert</script><p>具体到问题上，我们既可以枚举分类，也可以DFS搜索归类，从而解决问题。</p>
+<h3 id="例4-9-1：求能同时被几个数整除的数的个数"><a href="#例4-9-1：求能同时被几个数整除的数的个数" class="headerlink" title="例4.9.1：求能同时被几个数整除的数的个数"></a>例4.9.1：求能同时被几个数整除的数的个数</h3><p>求$1$到$n$​范围内能被$5，6，8$整除的数的个数。</p>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>共一行，包括整数$n$</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>共一行，包括个数$k$</p>
+<h4 id="数据范围-18"><a href="#数据范围-18" class="headerlink" title="数据范围"></a>数据范围</h4><p>${1\leq n\leq 10^7}$</p>
+<h5 id="输入样例：-18"><a href="#输入样例：-18" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-18"><a href="#输出样例：-18" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">400</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;  </span><br><span class="line">    #include&lt;cstdio&gt;  </span><br><span class="line">    #include&lt;cstring&gt;  </span><br><span class="line">    #include&lt;algorithm&gt;  </span><br><span class="line">    using namespace std;  </span><br><span class="line">    int main()  </span><br><span class="line">    &#123;  </span><br><span class="line">        int i,j,k,n,b,a;  </span><br><span class="line">        while(cin&gt;&gt;n)  </span><br><span class="line">        &#123;  </span><br><span class="line">            b = n/30+n/24+n/40;  </span><br><span class="line">        a = n/120;  </span><br><span class="line">        k = n/5+n/6+n/8;  </span><br><span class="line">        cout&lt;&lt;k-b+a&lt;&lt;endl;  </span><br><span class="line">        &#125;  </span><br><span class="line">      </span><br><span class="line">        return 0;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-10简单博弈论"><a href="#4-10简单博弈论" class="headerlink" title="4.10简单博弈论"></a>4.10简单博弈论</h2><h3 id="4-10-1-NIM游戏"><a href="#4-10-1-NIM游戏" class="headerlink" title="4.10.1 NIM游戏"></a>4.10.1 NIM游戏</h3><p>给定$N$堆物品，第$i$堆物品有$A_i$个。两名玩家轮流行动，每次可以任选一堆，取走任意多个物品，可把一堆取光，但不能不取。取走最后一件物品者获胜。两人都采取最优策略，问先手是否必胜。</p>
+<p>我们把这种游戏称为NIM博弈。把游戏过程中面临的状态称为局面。整局游戏第一个行动的称为先手，第二个行动的称为后手。若在某一局面下无论采取何种行动，都会输掉游戏，则称该局面必败。</p>
+<p>所谓采取最优策略是指，若在某一局面下存在某种行动，使得行动后对面面临必败局面，则优先采取该行动。同时，这样的局面被称为必胜。我们讨论的博弈问题一般都只考虑理想情况，即两人均无失误，都采取最优策略行动时游戏的结果。</p>
+<p>NIM博弈不存在平局，只有先手必胜和先手必败两种情况。</p>
+<p>定理： NIM博弈先手必胜，当且仅当 <em>A1 ^ A2 ^ … ^ An != 0</em></p>
+<h3 id="例4-10-1：经典NIM游戏"><a href="#例4-10-1：经典NIM游戏" class="headerlink" title="例4.10.1：经典NIM游戏"></a>例4.10.1：经典NIM游戏</h3><p>给定 $ n$ 堆石子，两位玩家轮流操作，每次操作可以从任意一堆石子中拿走任意数量的石子（可以拿完，但不能不拿），最后无法进行操作的人视为失败。<br>问如果两人都采用最优策略，先手是否必胜。</p>
+<h4 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h4><p>第一行包含整数  $n$。<br>第二行包含  $n$ 个数字，其中第  $i$ 个数字表示第  $i$ 堆石子的数量。</p>
+<h4 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h4><p>若先手必胜，输出$Yes$​</p>
+<p>反之输出$No$​</p>
+<h4 id="数据范围-19"><a href="#数据范围-19" class="headerlink" title="数据范围"></a>数据范围</h4><p>${1\leq n\leq 10^5}$</p>
+<p>${1\leq {\rm 每堆石子数}\leq 10^9}$​​</p>
+<h5 id="输入样例：-19"><a href="#输入样例：-19" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2 3</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-19"><a href="#输出样例：-19" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码：-1"><a href="#示例代码：-1" class="headerlink" title="示例代码："></a>示例代码：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, res = 0;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	while (n--)</span><br><span class="line">	&#123;</span><br><span class="line">		int x;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		res ^= x;</span><br><span class="line">	&#125;</span><br><span class="line">	if (res) puts(&quot;Yes&quot;);</span><br><span class="line">	else puts(&quot;No&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-10-2-公平组合游戏ICG"><a href="#4-10-2-公平组合游戏ICG" class="headerlink" title="4.10.2 公平组合游戏ICG"></a>4.10.2 公平组合游戏ICG</h3><p>若一个游戏满足：</p>
+<ol>
+<li>由两名玩家交替行动；</li>
+<li>在游戏进程的任意时刻，可以执行的合法行动与轮到哪名玩家无关；</li>
+<li>不能行动的玩家判负；</li>
+</ol>
+<p>则称该游戏为一个公平组合游戏。</p>
+<p>NIM博弈属于公平组合游戏，但城建的棋类游戏，比如围棋，就不是公平组合游戏。因为围棋交战双方分别只能落黑子和白子，胜负判定也比较复杂，不满足条件$2$和条件$3$。</p>
+<h3 id="4-10-2-有向图游戏"><a href="#4-10-2-有向图游戏" class="headerlink" title="4.10.2 有向图游戏"></a>4.10.2 有向图游戏</h3><p>给定一个有向无环图，图中有一个唯一的起点，在起点上放有一枚棋子。两名玩家交替地把这枚棋子沿有向边进行移动，每次可以移动一步，无法移动者判负。该游戏被称为有向图游戏。</p>
+<p>任何一个公平组合游戏都可以转化为有向图游戏。具体方法是，把每个局面看成图中的一个节点，并且从每个局面向沿着合法行动能够到达的下一个局面连有向边。</p>
+<h3 id="4-10-3-Mex运算"><a href="#4-10-3-Mex运算" class="headerlink" title="4.10.3 Mex运算"></a>4.10.3 Mex运算</h3><p>设$S$​表示一个非负整数集合。定义 <em>mex(S)</em>为求出不属于集合S的最小非负整数的运算，即：</p>
+<p><em>mex(S) = min{x}</em>, $x$​属于自然数，且$x$​不属于$S$​</p>
+<h3 id="4-10-4-SG函数"><a href="#4-10-4-SG函数" class="headerlink" title="4.10.4 SG函数"></a>4.10.4 SG函数</h3><p>在有向图游戏中，对于每个节点$x$，设从$x$出发共有$k$条有向边，分别到达节点$y_1, y_2, …, y_k$，定义 <em>SG(x)</em>为x的后继节点$y_1, y_2, …, y_k$ 的SG函数值构成的集合再执行 <em>mex(S)</em>运算的结果，即：<em>SG(x) = mex({SG(y1), SG(y2), …, SG(yk)})</em></p>
+<p>特别地，整个有向图游戏G的SG函数值被定义为有向图游戏起点s的SG函数值，即 <em>SG(G) = SG(s)</em></p>
+<h3 id="4-10-5-有向图游戏的和"><a href="#4-10-5-有向图游戏的和" class="headerlink" title="4.10.5 有向图游戏的和"></a>4.10.5 有向图游戏的和</h3><p>设$G_1, G_2, …, G_m$ 是$m$个有向图游戏。定义有向图游戏$G$，它的行动规则是任选某个有向图游戏$G_i$，并在$G_i$上行动一步。$G$被称为有向图游戏$G_1, G_2, …, G_m$的和。</p>
+<p>有向图游戏的和的SG函数值等于它包含的各个子游戏SG函数值的异或和，即：<em>SG(G) = SG(G1) ^ SG(G2) ^ … ^ SG(Gm)</em></p>
+<p>定理：</p>
+<p>有向图游戏的某个局面必胜，当且仅当该局面对应节点的SG函数值大于0。</p>
+<p>有向图游戏的某个局面必败，当且仅当该局面对应节点的SG函数值等于0。</p>
+<h3 id="例4-10-1：经典NIM游戏-1"><a href="#例4-10-1：经典NIM游戏-1" class="headerlink" title="例4.10.1：经典NIM游戏"></a>例4.10.1：经典NIM游戏</h3><p>给定 $ n$ 堆石子，两位玩家轮流操作，每次操作可以从任意一堆石子中拿走任意数量的石子（可以拿完，但不能不拿），最后无法进行操作的人视为失败。<br>问如果两人都采用最优策略，先手是否必胜。</p>
+<h4 id="输入-2"><a href="#输入-2" class="headerlink" title="输入"></a>输入</h4><p>第一行包含整数  $n$​。</p>
+<p>第二行包含  $n$​ 个数字，其中第  $i$​ 个数字表示第  $i$​ 堆石子的数量。</p>
+<h4 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h4><p>若先手必胜，输出$Yes$​</p>
+<p>反之输出$No$​</p>
+<h4 id="数据范围-20"><a href="#数据范围-20" class="headerlink" title="数据范围"></a>数据范围</h4><p>${1\leq n\leq 10^5}$​</p>
+<p>${1\leq {\rm每堆石子数}\leq 10^9}$​</p>
+<h5 id="输入样例：-20"><a href="#输入样例：-20" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2 3</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-20"><a href="#输出样例：-20" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码：-2"><a href="#示例代码：-2" class="headerlink" title="示例代码："></a>示例代码：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, res = 0;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	while (n--)</span><br><span class="line">	&#123;</span><br><span class="line">		int x;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		res ^= x;</span><br><span class="line">	&#125;</span><br><span class="line">	if (res) puts(&quot;Yes&quot;);</span><br><span class="line">	else puts(&quot;No&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例4-10-5：集合-Nim游戏"><a href="#例4-10-5：集合-Nim游戏" class="headerlink" title="例4.10.5：集合-Nim游戏"></a>例4.10.5：集合-Nim游戏</h4><p>给定 $n$ 堆石子以及一个由 $k$ 个不同正整数构成的数字集合 $S$。</p>
+<p>现在有两位玩家轮流操作，每次操作可以从任意一堆石子中拿取石子，每次拿取的石子数量必须包含于集合 $S$，最后无法进行操作的人视为失败。</p>
+<p>问如果两人都采用最优策略，先手是否必胜。</p>
+<h5 id="输入格式-18"><a href="#输入格式-18" class="headerlink" title="输入格式"></a>输入格式</h5><p>第一行包含整数 $k$，表示数字集合 $S$ 中数字的个数。</p>
+<p>第二行包含 $k$ 个整数，其中第 $i$ 个整数表示数字集合 $S$ 中的第 $i$ 个数 $s_i$。</p>
+<p>第三行包含整数 $n$。</p>
+<p>第四行包含 $n$ 个整数，其中第 $i$ 个整数表示第 $i$ 堆石子的数量 $h_i$。</p>
+<h5 id="输出格式-18"><a href="#输出格式-18" class="headerlink" title="输出格式"></a>输出格式</h5><p>如果先手方必胜，则输出 <em>Yes</em>。</p>
+<p>否则，输出 <em>No</em>。</p>
+<h5 id="数据范围-21"><a href="#数据范围-21" class="headerlink" title="数据范围"></a>数据范围</h5><p>${1≤n,k≤100}$​</p>
+<p>${1≤s_i,h_i≤10000}$​</p>
+<h5 id="输入样例：-21"><a href="#输入样例：-21" class="headerlink" title="输入样例："></a>输入样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2 5</span><br><span class="line">3</span><br><span class="line">2 4 7</span><br></pre></td></tr></table></figure>
+<h5 id="输出样例：-21"><a href="#输出样例：-21" class="headerlink" title="输出样例："></a>输出样例：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码：-3"><a href="#示例代码：-3" class="headerlink" title="示例代码："></a>示例代码：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;unordered_set&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N=110,M=10010;</span><br><span class="line">int s[N],f[M],k,n;</span><br><span class="line">int sg(int t)</span><br><span class="line">&#123;</span><br><span class="line">    if(f[t]!=-1)return f[t];</span><br><span class="line">    unordered_set&lt;int&gt; map;</span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int num=s[i];</span><br><span class="line">        if(t&gt;=num)map.insert(sg(t-num));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for(int i=0;;i++)if(!map.count(i))return f[t]=i;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    for(int i=0;i&lt;n;i++)cin&gt;&gt;s[i];</span><br><span class="line">    memset(f,-1,sizeof(f));</span><br><span class="line">    cin&gt;&gt;k;</span><br><span class="line">    int ans=0;</span><br><span class="line">    while(k--)</span><br><span class="line">    &#123;</span><br><span class="line">        int t;</span><br><span class="line">        cin&gt;&gt;t;</span><br><span class="line">        ans^=sg(t);</span><br><span class="line">    &#125;</span><br><span class="line">    ans?cout&lt;&lt;&quot;Yes&quot;:cout&lt;&lt;&quot;No&quot;;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢打赏.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小学渣的春天 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小学渣的春天 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ACM/" rel="tag"># ACM</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"># 基础算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/08/basicACML5/" rel="prev" title="npuCS 第五讲 动态规划">
+      <i class="fa fa-chevron-left"></i> npuCS 第五讲 动态规划
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/08/basicACML3/%E7%AC%AC%E4%B8%89%E8%AE%B2%20%20%20%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%BE%E8%AE%BA/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束------</div>
+    
+</div>
+    
+ </div>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">第四讲 数学知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%B4%A8%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">4.1 质数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-%E8%AF%95%E9%99%A4%E6%B3%95%E5%88%A4%E5%AE%9A%E8%B4%A8%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">4.1.1 试除法判定质数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1. 原理讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-1-1%EF%BC%9A%E8%AF%95%E9%99%A4%E6%B3%95%E5%88%A4%E5%AE%9A%E8%B4%A8%E6%95%B0"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">例4.1.1：试除法判定质数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.1.1.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-%E8%AF%95%E9%99%A4%E6%B3%95%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">4.1.2 试除法分解质因数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-1-2%EF%BC%9A%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">例4.1.2：分解质因数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-1"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-1"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-1"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-1"><span class="nav-number">1.1.2.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-1"><span class="nav-number">1.1.2.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-3-%E6%9C%B4%E7%B4%A0%E7%AD%9B%E6%B3%95%E6%B1%82%E7%B4%A0%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">4.1.3 朴素筛法求素数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-1"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-2"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-1-3-%E7%AD%9B%E8%B4%A8%E6%95%B0"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">例4.1.3 筛质数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-2"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-2"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-2"><span class="nav-number">1.1.3.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-2"><span class="nav-number">1.1.3.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-2"><span class="nav-number">1.1.3.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.3.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-4-%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%E6%B1%82%E7%B4%A0%E6%95%B0"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.1.4 线性筛法求素数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-2"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-3"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-1-4%EF%BC%9A%E7%AD%9B%E8%B4%A8%E6%95%B0"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">例4.1.4：筛质数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-3"><span class="nav-number">1.1.4.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-3"><span class="nav-number">1.1.4.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-3"><span class="nav-number">1.1.4.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-3"><span class="nav-number">1.1.4.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-3"><span class="nav-number">1.1.4.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E7%BA%A6%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">4.2 约数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-%E8%AF%95%E9%99%A4%E6%B3%95%E6%B1%82%E6%89%80%E6%9C%89%E7%BA%A6%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">4.2.1 试除法求所有约数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-3"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-4"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-2-1%EF%BC%9A%E8%AF%95%E9%99%A4%E6%B3%95%E6%B1%82%E7%BA%A6%E6%95%B0"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">例4.2.1：试除法求约数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-4"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-4"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-4"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-4"><span class="nav-number">1.2.1.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-4"><span class="nav-number">1.2.1.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.1.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-%E7%BA%A6%E6%95%B0%E4%B8%AA%E6%95%B0%E5%92%8C%E7%BA%A6%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.2.2.</span> <span class="nav-text">4.2.2 约数个数和约数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-4"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-5"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-2-2-1-%E7%BA%A6%E6%95%B0%E4%B8%AA%E6%95%B0"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">例4.2.2.1 约数个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-5"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-5"><span class="nav-number">1.2.2.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-5"><span class="nav-number">1.2.2.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-5"><span class="nav-number">1.2.2.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-5"><span class="nav-number">1.2.2.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-2-2-2%EF%BC%9A%E7%BA%A6%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">例4.2.2.2：约数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-6"><span class="nav-number">1.2.2.4.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-6"><span class="nav-number">1.2.2.4.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-6"><span class="nav-number">1.2.2.4.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-6"><span class="nav-number">1.2.2.4.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-6"><span class="nav-number">1.2.2.4.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">4.3 欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">4.3.1 欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-5"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-6"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-3-1%EF%BC%9A%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">例4.3.1：最大公约数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-7"><span class="nav-number">1.3.1.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-7"><span class="nav-number">1.3.1.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-7"><span class="nav-number">1.3.1.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-7"><span class="nav-number">1.3.1.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-7"><span class="nav-number">1.3.1.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-2"><span class="nav-number">1.3.1.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-%E6%B1%82%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">4.3.2 求欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-6"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-7"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-3-2%EF%BC%9A%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">例4.3.2：欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-8"><span class="nav-number">1.3.2.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-8"><span class="nav-number">1.3.2.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-8"><span class="nav-number">1.3.2.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-8"><span class="nav-number">1.3.2.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-8"><span class="nav-number">1.3.2.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-3"><span class="nav-number">1.3.2.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-%E7%AD%9B%E6%B3%95%E6%B1%82%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">4.3.3 筛法求欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-7"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-8"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-3-3%EF%BC%9A%E7%AD%9B%E6%B3%95%E6%B1%82%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">例4.3.3：筛法求欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-9"><span class="nav-number">1.3.3.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-9"><span class="nav-number">1.3.3.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-9"><span class="nav-number">1.3.3.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-9"><span class="nav-number">1.3.3.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-9"><span class="nav-number">1.3.3.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E5%BF%AB%E9%80%9F%E5%B9%82"><span class="nav-number">1.4.</span> <span class="nav-text">4.4 快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-8"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-9"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-4%EF%BC%9A%E5%BF%AB%E9%80%9F%E5%B9%82"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">例4.4：快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-10"><span class="nav-number">1.4.0.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-10"><span class="nav-number">1.4.0.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-10"><span class="nav-number">1.4.0.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-10"><span class="nav-number">1.4.0.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-10"><span class="nav-number">1.4.0.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">4.5 扩展欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-9"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-10"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-7-%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">例4.7 扩展欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-11"><span class="nav-number">1.5.0.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-11"><span class="nav-number">1.5.0.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-11"><span class="nav-number">1.5.0.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-11"><span class="nav-number">1.5.0.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-11"><span class="nav-number">1.5.0.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-4"><span class="nav-number">1.5.0.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">4.6 中国剩余定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83"><span class="nav-number">1.7.</span> <span class="nav-text">4.7 高斯消元</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-10"><span class="nav-number">1.7.0.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-11"><span class="nav-number">1.7.0.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-7%EF%BC%9A%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="nav-number">1.7.0.3.</span> <span class="nav-text">例4.7：高斯消元解线性方程组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-12"><span class="nav-number">1.7.0.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-12"><span class="nav-number">1.7.0.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-12"><span class="nav-number">1.7.0.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-12"><span class="nav-number">1.7.0.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-12"><span class="nav-number">1.7.0.3.5.</span> <span class="nav-text">输出样例：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">4.8 组合计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-1-%E9%80%92%E5%BD%92%E6%B3%95%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0"><span class="nav-number">1.8.1.</span> <span class="nav-text">4.8.1 递归法求组合数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-11"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-12"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-8-1%EF%BC%9A%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0-I"><span class="nav-number">1.8.1.3.</span> <span class="nav-text">例4.8.1：求组合数 I</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-13"><span class="nav-number">1.8.1.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-13"><span class="nav-number">1.8.1.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-13"><span class="nav-number">1.8.1.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-13"><span class="nav-number">1.8.1.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-13"><span class="nav-number">1.8.1.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-5"><span class="nav-number">1.8.1.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-2-%E9%80%9A%E8%BF%87%E9%A2%84%E5%A4%84%E7%90%86%E9%80%86%E5%85%83%E7%9A%84%E6%96%B9%E5%BC%8F%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0"><span class="nav-number">1.8.2.</span> <span class="nav-text">4.8.2 通过预处理逆元的方式求组合数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-12"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-13"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-8-2%EF%BC%9A%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0-II"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">例4.8.2：求组合数 II</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-14"><span class="nav-number">1.8.2.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-14"><span class="nav-number">1.8.2.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-14"><span class="nav-number">1.8.2.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-14"><span class="nav-number">1.8.2.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-14"><span class="nav-number">1.8.2.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-6"><span class="nav-number">1.8.2.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-3-Lucas%E5%AE%9A%E7%90%86"><span class="nav-number">1.8.3.</span> <span class="nav-text">4.8.3 Lucas定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E8%AE%B2%E8%A7%A3-13"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">1. 知识讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-14"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-8-3%EF%BC%9A%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0-III"><span class="nav-number">1.8.3.3.</span> <span class="nav-text">例4.8.3：求组合数 III</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-15"><span class="nav-number">1.8.3.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-15"><span class="nav-number">1.8.3.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-15"><span class="nav-number">1.8.3.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-15"><span class="nav-number">1.8.3.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-15"><span class="nav-number">1.8.3.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-7"><span class="nav-number">1.8.3.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-4-%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0%E6%B3%95%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0"><span class="nav-number">1.8.4.</span> <span class="nav-text">4.8.4 分解质因数法求组合数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3-1"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">1. 原理讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E6%9D%BF%E8%AE%B2%E8%A7%A3-15"><span class="nav-number">1.8.4.2.</span> <span class="nav-text">2. 模板讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-8-4%EF%BC%9A%E6%B1%82%E7%BB%84%E5%90%88%E6%95%B0-IV"><span class="nav-number">1.8.4.3.</span> <span class="nav-text">例4.8.4：求组合数 IV</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-16"><span class="nav-number">1.8.4.3.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-16"><span class="nav-number">1.8.4.3.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-16"><span class="nav-number">1.8.4.3.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-16"><span class="nav-number">1.8.4.3.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-16"><span class="nav-number">1.8.4.3.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-8"><span class="nav-number">1.8.4.3.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-5-%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0"><span class="nav-number">1.8.5.</span> <span class="nav-text">4.8.5 卡特兰数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-8-5%EF%BC%9A%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%8401%E5%BA%8F%E5%88%97"><span class="nav-number">1.8.5.1.</span> <span class="nav-text">例4.8.5：满足条件的01序列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-17"><span class="nav-number">1.8.5.1.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-17"><span class="nav-number">1.8.5.1.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-17"><span class="nav-number">1.8.5.1.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-17"><span class="nav-number">1.8.5.1.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-17"><span class="nav-number">1.8.5.1.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-9"><span class="nav-number">1.8.5.1.6.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86"><span class="nav-number">1.9.</span> <span class="nav-text">4.9 容斥原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-1%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.9.1.</span> <span class="nav-text">4.9.1原理讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B4-9-1%EF%BC%9A%E6%B1%82%E8%83%BD%E5%90%8C%E6%97%B6%E8%A2%AB%E5%87%A0%E4%B8%AA%E6%95%B0%E6%95%B4%E9%99%A4%E7%9A%84%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.9.2.</span> <span class="nav-text">例4.9.1：求能同时被几个数整除的数的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-18"><span class="nav-number">1.9.2.3.</span> <span class="nav-text">数据范围</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-18"><span class="nav-number">1.9.2.3.1.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-18"><span class="nav-number">1.9.2.3.2.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">1.9.2.3.3.</span> <span class="nav-text">示例代码：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10%E7%AE%80%E5%8D%95%E5%8D%9A%E5%BC%88%E8%AE%BA"><span class="nav-number">1.10.</span> <span class="nav-text">4.10简单博弈论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-1-NIM%E6%B8%B8%E6%88%8F"><span class="nav-number">1.10.1.</span> <span class="nav-text">4.10.1 NIM游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B4-10-1%EF%BC%9A%E7%BB%8F%E5%85%B8NIM%E6%B8%B8%E6%88%8F"><span class="nav-number">1.10.2.</span> <span class="nav-text">例4.10.1：经典NIM游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5-1"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-1"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-19"><span class="nav-number">1.10.2.3.</span> <span class="nav-text">数据范围</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-19"><span class="nav-number">1.10.2.3.1.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-19"><span class="nav-number">1.10.2.3.2.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%EF%BC%9A-1"><span class="nav-number">1.10.2.3.3.</span> <span class="nav-text">示例代码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-2-%E5%85%AC%E5%B9%B3%E7%BB%84%E5%90%88%E6%B8%B8%E6%88%8FICG"><span class="nav-number">1.10.3.</span> <span class="nav-text">4.10.2 公平组合游戏ICG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-2-%E6%9C%89%E5%90%91%E5%9B%BE%E6%B8%B8%E6%88%8F"><span class="nav-number">1.10.4.</span> <span class="nav-text">4.10.2 有向图游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-3-Mex%E8%BF%90%E7%AE%97"><span class="nav-number">1.10.5.</span> <span class="nav-text">4.10.3 Mex运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-4-SG%E5%87%BD%E6%95%B0"><span class="nav-number">1.10.6.</span> <span class="nav-text">4.10.4 SG函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-5-%E6%9C%89%E5%90%91%E5%9B%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E5%92%8C"><span class="nav-number">1.10.7.</span> <span class="nav-text">4.10.5 有向图游戏的和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B4-10-1%EF%BC%9A%E7%BB%8F%E5%85%B8NIM%E6%B8%B8%E6%88%8F-1"><span class="nav-number">1.10.8.</span> <span class="nav-text">例4.10.1：经典NIM游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5-2"><span class="nav-number">1.10.8.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-2"><span class="nav-number">1.10.8.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-20"><span class="nav-number">1.10.8.3.</span> <span class="nav-text">数据范围</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-20"><span class="nav-number">1.10.8.3.1.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-20"><span class="nav-number">1.10.8.3.2.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%EF%BC%9A-2"><span class="nav-number">1.10.8.3.3.</span> <span class="nav-text">示例代码：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B4-10-5%EF%BC%9A%E9%9B%86%E5%90%88-Nim%E6%B8%B8%E6%88%8F"><span class="nav-number">1.10.8.4.</span> <span class="nav-text">例4.10.5：集合-Nim游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-18"><span class="nav-number">1.10.8.4.1.</span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-18"><span class="nav-number">1.10.8.4.2.</span> <span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-21"><span class="nav-number">1.10.8.4.3.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B%EF%BC%9A-21"><span class="nav-number">1.10.8.4.4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B%EF%BC%9A-21"><span class="nav-number">1.10.8.4.5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%EF%BC%9A-3"><span class="nav-number">1.10.8.4.6.</span> <span class="nav-text">示例代码：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小学渣的春天"
+      src="/images/machao.jpg">
+  <p class="site-author-name" itemprop="name">小学渣的春天</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3djeDIwMDE=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wcx2001"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1430466592@qq.com" title="E-Mail → 1430466592@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cubndwdS5lZHUuY24v" title="https:&#x2F;&#x2F;www.nwpu.edu.cn&#x2F;">西北工业大学</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小学渣的春天</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>
