@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://wcx2001.github.io/2021/12/06/basicACML3/</loc>
+    <loc>http://wcx2001.github.io/2021/12/06/basicACML1/</loc>
+    
+    <lastmod>2022-01-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wcx2001.github.io/2022/01/08/basicACML3/</loc>
     
     <lastmod>2022-01-08</lastmod>
     
@@ -38,15 +47,6 @@
   </url>
   
   <url>
-    <loc>http://wcx2001.github.io/2022/01/08/basicACML3/%E7%AC%AC%E4%B8%89%E8%AE%B2%20%20%20%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%BE%E8%AE%BA/</loc>
-    
-    <lastmod>2022-01-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://wcx2001.github.io/2021/12/12/Chapter4%E5%86%B3%E7%AD%96%E6%A0%91/</loc>
     
     <lastmod>2021-12-12</lastmod>
@@ -66,15 +66,6 @@
   
   <url>
     <loc>http://wcx2001.github.io/2021/12/10/Chapter2%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/</loc>
-    
-    <lastmod>2021-12-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wcx2001.github.io/2021/12/06/basicACML1/</loc>
     
     <lastmod>2021-12-10</lastmod>
     
